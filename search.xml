@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>stm32学习记录</title>
+      <link href="/2024/10/20/Stm32%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
+      <url>/2024/10/20/Stm32%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Stm32F103C8T6学习"><a href="#Stm32F103C8T6学习" class="headerlink" title="Stm32F103C8T6学习"></a>Stm32F103C8T6学习</h1><blockquote><p>课设寻迹小车需要,遂开始学习单片机有关知识,在此进行记录学习</p></blockquote><p>下载Keil5(不要下载太高版本的),高版本不再自带arm compiler,需要自行安装version5编译器版本<br>小tips,也可以从别人那里直接copy <strong>AEMCC</strong>整个目录到自己的ARM目录下去配置</p><p>这里贴几个网图</p><p><img src="/./images/Stm32%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/1.png" alt=" "></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Blog </tag>
+            
+            <tag> SMART </tag>
+            
+            <tag> stm32 </tag>
+            
+            <tag> 单片机 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>vim使用教程</title>
       <link href="/2024/10/11/vim%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/"/>
       <url>/2024/10/11/vim%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</url>
