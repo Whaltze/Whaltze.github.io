@@ -1,7 +1,8 @@
-// // 动态心跳
-// $(document).ready(function(e){
-//     $('.copyright').html('©2021 - 2022 <i class="fa-fw fas fa-heartbeat fa-beat" style="color: #f92672;"></i> By 花猪');
-// })
+// 动态心跳
+$(document).ready(function(e){
+    // $('.copyright').html('©2021 - 2022 <i class="fa-fw fas fa-heartbeat fa-beat" style="color: #f92672;"></i> By 花猪');
+    $('.copyright').html('©2024 - 2025 <i class="fa-fw fas fa-heart" style="color:rgb(136, 135, 135);"></i> By Whaltze');
+})
 
 
 $(document).ready(function(e){
