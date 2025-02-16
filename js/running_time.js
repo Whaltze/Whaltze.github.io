@@ -3,15 +3,16 @@
 //     $('.copyright').html('©2021 - 2022 <i class="fa-fw fas fa-heartbeat fa-beat" style="color: #f92672;"></i> By 花猪');
 // })
 
-// $(document).ready(function(e){
-//     show_date_time();
-// })
-
 //本站运行时间
+$(document).ready(function(e){
+    show_date_time();
+})
+
+
 function show_date_time(){
 $('.framework-info').html('本站已运行<span id="span_dt_dt" style="color: #fff;"></span>');
 window.setTimeout("show_date_time()", 1000);
-BirthDay=new Date("1/20/2021 0:0:0");
+BirthDay=new Date("7/10/2024 0:0:0");
 today=new Date();
 timeold=(today.getTime()-BirthDay.getTime());
 sectimeold=timeold/1000
