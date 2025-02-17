@@ -20,5 +20,5 @@ setInterval(function () {
     var str = tow(hour) + '<span class="time"> 小时 </span>'
         + tow(minute) + '<span class="time"> 分钟 </span>'
         + tow(second) + '<span class="time"> 秒 </span>';
-    oSpan.innerHTML = " Crush You " + str + " ! " ;
+    oSpan.innerHTML = " &nbsp; &nbsp;Crush You " + str + " ! " ;
 }, 1000)
