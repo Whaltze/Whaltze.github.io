@@ -11,7 +11,7 @@ $(document).ready(function(e){
 //本站运行时间
 
 function show_date_time(){
-$('.framework-info').html('本站已运行<span id="span_dt_dt" style="color: #fff;"></span>');
+$('.footer_custom_text').html('本站已运行<span id="span_dt_dt" style="color: #fff;"></span>');
 window.setTimeout("show_date_time()", 1000);
 BirthDay=new Date("7/10/2024 0:0:0");
 today=new Date();
