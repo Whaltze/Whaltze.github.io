@@ -26,7 +26,7 @@ a:hover{
 }
 /* 选中输入框时的鼠标指针 */
 input:hover{
-    cursor: url('https://npm.elemecdn.com/kang-static/Hexo/img/pointer.cur'),auto;
+    cursor: url(''),auto;
 }
 /* 悬停按钮时的鼠标指针 */
 button:hover{
