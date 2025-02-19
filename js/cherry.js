@@ -1,245 +1,112 @@
-// ===================== 基础类定义 =====================
-class PrecisionTracker {
-  constructor() {
-    this.visualViewport = window.visualViewport;
-    this.scrollX = window.scrollX || window.pageXOffset;
-    this.scrollY = window.scrollY || window.pageYOffset;
+(function cherry() {
+  var possibleColors = [" #D61C59 ", 
+                        " #E7D84B ", 
+                        " #1B8798 ",
+                        " #49b1f5" ,
+                        " #FF0000" ,
+                        " #FF7F00" , 
+                        " #FFFF00" , 
+                        " #00FFFF" ,
+                        " #0000FF" , 
+                        " #00FF00" ,
+                        " #8B00FF" ,
+                        " #49b1f5" ,]
+  var width = window.innerWidth;
+  var height = window.innerHeight;
+  var cursor = {x: width/2, y: width/2};
+  var particles = [];
+  
+  function init() {
+    bindEvents();
+    loop();
+  }  
+  // Bind events that are needed
+  function bindEvents() {
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('touchmove', onTouchMove);
+    document.addEventListener('touchstart', onTouchMove);
     
-    // 双精度坐标更新
-    this.updateViewport = () => {
-      this.viewportWidth = document.documentElement.clientWidth;
-      this.viewportHeight = document.documentElement.clientHeight;
-      this.scrollX = window.scrollX || window.pageXOffset;
-      this.scrollY = window.scrollY || window.pageYOffset;
-    };
-
-    window.addEventListener('scroll', this.updateViewport, { passive: true });
-    window.addEventListener('resize', this.updateViewport, { passive: true });
-    this.updateViewport();
-  }
-
-  getTruePosition(clientX, clientY) {
-    // 修复坐标计算（包含视口缩放补偿）
-    const scale = this.visualViewport?.scale || 1;
-    return {
-      x: (clientX - (this.visualViewport?.offsetLeft || 0)) / scale + this.scrollX,
-      y: (clientY - (this.visualViewport?.offsetTop || 0)) / scale + this.scrollY
-    };
-  }
-}
-
-class CherryParticle {
-  constructor(x, y, color) {
-    this.element = document.createElement('div');
-    this.element.className = 'bf-cursor-particle';
-    this.element.innerHTML = '🌸';
-    this.element.style.cssText = `
-      color: ${color};
-      left: ${x}px;
-      top: ${y}px;
-      opacity: 0.9;
-      position: fixed;
-      pointer-events: none;
-      z-index: 2147483647;
-      font-size: 12px;
-      will-change: transform, opacity;
-      transition: opacity 0.3s;
-      user-select: none;
-      transform-origin: center;
-      cursor: none !important;
-    `;
-    document.body.appendChild(this.element);
-
-    // 物理参数
-    this.x = x;
-    this.y = y;
-    this.life = 100;
-    this.velocity = {
-      x: (Math.random() - 0.5) * 3,
-      y: -Math.random() * 4 - 2
-    };
-    this.isAlive = true;
-  }
-
-  update() {
-    this.life -= 1.5;
-    this.velocity.y += 0.15;
-    
-    this.x += this.velocity.x;
-    this.y += this.velocity.y;
-
-    this.element.style.transform = `
-      translate(${this.x}px, ${this.y}px)
-      scale(${this.life/100})
-      rotate(${this.life*3}deg)
-    `;
-    this.element.style.opacity = this.life/100 * 0.8;
-
-    if(this.life <= 0) this.destroy();
-  }
-
-  destroy() {
-    this.element.style.opacity = 0;
-    setTimeout(() => this.element.remove(), 300);
-    this.isAlive = false;
-  }
-}
-
-class Snowflake {
-  constructor() {
-    this.element = document.createElement('div');
-    this.element.className = 'bf-snowflake';
-    this.element.innerHTML = '❄️';
-    this.x = Math.random() * document.documentElement.clientWidth;
-    this.y = -20;
-    this.element.style.cssText = `
-      position: fixed;
-      left: ${this.x}px;
-      top: ${this.y}px;
-      pointer-events: none;
-      z-index: 2147483646;
-      user-select: none;
-      cursor: none;
-      opacity: 0.8;
-      font-size: ${Math.random() * 12 + 12}px;
-      will-change: transform;
-      animation: sway 3s ease-in-out infinite;
-    `;
-    document.body.appendChild(this.element);
-
-    this.velocity = {
-      x: (Math.random() - 0.5) * 0.5,
-      y: Math.random() * 2 + 1
-    };
-    this.angle = Math.random() * Math.PI * 2;
-    this.isAlive = true;
-  }
-
-  update() {
-    this.angle += 0.02;
-    this.x += Math.sin(this.angle) * 0.5 + this.velocity.x;
-    this.y += this.velocity.y;
-    
-    this.element.style.transform = `translate(${this.x}px, ${this.y}px)`;
-
-    if (this.y > document.documentElement.clientHeight + 20) {
-      this.destroy();
+    window.addEventListener('resize', onWindowResize);
+  }  
+  function onWindowResize(e) {
+    width = window.innerWidth;
+    height = window.innerHeight;
+  } 
+  function onTouchMove(e) {
+    if( e.touches.length > 0 ) {
+      for( var i = 0; i < e.touches.length; i++ ) {
+        addParticle( e.touches[i].clientX, e.touches[i].clientY, possibleColors[Math.floor(Math.random()*possibleColors.length)]);
+      }
     }
   }
-
-  destroy() {
-    this.element.remove();
-    this.isAlive = false;
-  }
-}
-
-// ===================== 主系统 =====================
-class CherryEffectSystem {
-  constructor() {
-    this.tracker = new PrecisionTracker();
-    this.particles = [];
-    this.snowflakes = [];
-    this.colors = ["#ff9a9e", "#fad0c4", "#a1c4fd"];
-    this.init();
-    this.startSnowfall();
-  }
-
-  init() {
-    this.bindEvents();
-    this.startRAF();
-    this.injectCriticalCSS();
-  }
-
-  startSnowfall() {
-    setInterval(() => {
-      if (this.snowflakes.length < 50) {
-        this.snowflakes.push(new Snowflake());
-      }
-    }, 300);
-  }
-
-  bindEvents() {
-    const handler = e => {
-      const pos = this.tracker.getTruePosition(e.clientX, e.clientY);
-      this.spawnParticles(pos.x, pos.y);
-    };
+  function onMouseMove(e) {    
+    cursor.x = e.clientX;
+    cursor.y = e.clientY;
     
-    document.addEventListener('mousemove', handler);
-    document.addEventListener('touchmove', e => {
-      Array.from(e.touches).forEach(t => handler(t));
-    }, { passive: true });
+    addParticle( cursor.x, cursor.y, possibleColors[Math.floor(Math.random()*possibleColors.length)]);
   }
-
-  spawnParticles(x, y) {
-    for(let i=0; i<3; i++) {
-      const particle = new CherryParticle(
-        x + Math.random()*20 -10,
-        y + Math.random()*20 -10,
-        this.colors[Math.random()*this.colors.length|0]
-      );
-      this.particles.push(particle);
-      if(this.particles.length > 100) this.particles.shift().destroy();
+  function addParticle(x, y, color) {
+    var particle = new Particle();
+    particle.init(x, y, color);
+    particles.push(particle);
+  }
+  function updateParticles() {
+    for( var i = 0; i < particles.length; i++ ) {
+      particles[i].update();
+    }
+    for( var i = particles.length -1; i >= 0; i-- ) {
+      if( particles[i].lifeSpan < 0 ) {
+        particles[i].die();
+        particles.splice(i, 1);
+      }
     }
   }
-
-  startRAF() {
-    const animate = () => {
-      this.particles = this.particles.filter(p => {
-        p.update();
-        return p.isAlive;
-      });
-      this.snowflakes = this.snowflakes.filter(s => {
-        s.update();
-        return s.isAlive;
-      });
-      requestAnimationFrame(animate);
+  function loop() {
+    requestAnimationFrame(loop);
+    updateParticles();
+  }
+  function Particle() {
+    this.character = "*";
+    this.lifeSpan = 120; //ms
+    this.initialStyles ={
+      "position": "fixed",
+      "top": "0", //必须加
+      "display": "block",
+      "pointerEvents": "none",
+      "z-index": "10000000",
+      "fontSize": "25px",
+      "will-change": "transform"
     };
-    animate();
-  }
+    this.init = function(x, y, color) {
+      this.velocity = {
+        x:  (Math.random() < 0.5 ? -1 : 1) * (Math.random() / 2),
+        y: 1
+      };
+      this.position = {x: x - 10, y: y - 20};
+      this.initialStyles.color = color;
+      console.log(color);
 
-  injectCriticalCSS() {
-    const style = document.createElement('style');
-    style.textContent = `
-      .bf-cursor-particle, .bf-snowflake {
-        transform: translateZ(0);
-        backface-visibility: hidden;
-      }
-      @keyframes sway {
-        0%, 100% { transform: translateX(0); }
-        50% { transform: translateX(10px); }
-      }
-      @media (hover: none) {
-        .bf-cursor-particle {
-          font-size: 32px;
-        }
-      }
-    `;
-    document.head.appendChild(style);
-  }
-}
-
-// ===================== 初始化逻辑 =====================
-let cherryEffectInstance = null;
-
-function initCherryEffect() {
-  try {
-    if (!cherryEffectInstance) {
-      cherryEffectInstance = new CherryEffectSystem();
+      this.element = document.createElement('span');
+      this.element.innerHTML = this.character;
+      applyProperties(this.element, this.initialStyles);
+      this.update();
+      
+      document.body.appendChild(this.element);
+    };
+    this.update = function() {
+      this.position.x += this.velocity.x;
+      this.position.y += this.velocity.y;
+      this.lifeSpan--;
+      this.element.style.transform = "translate3d(" + this.position.x + "px," + this.position.y + "px,0) scale(" + (this.lifeSpan / 120) + ")";
     }
-  } catch (err) {
-    console.error('[Cherry Effect] 初始化失败:', err);
+    this.die = function() {
+      this.element.parentNode.removeChild(this.element);
+    }
   }
-}
-
-function destroyCherryEffect() {
-  if (cherryEffectInstance) {
-    cherryEffectInstance.particles.forEach(p => p.destroy());
-    cherryEffectInstance.snowflakes.forEach(s => s.destroy());
-    cherryEffectInstance = null;
+  function applyProperties( target, properties ) {
+    for( var key in properties ) {
+      target.style[ key ] = properties[ key ];
+    }
   }
-}
-
-document.addEventListener('DOMContentLoaded', initCherryEffect);
-document.addEventListener('pjax:send', destroyCherryEffect);
-document.addEventListener('pjax:complete', initCherryEffect);
-if (document.readyState === 'complete') initCherryEffect();
+  init();
+})();
