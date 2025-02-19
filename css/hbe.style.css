@@ -84,18 +84,27 @@
 .hbe-button {
   width: 130px;
   height: 40px;
-  background: linear-gradient(to bottom, #4eb5e5 0%,#389ed5 100%); /* W3C */
+  /* background: linear-gradient(to bottom, #4eb5e5 0%,#389ed5 100%); */ /* W3C */
   border: none;
   border-radius: 5px;
-  position: relative;
-  border-bottom: 4px solid #2b8bc6;
+  /* position: relative; */
+  /* border-bottom: 4px solid #2b8bc6; */
   color: #fbfbfb;
   font-weight: 600;
   font-family: 'Open Sans', sans-serif;
   text-shadow: 1px 1px 1px rgba(0,0,0,.4);
   font-size: 15px;
-  text-align: left;
-  text-indent: 5px;
+  /* text-align: left; */
+
+  /* 以下为博主个人更改 */
+  text-align: center;
+  border-left: 3px solid #49b1f5;
+  border-right: 3px solid #49b1f5;
+  border-bottom: 3px solid #49b1f5;
+  border-top: 3px solid #49b1f5;
+  background-color: var(--blockquote-bg);
+
+  /* text-indent: 5px;*/ /* 设置文本缩进为5像素 */
   box-shadow: 0px 3px 0px 0px rgba(0,0,0,.2);
   cursor: pointer;
 
@@ -429,8 +438,10 @@
 	margin-top: 1.2em;
 	width: 100%;
 	background: transparent;
-	color: #84AF9B ;
+	/* color: #84AF9B ; */
+	color: #49b1f5 ;
 	font-size: 1.55em;
+
 }
 
 .hbe-input-label-xray {
@@ -442,7 +453,8 @@
 	text-align: left;
 	padding: 0em;
 	letter-spacing: 1px;
-	color: #84AF9B ;
+	/* color: #84AF9B ; */
+	color: #49b1f5 ;
 	pointer-events: none;
 	-webkit-transform-origin: 0 0;
 	transform-origin: 0 0;
@@ -453,7 +465,8 @@
 }
 
 .hbe-graphic-xray {
-	stroke: #84AF9B ;
+	/* stroke: #84AF9B ; */
+	stroke: #49b1f5 ;
 	pointer-events: none;
 	stroke-width: 2px;
 	top: 1.25em;
@@ -467,14 +480,16 @@
 
 .hbe-input-field-xray:focus + .hbe-input-label-xray,
 .input--filled .hbe-input-label-xray {
-	color: #84AF9B ;
+	/* color: #84AF9B ;  */
+	color: #49b1f5 ;
 	-webkit-transform: translate3d(0, 3.5em, 0) scale3d(0.85, 0.85, 1);
 	transform: translate3d(0, 3.5em, 0) scale3d(0.85, 0.85, 1);
 }
 
 .hbe-input-field-xray:focus ~ .hbe-graphic-xray,
 .input--filled .graphic-xray {
-	stroke: #84AF9B ;
+	/* stroke: #84AF9B ; */
+	stroke: #49b1f5 ;
 	-webkit-transform: translate3d(-66.6%, 0, 0);
 	transform: translate3d(-66.6%, 0, 0);
 }

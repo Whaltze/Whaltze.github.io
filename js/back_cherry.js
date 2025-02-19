@@ -19,11 +19,10 @@ class PrecisionTracker {
   }
 
   getTruePosition(clientX, clientY) {
-    // 修复坐标计算（包含视口缩放补偿）
-    const scale = this.visualViewport?.scale || 1;
+    // 补偿滚动和视口偏移
     return {
-      x: (clientX - (this.visualViewport?.offsetLeft || 0)) / scale + this.scrollX,
-      y: (clientY - (this.visualViewport?.offsetTop || 0)) / scale + this.scrollY
+      x: clientX + this.scrollX - (this.visualViewport?.offsetLeft || 0),
+      y: clientY + this.scrollY - (this.visualViewport?.offsetTop || 0)
     };
   }
 }
@@ -32,27 +31,31 @@ class CherryParticle {
   constructor(x, y, color) {
     this.element = document.createElement('div');
     this.element.className = 'bf-cursor-particle';
-    this.element.innerHTML = '🌸';
+    // this.element.innerHTML = '🌸';
+    this.element.innerHTML = '❄️';
+    // 初始化定位修正
+    const baseX = x - 15; // 补偿花瓣尺寸
+    const baseY = y - 15;
+    
     this.element.style.cssText = `
       color: ${color};
-      left: ${x}px;
-      top: ${y}px;
+      left: ${baseX}px;
+      top: ${baseY}px;
       opacity: 0.9;
       position: fixed;
       pointer-events: none;
       z-index: 2147483647;
-      font-size: 12px;
+      font-size: 24px;
       will-change: transform, opacity;
       transition: opacity 0.3s;
       user-select: none;
       transform-origin: center;
-      cursor: none !important;
     `;
     document.body.appendChild(this.element);
 
     // 物理参数
-    this.x = x;
-    this.y = y;
+    this.x = baseX;
+    this.y = baseY;
     this.life = 100;
     this.velocity = {
       x: (Math.random() - 0.5) * 3,
@@ -65,6 +68,7 @@ class CherryParticle {
     this.life -= 1.5;
     this.velocity.y += 0.15;
     
+    // 更新实际位置
     this.x += this.velocity.x;
     this.y += this.velocity.y;
 
@@ -85,77 +89,20 @@ class CherryParticle {
   }
 }
 
-class Snowflake {
-  constructor() {
-    this.element = document.createElement('div');
-    this.element.className = 'bf-snowflake';
-    this.element.innerHTML = '❄️';
-    this.x = Math.random() * document.documentElement.clientWidth;
-    this.y = -20;
-    this.element.style.cssText = `
-      position: fixed;
-      left: ${this.x}px;
-      top: ${this.y}px;
-      pointer-events: none;
-      z-index: 2147483646;
-      user-select: none;
-      cursor: none;
-      opacity: 0.8;
-      font-size: ${Math.random() * 12 + 12}px;
-      will-change: transform;
-      animation: sway 3s ease-in-out infinite;
-    `;
-    document.body.appendChild(this.element);
-
-    this.velocity = {
-      x: (Math.random() - 0.5) * 0.5,
-      y: Math.random() * 2 + 1
-    };
-    this.angle = Math.random() * Math.PI * 2;
-    this.isAlive = true;
-  }
-
-  update() {
-    this.angle += 0.02;
-    this.x += Math.sin(this.angle) * 0.5 + this.velocity.x;
-    this.y += this.velocity.y;
-    
-    this.element.style.transform = `translate(${this.x}px, ${this.y}px)`;
-
-    if (this.y > document.documentElement.clientHeight + 20) {
-      this.destroy();
-    }
-  }
-
-  destroy() {
-    this.element.remove();
-    this.isAlive = false;
-  }
-}
-
 // ===================== 主系统 =====================
 class CherryEffectSystem {
   constructor() {
     this.tracker = new PrecisionTracker();
     this.particles = [];
-    this.snowflakes = [];
     this.colors = ["#ff9a9e", "#fad0c4", "#a1c4fd"];
     this.init();
-    this.startSnowfall();
   }
+    
 
   init() {
     this.bindEvents();
     this.startRAF();
     this.injectCriticalCSS();
-  }
-
-  startSnowfall() {
-    setInterval(() => {
-      if (this.snowflakes.length < 50) {
-        this.snowflakes.push(new Snowflake());
-      }
-    }, 300);
   }
 
   bindEvents() {
@@ -164,10 +111,12 @@ class CherryEffectSystem {
       this.spawnParticles(pos.x, pos.y);
     };
     
+    // 绑定到文档主体
     document.addEventListener('mousemove', handler);
     document.addEventListener('touchmove', e => {
+      e.preventDefault();
       Array.from(e.touches).forEach(t => handler(t));
-    }, { passive: true });
+    }, { passive: false });
   }
 
   spawnParticles(x, y) {
@@ -188,10 +137,6 @@ class CherryEffectSystem {
         p.update();
         return p.isAlive;
       });
-      this.snowflakes = this.snowflakes.filter(s => {
-        s.update();
-        return s.isAlive;
-      });
       requestAnimationFrame(animate);
     };
     animate();
@@ -200,17 +145,19 @@ class CherryEffectSystem {
   injectCriticalCSS() {
     const style = document.createElement('style');
     style.textContent = `
-      .bf-cursor-particle, .bf-snowflake {
-        transform: translateZ(0);
-        backface-visibility: hidden;
+      /* 强制覆盖可能影响定位的样式 */
+      body {
+        cursor: none !important;
+        overflow-x: hidden !important;
       }
-      @keyframes sway {
-        0%, 100% { transform: translateX(0); }
-        50% { transform: translateX(10px); }
+      .bf-cursor-particle {
+        transform: translateZ(0) !important;
+        backface-visibility: hidden !important;
       }
+      /* 修复移动端偏移 */
       @media (hover: none) {
         .bf-cursor-particle {
-          font-size: 32px;
+          font-size: 32px !important;
         }
       }
     `;
@@ -220,7 +167,7 @@ class CherryEffectSystem {
 
 // ===================== 初始化逻辑 =====================
 let cherryEffectInstance = null;
-
+const size = Math.random();
 function initCherryEffect() {
   try {
     if (!cherryEffectInstance) {
@@ -234,12 +181,18 @@ function initCherryEffect() {
 function destroyCherryEffect() {
   if (cherryEffectInstance) {
     cherryEffectInstance.particles.forEach(p => p.destroy());
-    cherryEffectInstance.snowflakes.forEach(s => s.destroy());
     cherryEffectInstance = null;
   }
 }
 
+// 标准初始化
 document.addEventListener('DOMContentLoaded', initCherryEffect);
+
+// PJAX 兼容
 document.addEventListener('pjax:send', destroyCherryEffect);
 document.addEventListener('pjax:complete', initCherryEffect);
-if (document.readyState === 'complete') initCherryEffect();
+
+// 容错初始化
+if (document.readyState === 'complete') {
+  initCherryEffect();
+}
