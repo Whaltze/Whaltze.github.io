@@ -68,7 +68,7 @@
   }
   function Particle() {
     this.character = "*";
-    this.lifeSpan = 240; //ms
+    this.lifeSpan = 120; //ms
     this.initialStyles ={
       "position": "fixed",
       "top": "0", //必须加
