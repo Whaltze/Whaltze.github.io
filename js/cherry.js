@@ -1,4 +1,5 @@
 (function cherry() {
+  // 定义可能的颜色数组
   var possibleColors = [" #D61C59 ", 
                         " #E7D84B ", 
                         " #1B8798 ",
@@ -80,7 +81,7 @@
     this.init = function(x, y, color) {
       this.velocity = {
         x:  (Math.random() < 0.5 ? -1 : 1) * (Math.random() / 2),
-        y: 1
+        y: 0
       };
       this.position = {x: x - 10, y: y - 20};
       this.initialStyles.color = color;
