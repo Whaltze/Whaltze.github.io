@@ -7,42 +7,39 @@
     // 1. 核心配置 (Config)
     // ============================================================
     const config = {
-        password: "/",  // 访问密码
-        contact: [ // 联系方式配置
-            { src: "/img/WeChat.jpg", label: "WeChat" }, // 微信二维码
-            { src: "/img/GZH.jpg", label: "公众号" }, // 公众号二维码
-            { src: "/img/AliPay.jpg", label: "Alipay" } // 支付宝二维码
+        password: "/", 
+        contact: [
+            { src: "/img/WeChat.jpg", label: "WeChat" },
+            { src: "/img/GZH.jpg", label: "公众号" },
+            { src: "/img/AliPay.jpg", label: "Alipay" }
         ],
-        tips: [ // 打字机效果提示文本
+        tips: [
             "正在潜入深海数据层...", "欢迎来到 Whaltze 的数字海域",
             "声纳系统已上线", "403 Forbidden? Try the magic word."
         ],
-        libs: { // 外部库配置
-            jquery: "https://lib.baomitu.com/jquery/3.6.4/jquery.min.js", // jQuery库
-            ripples: "https://lib.baomitu.com/jquery.ripples/0.5.3/jquery.ripples.min.js" // 水波纹效果库
+        libs: {
+            jquery: "https://lib.baomitu.com/jquery/3.6.4/jquery.min.js",
+            ripples: "https://lib.baomitu.com/jquery.ripples/0.5.3/jquery.ripples.min.js"
         }
     };
 
-    // 检查是否已授权访问
     if (sessionStorage.getItem('access_granted') === 'true') return;
 
     // ============================================================
     // 2. 样式定义 (CSS)
     // ============================================================
-    // 创建并加载Google字体
     const fontLink = document.createElement('link');
     fontLink.href = 'https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Quicksand:wght@500;700&display=swap';
     document.head.appendChild(fontLink);
 
-    // 创建并注入样式
     const style = document.createElement('style');
     style.innerHTML = `
         /* --- 全屏容器 --- */
         #atlantis-lock {
-            --at-cyan: #00f2ea; // 青色主题色
-            --at-blue: #0077be; // 蓝色主题色
-            --at-red: #ff4757; // 红色主题色
-            --at-bg: rgba(5, 12, 20, 0.85); // 背景色
+            --at-cyan: #00f2ea;
+            --at-blue: #0077be;
+            --at-red: #ff4757;
+            --at-bg: rgba(5, 12, 20, 0.85);
             
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: 999999;
@@ -243,7 +240,7 @@
         #atlantis-lock .at-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 30px rgba(0, 242, 234, 0.5); }
 
         #atlantis-lock .at-extra {
-            margin-top: 10px; 
+            margin-top: 5px; 
             max-height: 0; opacity: 0; overflow: hidden;
             transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); width: 100%; 
             border-top: 1px solid rgba(255,255,255,0.1); text-align: center;
