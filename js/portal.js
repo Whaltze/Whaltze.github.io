@@ -26,6 +26,10 @@
 
     if (sessionStorage.getItem('access_granted') === 'true') return;
 
+    // >>>>>>>>>> 新增代码：标记当前为锁定状态
+    document.body.classList.add('portal-locked'); 
+    // <<<<<<<<<<
+
     // ============================================================
     // 2. 样式定义 (CSS)
     // ============================================================
@@ -35,6 +39,7 @@
 
     const style = document.createElement('style');
     style.innerHTML = `
+    
         /* --- 全屏容器 --- */
         #atlantis-lock {
             --at-cyan: #00f2ea;
@@ -43,7 +48,7 @@
             --at-bg: rgba(5, 12, 20, 0.65);
             
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: 999999;
+            z-index: 20000000;
             background-color: var(--at-bg);
             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             display: flex; justify-content: center; align-items: center;
@@ -259,12 +264,12 @@
 
         /* --- 紧凑底部 --- */
         #atlantis-lock .at-extra {
-            margin-top: 5px; 
+            margin-top: 25px; 
             max-height: 0; opacity: 0; overflow: hidden;
             transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); width: 100%; 
             border-top: 1px solid rgba(255,255,255,0.1); text-align: center;
         }
-        #atlantis-lock .at-extra.show { max-height: 350px; opacity: 1; padding-top: 15px; }
+        #atlantis-lock .at-extra.show { max-height: 350px; opacity: 1; padding-top: 0px; }
         
         .scan-hint { font-size: 12px; color: #889; margin: 8px 0 15px 0; letter-spacing: 1px; display: block; }
         .scan-hint span { color: var(--at-cyan); font-weight: bold; }
@@ -272,7 +277,7 @@
         #atlantis-lock .qr-box { display: flex; justify-content: center; gap: 20px; }
         #atlantis-lock .qr-item { display: flex; flex-direction: column; align-items: center; cursor: pointer; }
         #atlantis-lock .qr-img { 
-            width: 75px; height: 75px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);
+            width: 95px; height: 95px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);
             opacity: 0.6; transition: 0.3s;
         }
         #atlantis-lock .qr-label { font-size: 12px; color: #778; margin-top: 6px; transition: 0.3s; }
@@ -341,11 +346,15 @@
                     </form>
 
                     <div class="at-extra" id="at-extra">
-                        <p style="color:#ff4757; font-size:14px; margin-bottom:5px; font-weight:700; letter-spacing:1px;">
+                        <p style="color:#ff4757; font-size:14px; margin-bottom:0px; font-weight:700; letter-spacing:1px;">
                             ⛔ ACCESS DENIED
                         </p>
+                        <p style="color:#00f2ea; font-size:14px; margin-top: 5px; margin-bottom:0px; font-weight:700; letter-spacing:1px;">
+                            此山是我开,此树是我栽!
+                            <br>要想从这过,留下买路财!
+                        </p>
                         <p class="scan-hint">
-                            Please scan to acquire the <span>Magic Code</span>
+                            关注公众号后台回复<span>“博客密码”</span>获取
                         </p>
                         <div class="qr-box">${qrHTML}</div>
                     </div>
@@ -541,6 +550,11 @@
                 setTimeout(() => {
                     els.lock.style.opacity = '0';
                     sessionStorage.setItem('access_granted', 'true');
+
+                    // >>>>>>>>>> 新增代码：移除锁定状态，恢复樱花特效
+                    document.body.classList.remove('portal-locked');
+                    // <<<<<<<<<<
+                    
                     setTimeout(() => {
                         if (window.jQuery && window.jQuery.fn.ripples) window.jQuery('#atlantis-lock').ripples('destroy');
                         els.lock.remove();
