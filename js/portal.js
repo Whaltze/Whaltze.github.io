@@ -1,5 +1,5 @@
 /* Hexo Butterfly 门禁系统 - Cyber Sentry Edition
- * 特性：赛博科技角点 | 表单修复 | 声纳雷达 | 紧凑布局
+ * 特性：赛博科技角点 | 表单修复 | 声纳雷达 | 紧凑布局 | 移动端优化
  */
 
 (function() {
@@ -26,9 +26,8 @@
 
     if (sessionStorage.getItem('access_granted') === 'true') return;
 
-    // >>>>>>>>>> 新增代码：标记当前为锁定状态
+    // 标记当前为锁定状态 (用于配合 Cherry.js 等外部特效)
     document.body.classList.add('portal-locked'); 
-    // <<<<<<<<<<
 
     // ============================================================
     // 2. 样式定义 (CSS)
@@ -52,7 +51,7 @@
             background-color: var(--at-bg);
             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
 
-            /* >>> 修改点：这里禁止滚动，让锚点稳住 <<< */
+            /* 禁止底层滚动，确保锚点稳住 */
             overflow: hidden;
 
             font-family: 'Quicksand', sans-serif;
@@ -64,15 +63,19 @@
             opacity: 0.4 !important; pointer-events: none;
         }
 
-        /* --- 2. 新增：滚动视图层 (专门负责包裹卡片和滚动) --- */
+        /* --- 2. 滚动视图层 (专门负责包裹卡片和滚动) --- */
         #at-scroll-view {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             
-            /* 滚动的职责移交到这里 */
+            /* 开启滚动 */
             overflow-y: auto; 
             overflow-x: hidden;
             
-            /* 3D 视距移到这里，只对卡片生效 */
+            /* [移动端关键修复] 开启原生惯性滚动，允许垂直拖动 */
+            -webkit-overflow-scrolling: touch; 
+            touch-action: pan-y;
+            
+            /* 3D 视距移到这里 */
             perspective: 1200px; 
             
             /* 布局对齐 */
@@ -80,15 +83,18 @@
             padding-top: 5vh; padding-bottom: 5vh;
             
             z-index: 15;
+            
+            /* 强制接收触摸事件 */
+            pointer-events: auto;
+            
             scrollbar-width: none; /* Firefox 隐藏滚动条 */
         }
         #at-scroll-view::-webkit-scrollbar { width: 0; background: transparent; } /* Chrome 隐藏滚动条 */
 
 
         /* ==========================================================================
-           [关键升级] 界面四角锚点 - 赛博哨兵风格 (Cyber Sentry Anchors)
+           [锚点] 界面四角 - 赛博哨兵风格
            ========================================================================== */
-        /* 这里的定位现在相对于 #atlantis-lock (如果不滚动) 就是完美的 */
         #atlantis-lock .screen-anchor {
             position: absolute; 
             width: 100px; height: 100px;
@@ -96,7 +102,7 @@
             transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        /* 1. 主装甲 (Main Armor) - 粗线条 */
+        /* 主装甲 */
         #atlantis-lock .screen-anchor::before {
             content: ''; position: absolute;
             width: 30px; height: 30px;
@@ -104,16 +110,14 @@
             opacity: 0.8;
             box-shadow: 0 0 10px rgba(0, 242, 234, 0.3);
         }
-
-        /* 2. 辅助扫描线 (Scanner Line) - 细长线条 */
+        /* 辅助扫描线 */
         #atlantis-lock .screen-anchor::after {
             content: ''; position: absolute;
             width: 100%; height: 100%;
             border: 0 solid rgba(0, 242, 234, 0.3);
             opacity: 0.5;
         }
-
-        /* 3. 信号光点 (Signal Dot) - 使用内部 div */
+        /* 信号光点 */
         #atlantis-lock .sa-dot {
             position: absolute; width: 6px; height: 6px;
             background: var(--at-cyan);
@@ -121,25 +125,22 @@
             animation: dotBlink 2s infinite ease-in-out;
         }
 
-        /* --- 左上角 (TL) --- */
+        /* 锚点位置定义 (TL, TR, BL, BR) */
         #atlantis-lock .sa-tl { top: 0; left: 0; padding: 30px; }
         #atlantis-lock .sa-tl::before { top: 30px; left: 30px; border-right: none; border-bottom: none; }
         #atlantis-lock .sa-tl::after { top: 30px; left: 40px; width: 60px; height: 1px; border-top: 1px solid var(--at-cyan); }
         #atlantis-lock .sa-dot.tl { top: 30px; left: 30px; transform: translate(-50%, -50%); }
 
-        /* --- 右上角 (TR) --- */
         #atlantis-lock .sa-tr { top: 0; right: 0; padding: 30px; }
         #atlantis-lock .sa-tr::before { top: 30px; right: 30px; border-left: none; border-bottom: none; }
         #atlantis-lock .sa-tr::after { top: 40px; right: 30px; width: 1px; height: 60px; border-right: 1px solid var(--at-cyan); }
         #atlantis-lock .sa-dot.tr { top: 30px; right: 30px; transform: translate(50%, -50%); }
 
-        /* --- 左下角 (BL) --- */
         #atlantis-lock .sa-bl { bottom: 0; left: 0; padding: 30px; }
         #atlantis-lock .sa-bl::before { bottom: 30px; left: 30px; border-right: none; border-top: none; }
         #atlantis-lock .sa-bl::after { bottom: 40px; left: 30px; width: 1px; height: 60px; border-left: 1px solid var(--at-cyan); }
         #atlantis-lock .sa-dot.bl { bottom: 30px; left: 30px; transform: translate(-50%, 50%); }
 
-        /* --- 右下角 (BR) --- */
         #atlantis-lock .sa-br { bottom: 0; right: 0; padding: 30px; }
         #atlantis-lock .sa-br::before { bottom: 30px; right: 30px; border-left: none; border-top: none; }
         #atlantis-lock .sa-br::after { bottom: 30px; right: 40px; width: 60px; height: 1px; border-bottom: 1px solid var(--at-cyan); }
@@ -155,13 +156,12 @@
             transform-style: preserve-3d; z-index: 20;
             transition: transform 0.1s linear;
 
-            /* 配合 scroll-view，这里用 margin auto 即可 */
             margin-top: auto; 
             margin-bottom: auto;
             display: flex; flex-direction: column;
         }
 
-        /* --- [保留] 卡片呼吸角点 (Card Brackets) --- */
+        /* --- 卡片呼吸角点 --- */
         #atlantis-lock .card-bracket {
             position: absolute; width: 14px; height: 14px;
             border: 0 solid var(--at-cyan); 
@@ -266,7 +266,7 @@
             animation-delay: calc(var(--i) * 0.05s);
         }
 
-        /* --- 输入区 (Form Fixed) --- */
+        /* --- 输入区 --- */
         #atlantis-lock .input-group { 
             width: 100%; display: flex; flex-direction: column; align-items: center; 
             gap: 15px; z-index: 50; margin-top: 5px; transform: translateZ(50px); 
@@ -292,14 +292,14 @@
         }
         #atlantis-lock .at-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 30px rgba(0, 242, 234, 0.5); }
 
-        /* --- 紧凑底部 --- */
+        /* --- 紧凑底部 (二维码区域) --- */
         #atlantis-lock .at-extra {
             margin-top: 25px; 
             max-height: 0; opacity: 0; overflow: hidden;
             transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); width: 100%; 
             border-top: 1px solid rgba(255,255,255,0.1); text-align: center;
         }
-        #atlantis-lock .at-extra.show { max-height: 800px; opacity: 1; padding-top: 0px; }
+        #atlantis-lock .at-extra.show { max-height: 1200px; opacity: 1; padding-top: 0px; } /* 增加高度上限以适应手机竖排 */
         
         .scan-hint { font-size: 12px; color: #889; margin: 8px 0 15px 0; letter-spacing: 1px; display: block; }
         .scan-hint span { color: var(--at-cyan); font-weight: bold; }
@@ -308,8 +308,8 @@
             display: flex; 
             justify-content: center; 
             gap: 20px; 
-            flex-wrap: wrap; /* 关键：允许换行 */
-            padding-bottom: 20px; /* 底部加点留白，防止贴边 */
+            flex-wrap: wrap; 
+            padding-bottom: 20px;
         }
 
         #atlantis-lock .qr-item { display: flex; flex-direction: column; align-items: center; cursor: pointer; }
@@ -330,6 +330,13 @@
             #atlantis-lock .at-card-container { width: 88%; }
             #atlantis-lock .at-title { font-size: 1.5rem; }
             #atlantis-lock .card-bracket { display: none; }
+
+            /* [关键修改] 手机端二维码强制竖排 */
+            #atlantis-lock .qr-box {
+                flex-direction: column; 
+                align-items: center;
+                gap: 25px; /* 增加一点间距 */
+            }
         }
     `;
     document.head.appendChild(style);
@@ -348,7 +355,7 @@
         </div>
     `).join('');
 
-    // [关键] 更新后的 DOM 结构：分离了 HUD层(锚点) 和 内容层(Scroll View)
+    // DOM 结构
     const html = `
         <div id="atlantis-lock">
             <div class="screen-anchor sa-tl"><div class="sa-dot tl"></div></div>
@@ -589,11 +596,9 @@
                 setTimeout(() => {
                     els.lock.style.opacity = '0';
                     sessionStorage.setItem('access_granted', 'true');
-
-                    // >>>>>>>>>> 新增代码：移除锁定状态，恢复樱花特效
-                    document.body.classList.remove('portal-locked');
-                    // <<<<<<<<<<
                     
+                    document.body.classList.remove('portal-locked');
+
                     setTimeout(() => {
                         if (window.jQuery && window.jQuery.fn.ripples) window.jQuery('#atlantis-lock').ripples('destroy');
                         els.lock.remove();
