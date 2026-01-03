@@ -1,5 +1,5 @@
 /* Hexo Butterfly 门禁系统 - Cyber Sentry Edition
- * 特性：赛博科技角点 | 表单修复 | 声纳雷达 | 紧凑布局 | 移动端优化
+ * 特性：赛博科技角点 | 表单修复 | 声纳雷达 | 紧凑布局 | 移动端交互完美修复
  */
 
 (function() {
@@ -26,7 +26,7 @@
 
     if (sessionStorage.getItem('access_granted') === 'true') return;
 
-    // 标记当前为锁定状态 (用于配合 Cherry.js 等外部特效)
+    // 标记当前为锁定状态
     document.body.classList.add('portal-locked'); 
 
     // ============================================================
@@ -71,25 +71,21 @@
             overflow-y: auto; 
             overflow-x: hidden;
             
-            /* [移动端关键修复] 开启原生惯性滚动，允许垂直拖动 */
+            /* [移动端关键] 开启原生惯性滚动 */
             -webkit-overflow-scrolling: touch; 
             touch-action: pan-y;
             
-            /* 3D 视距移到这里 */
             perspective: 1200px; 
             
-            /* 布局对齐 */
             display: flex; justify-content: center; align-items: flex-start;
             padding-top: 5vh; padding-bottom: 5vh;
             
             z-index: 15;
+            pointer-events: auto; /* 确保内容可点击 */
             
-            /* 强制接收触摸事件 */
-            pointer-events: auto;
-            
-            scrollbar-width: none; /* Firefox 隐藏滚动条 */
+            scrollbar-width: none; 
         }
-        #at-scroll-view::-webkit-scrollbar { width: 0; background: transparent; } /* Chrome 隐藏滚动条 */
+        #at-scroll-view::-webkit-scrollbar { width: 0; background: transparent; } 
 
 
         /* ==========================================================================
@@ -102,30 +98,22 @@
             transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        /* 主装甲 */
         #atlantis-lock .screen-anchor::before {
             content: ''; position: absolute;
             width: 30px; height: 30px;
-            border: 3px solid var(--at-cyan);
-            opacity: 0.8;
+            border: 3px solid var(--at-cyan); opacity: 0.8;
             box-shadow: 0 0 10px rgba(0, 242, 234, 0.3);
         }
-        /* 辅助扫描线 */
         #atlantis-lock .screen-anchor::after {
-            content: ''; position: absolute;
-            width: 100%; height: 100%;
-            border: 0 solid rgba(0, 242, 234, 0.3);
-            opacity: 0.5;
+            content: ''; position: absolute; width: 100%; height: 100%;
+            border: 0 solid rgba(0, 242, 234, 0.3); opacity: 0.5;
         }
-        /* 信号光点 */
         #atlantis-lock .sa-dot {
             position: absolute; width: 6px; height: 6px;
-            background: var(--at-cyan);
-            box-shadow: 0 0 8px var(--at-cyan);
+            background: var(--at-cyan); box-shadow: 0 0 8px var(--at-cyan);
             animation: dotBlink 2s infinite ease-in-out;
         }
 
-        /* 锚点位置定义 (TL, TR, BL, BR) */
         #atlantis-lock .sa-tl { top: 0; left: 0; padding: 30px; }
         #atlantis-lock .sa-tl::before { top: 30px; left: 30px; border-right: none; border-bottom: none; }
         #atlantis-lock .sa-tl::after { top: 30px; left: 40px; width: 60px; height: 1px; border-top: 1px solid var(--at-cyan); }
@@ -148,16 +136,12 @@
 
         @keyframes dotBlink { 0%,100%{opacity:1; transform:scale(1);} 50%{opacity:0.3; transform:scale(0.8);} }
 
-        /* ========================================================================== */
-
         /* --- 卡片容器 --- */
         #atlantis-lock .at-card-container {
             position: relative; width: 90%; max-width: 460px;
             transform-style: preserve-3d; z-index: 20;
             transition: transform 0.1s linear;
-
-            margin-top: auto; 
-            margin-bottom: auto;
+            margin-top: auto; margin-bottom: auto;
             display: flex; flex-direction: column;
         }
 
@@ -223,7 +207,6 @@
             border-color: var(--at-cyan); box-shadow: 0 0 25px rgba(0, 242, 234, 0.6); transform: scale(1.05);
         }
         
-        /* 雷达波 */
         #atlantis-lock .radar-circle {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
             width: 100%; height: 100%; border-radius: 50%;
@@ -239,7 +222,6 @@
             100% { width: 240%; height: 240%; opacity: 0; border-width: 0px; }
         }
 
-        /* 爆发光圈 */
         #atlantis-lock .at-avatar-box::after {
             content: ''; position: absolute; top: 0; left: 0;
             width: 100%; height: 100%; border-radius: 50%;
@@ -299,7 +281,7 @@
             transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); width: 100%; 
             border-top: 1px solid rgba(255,255,255,0.1); text-align: center;
         }
-        #atlantis-lock .at-extra.show { max-height: 1200px; opacity: 1; padding-top: 0px; } /* 增加高度上限以适应手机竖排 */
+        #atlantis-lock .at-extra.show { max-height: 1200px; opacity: 1; padding-top: 0px; } 
         
         .scan-hint { font-size: 12px; color: #889; margin: 8px 0 15px 0; letter-spacing: 1px; display: block; }
         .scan-hint span { color: var(--at-cyan); font-weight: bold; }
@@ -331,11 +313,11 @@
             #atlantis-lock .at-title { font-size: 1.5rem; }
             #atlantis-lock .card-bracket { display: none; }
 
-            /* [关键修改] 手机端二维码强制竖排 */
+            /* 手机端二维码强制竖排 */
             #atlantis-lock .qr-box {
                 flex-direction: column; 
                 align-items: center;
-                gap: 25px; /* 增加一点间距 */
+                gap: 25px; 
             }
         }
     `;
@@ -355,7 +337,6 @@
         </div>
     `).join('');
 
-    // DOM 结构
     const html = `
         <div id="atlantis-lock">
             <div class="screen-anchor sa-tl"><div class="sa-dot tl"></div></div>
@@ -566,6 +547,9 @@
                 
                 els.body.classList.remove('error-mode');
 
+                // [关键修改] 立即让门禁层穿透点击，防止淡出时挡住博客
+                els.lock.style.pointerEvents = 'none';
+
                 els.s_anchors.forEach(el => {
                     el.style.transform = "scale(2)"; 
                     el.style.opacity = '0';
@@ -600,8 +584,12 @@
                     document.body.classList.remove('portal-locked');
 
                     setTimeout(() => {
-                        if (window.jQuery && window.jQuery.fn.ripples) window.jQuery('#atlantis-lock').ripples('destroy');
-                        els.lock.remove();
+                        // [关键修改] 增加错误捕捉，防止特效销毁报错导致DOM无法移除
+                        try {
+                            if (window.jQuery && window.jQuery.fn.ripples) window.jQuery('#atlantis-lock').ripples('destroy');
+                        } catch(e) { console.warn('Ripples destroy error', e); }
+                        
+                        if(els.lock) els.lock.remove();
                     }, 1500); 
                 }, 1800); 
 
