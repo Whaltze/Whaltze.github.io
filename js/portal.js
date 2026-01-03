@@ -78,7 +78,7 @@
            [关键升级] 界面四角锚点 - 赛博哨兵风格 (Cyber Sentry Anchors)
            ========================================================================== */
         #atlantis-lock .screen-anchor {
-            position: absolute; width: 100px; height: 100px;
+            position: fixed; width: 100px; height: 100px;
             pointer-events: none; z-index: 10;
             transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
         }
@@ -188,7 +188,7 @@
         #atlantis-lock {
             scrollbar-width: none; 
         }
-            
+
         #atlantis-lock .at-card-body::before {
             content: ''; position: absolute;
             top: -50%; left: -50%; width: 200%; height: 200%;
