@@ -39,7 +39,7 @@
 
     const style = document.createElement('style');
     style.innerHTML = `
-    
+
         /* --- 全屏容器 --- */
         #atlantis-lock {
             --at-cyan: #00f2ea;
@@ -269,12 +269,19 @@
             transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); width: 100%; 
             border-top: 1px solid rgba(255,255,255,0.1); text-align: center;
         }
-        #atlantis-lock .at-extra.show { max-height: 350px; opacity: 1; padding-top: 0px; }
+        #atlantis-lock .at-extra.show { max-height: 800px; opacity: 1; padding-top: 0px; }
         
         .scan-hint { font-size: 12px; color: #889; margin: 8px 0 15px 0; letter-spacing: 1px; display: block; }
         .scan-hint span { color: var(--at-cyan); font-weight: bold; }
         
-        #atlantis-lock .qr-box { display: flex; justify-content: center; gap: 20px; }
+        #atlantis-lock .qr-box { 
+            display: flex; 
+            justify-content: center; 
+            gap: 20px; 
+            flex-wrap: wrap; /* 关键：允许换行 */
+            padding-bottom: 20px; /* 底部加点留白，防止贴边 */
+        }
+            
         #atlantis-lock .qr-item { display: flex; flex-direction: column; align-items: center; cursor: pointer; }
         #atlantis-lock .qr-img { 
             width: 95px; height: 95px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);
