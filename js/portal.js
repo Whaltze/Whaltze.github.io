@@ -51,9 +51,21 @@
             z-index: 20000000;
             background-color: var(--at-bg);
             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            display: flex; justify-content: center; align-items: center;
+
+
+            /* 修改点 A: 允许内部滚动 */
+            overflow-y: auto; 
+            overflow-x: hidden;
+
+            /* 修改点 B: 既然可以滚动，对齐方式要调整，防止内容太高时顶部被切掉 */
+            display: flex; 
+            justify-content: center; 
+            align-items: flex-start; /* 改为从顶部对齐 */
+            padding-top: 5vh;        /* 给顶部留点空隙，不再绝对垂直居中 */
+            padding-bottom: 5vh;     /* 给底部留空隙 */
+            
             font-family: 'Quicksand', sans-serif;
-            perspective: 1200px; overflow: hidden;
+            perspective: 1200px; 
             opacity: 1; transition: opacity 1.5s ease-out;
         }
 
@@ -129,6 +141,10 @@
             position: relative; width: 90%; max-width: 460px;
             transform-style: preserve-3d; z-index: 20;
             transition: transform 0.1s linear;
+
+            /* 新增：防止内容紧贴着屏幕上下边缘 */
+            margin-top: auto; 
+            margin-bottom: auto;
         }
 
         /* --- [保留] 卡片呼吸角点 (Card Brackets) --- */
@@ -163,6 +179,16 @@
             border: 1px solid rgba(255,255,255,0.08);
         }
 
+        /* 隐藏 Chrome/Safari/Edge 的滚动条 */
+        #atlantis-lock::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+        /* 隐藏 Firefox 的滚动条 */
+        #atlantis-lock {
+            scrollbar-width: none; 
+        }
+            
         #atlantis-lock .at-card-body::before {
             content: ''; position: absolute;
             top: -50%; left: -50%; width: 200%; height: 200%;
@@ -281,7 +307,7 @@
             flex-wrap: wrap; /* 关键：允许换行 */
             padding-bottom: 20px; /* 底部加点留白，防止贴边 */
         }
-            
+
         #atlantis-lock .qr-item { display: flex; flex-direction: column; align-items: center; cursor: pointer; }
         #atlantis-lock .qr-img { 
             width: 95px; height: 95px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);
