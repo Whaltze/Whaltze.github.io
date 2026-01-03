@@ -40,7 +40,7 @@
     const style = document.createElement('style');
     style.innerHTML = `
 
-        /* --- 全屏容器 --- */
+        /* --- 1. 底层容器 (静止背景 + HUD锚点) --- */
         #atlantis-lock {
             --at-cyan: #00f2ea;
             --at-blue: #0077be;
@@ -52,20 +52,10 @@
             background-color: var(--at-bg);
             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
 
+            /* >>> 修改点：这里禁止滚动，让锚点稳住 <<< */
+            overflow: hidden;
 
-            /* 修改点 A: 允许内部滚动 */
-            overflow-y: auto; 
-            overflow-x: hidden;
-
-            /* 修改点 B: 既然可以滚动，对齐方式要调整，防止内容太高时顶部被切掉 */
-            display: flex; 
-            justify-content: center; 
-            align-items: flex-start; /* 改为从顶部对齐 */
-            padding-top: 5vh;        /* 给顶部留点空隙，不再绝对垂直居中 */
-            padding-bottom: 5vh;     /* 给底部留空隙 */
-            
             font-family: 'Quicksand', sans-serif;
-            perspective: 1200px; 
             opacity: 1; transition: opacity 1.5s ease-out;
         }
 
@@ -74,12 +64,35 @@
             opacity: 0.4 !important; pointer-events: none;
         }
 
+        /* --- 2. 新增：滚动视图层 (专门负责包裹卡片和滚动) --- */
+        #at-scroll-view {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            
+            /* 滚动的职责移交到这里 */
+            overflow-y: auto; 
+            overflow-x: hidden;
+            
+            /* 3D 视距移到这里，只对卡片生效 */
+            perspective: 1200px; 
+            
+            /* 布局对齐 */
+            display: flex; justify-content: center; align-items: flex-start;
+            padding-top: 5vh; padding-bottom: 5vh;
+            
+            z-index: 15;
+            scrollbar-width: none; /* Firefox 隐藏滚动条 */
+        }
+        #at-scroll-view::-webkit-scrollbar { width: 0; background: transparent; } /* Chrome 隐藏滚动条 */
+
+
         /* ==========================================================================
            [关键升级] 界面四角锚点 - 赛博哨兵风格 (Cyber Sentry Anchors)
            ========================================================================== */
+        /* 这里的定位现在相对于 #atlantis-lock (如果不滚动) 就是完美的 */
         #atlantis-lock .screen-anchor {
-            position: fixed; width: 100px; height: 100px;
-            pointer-events: none; z-index: 10;
+            position: absolute; 
+            width: 100px; height: 100px;
+            pointer-events: none; z-index: 999;
             transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
@@ -142,9 +155,10 @@
             transform-style: preserve-3d; z-index: 20;
             transition: transform 0.1s linear;
 
-            /* 新增：防止内容紧贴着屏幕上下边缘 */
+            /* 配合 scroll-view，这里用 margin auto 即可 */
             margin-top: auto; 
             margin-bottom: auto;
+            display: flex; flex-direction: column;
         }
 
         /* --- [保留] 卡片呼吸角点 (Card Brackets) --- */
@@ -177,16 +191,6 @@
             overflow: hidden; position: relative;
             transform: translateZ(0);
             border: 1px solid rgba(255,255,255,0.08);
-        }
-
-        /* 隐藏 Chrome/Safari/Edge 的滚动条 */
-        #atlantis-lock::-webkit-scrollbar {
-            width: 0px;
-            background: transparent;
-        }
-        /* 隐藏 Firefox 的滚动条 */
-        #atlantis-lock {
-            scrollbar-width: none; 
         }
 
         #atlantis-lock .at-card-body::before {
@@ -344,7 +348,7 @@
         </div>
     `).join('');
 
-    // [关键] 更新后的 DOM 结构，包含 form 和增强的 screen-anchor 内部元素
+    // [关键] 更新后的 DOM 结构：分离了 HUD层(锚点) 和 内容层(Scroll View)
     const html = `
         <div id="atlantis-lock">
             <div class="screen-anchor sa-tl"><div class="sa-dot tl"></div></div>
@@ -352,44 +356,46 @@
             <div class="screen-anchor sa-bl"><div class="sa-dot bl"></div></div>
             <div class="screen-anchor sa-br"><div class="sa-dot br"></div></div>
 
-            <div class="at-card-container" id="at-card">
-                <div class="card-bracket cb-tl"></div>
-                <div class="card-bracket cb-tr"></div>
-                <div class="card-bracket cb-bl"></div>
-                <div class="card-bracket cb-br"></div>
+            <div id="at-scroll-view">
+                <div class="at-card-container" id="at-card">
+                    <div class="card-bracket cb-tl"></div>
+                    <div class="card-bracket cb-tr"></div>
+                    <div class="card-bracket cb-bl"></div>
+                    <div class="card-bracket cb-br"></div>
 
-                <div class="at-card-body" id="at-body">
-                    
-                    <div class="at-avatar-box" id="at-avatar-box">
-                        <div class="radar-circle delay-0"></div>
-                        <div class="radar-circle delay-1"></div>
-                        <div class="radar-circle delay-2"></div>
-                        <img src="https://s2.loli.net/2024/07/17/6BaSwvE4bMmltTO.jpg" class="at-avatar-img">
-                    </div>
+                    <div class="at-card-body" id="at-body">
+                        
+                        <div class="at-avatar-box" id="at-avatar-box">
+                            <div class="radar-circle delay-0"></div>
+                            <div class="radar-circle delay-1"></div>
+                            <div class="radar-circle delay-2"></div>
+                            <img src="https://s2.loli.net/2024/07/17/6BaSwvE4bMmltTO.jpg" class="at-avatar-img">
+                        </div>
 
-                    <div class="at-title">${titleHTML}</div>
+                        <div class="at-title">${titleHTML}</div>
 
-                    <div style="height:20px; margin-bottom:20px; display:flex; align-items:center;">
-                        <div id="at-typer" style="color:var(--at-cyan); font-size:12px; opacity:0.8; letter-spacing:1px;"></div>
-                    </div>
+                        <div style="height:20px; margin-bottom:20px; display:flex; align-items:center;">
+                            <div id="at-typer" style="color:var(--at-cyan); font-size:12px; opacity:0.8; letter-spacing:1px;"></div>
+                        </div>
 
-                    <form class="input-group" id="at-form">
-                        <input type="password" id="at-pass" class="at-input" placeholder="ACCESS CODE" autocomplete="off">
-                        <button type="submit" id="at-btn" class="at-btn">INITIALIZE</button>
-                    </form>
+                        <form class="input-group" id="at-form">
+                            <input type="password" id="at-pass" class="at-input" placeholder="ACCESS CODE" autocomplete="off">
+                            <button type="submit" id="at-btn" class="at-btn">INITIALIZE</button>
+                        </form>
 
-                    <div class="at-extra" id="at-extra">
-                        <p style="color:#ff4757; font-size:14px; margin-bottom:0px; font-weight:700; letter-spacing:1px;">
-                            ⛔ ACCESS DENIED
-                        </p>
-                        <p style="color:#00f2ea; font-size:14px; margin-top: 5px; margin-bottom:0px; font-weight:700; letter-spacing:1px;">
-                            此山是我开,此树是我栽!
-                            <br>要想从这过,留下买路财!
-                        </p>
-                        <p class="scan-hint">
-                            关注公众号后台回复<span>“博客密码”</span>获取
-                        </p>
-                        <div class="qr-box">${qrHTML}</div>
+                        <div class="at-extra" id="at-extra">
+                            <p style="color:#ff4757; font-size:14px; margin-bottom:0px; font-weight:700; letter-spacing:1px;">
+                                ⛔ ACCESS DENIED
+                            </p>
+                            <p style="color:#00f2ea; font-size:14px; margin-top: 5px; margin-bottom:0px; font-weight:700; letter-spacing:1px;">
+                                此山是我开,此树是我栽!
+                                <br>要想从这过,留下买路财!
+                            </p>
+                            <p class="scan-hint">
+                                关注公众号后台回复<span>“博客密码”</span>获取
+                            </p>
+                            <div class="qr-box">${qrHTML}</div>
+                        </div>
                     </div>
                 </div>
             </div>
