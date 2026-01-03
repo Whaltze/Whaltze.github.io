@@ -1,5 +1,5 @@
-/* Hexo Butterfly 门禁系统 - Sonar Core Edition
- * 特性：持续雷达波 | 选中爆发光圈 | 战术HUD | 紧凑布局
+/* Hexo Butterfly 门禁系统 - Cyber Sentry Edition
+ * 特性：赛博科技角点 | 表单修复 | 声纳雷达 | 紧凑布局
  */
 
 (function() {
@@ -15,6 +15,7 @@
         ],
         tips: [
             "正在潜入深海数据层...", "欢迎来到 Whaltze 的数字海域",
+            "欢迎来到 Whaltze 的小屋","很高兴在茫茫人海遇到你！",
             "声纳系统已上线", "403 Forbidden? Try the magic word."
         ],
         libs: {
@@ -39,7 +40,7 @@
             --at-cyan: #00f2ea;
             --at-blue: #0077be;
             --at-red: #ff4757;
-            --at-bg: rgba(5, 12, 20, 0.85);
+            --at-bg: rgba(5, 12, 20, 0.65);
             
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: 999999;
@@ -56,43 +57,67 @@
             opacity: 0.4 !important; pointer-events: none;
         }
 
-        /* --- 屏幕四角锚点 (战术HUD风格) --- */
+        /* ==========================================================================
+           [关键升级] 界面四角锚点 - 赛博哨兵风格 (Cyber Sentry Anchors)
+           ========================================================================== */
         #atlantis-lock .screen-anchor {
-            position: absolute; width: 80px; height: 80px;
+            position: absolute; width: 100px; height: 100px;
             pointer-events: none; z-index: 10;
             transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-            opacity: 0.8; filter: drop-shadow(0 0 2px var(--at-cyan));
         }
-        #atlantis-lock .screen-anchor::before { content: ''; position: absolute; background: var(--at-cyan); opacity: 0.4; }
-        #atlantis-lock .screen-anchor::after { content: ''; position: absolute; background: var(--at-cyan); box-shadow: 0 0 10px rgba(0, 242, 234, 0.4); }
-        #atlantis-lock .screen-anchor .sa-dot { position: absolute; width: 4px; height: 4px; background: #fff; box-shadow: 0 0 8px #fff; animation: dotBlink 2s infinite; }
 
-        /* HUD 位置定义 */
-        #atlantis-lock .sa-tl { top: 30px; left: 30px; }
-        #atlantis-lock .sa-tl::before { top: 0; left: 0; width: 100%; height: 1px; }
-        #atlantis-lock .sa-tl::after { top: 0; left: 0; width: 4px; height: 25px; }
-        #atlantis-lock .sa-tl .sa-line-v { position: absolute; top: 0; left: 0; height: 100%; width: 1px; background: var(--at-cyan); opacity: 0.4; }
-        #atlantis-lock .sa-tl .sa-dot { top: 30px; left: 6px; }
+        /* 1. 主装甲 (Main Armor) - 粗线条 */
+        #atlantis-lock .screen-anchor::before {
+            content: ''; position: absolute;
+            width: 30px; height: 30px;
+            border: 3px solid var(--at-cyan);
+            opacity: 0.8;
+            box-shadow: 0 0 10px rgba(0, 242, 234, 0.3);
+        }
 
-        #atlantis-lock .sa-tr { top: 30px; right: 30px; }
-        #atlantis-lock .sa-tr::before { top: 0; right: 0; width: 100%; height: 1px; }
-        #atlantis-lock .sa-tr::after { top: 0; right: 0; width: 4px; height: 25px; }
-        #atlantis-lock .sa-tr .sa-line-v { position: absolute; top: 0; right: 0; height: 100%; width: 1px; background: var(--at-cyan); opacity: 0.4; }
-        #atlantis-lock .sa-tr .sa-dot { top: 30px; right: 6px; }
+        /* 2. 辅助扫描线 (Scanner Line) - 细长线条 */
+        #atlantis-lock .screen-anchor::after {
+            content: ''; position: absolute;
+            width: 100%; height: 100%;
+            border: 0 solid rgba(0, 242, 234, 0.3);
+            opacity: 0.5;
+        }
 
-        #atlantis-lock .sa-bl { bottom: 30px; left: 30px; }
-        #atlantis-lock .sa-bl::before { bottom: 0; left: 0; width: 100%; height: 1px; }
-        #atlantis-lock .sa-bl::after { bottom: 0; left: 0; width: 4px; height: 25px; }
-        #atlantis-lock .sa-bl .sa-line-v { position: absolute; bottom: 0; left: 0; height: 100%; width: 1px; background: var(--at-cyan); opacity: 0.4; }
-        #atlantis-lock .sa-bl .sa-dot { bottom: 30px; left: 6px; }
+        /* 3. 信号光点 (Signal Dot) - 使用内部 div */
+        #atlantis-lock .sa-dot {
+            position: absolute; width: 6px; height: 6px;
+            background: var(--at-cyan);
+            box-shadow: 0 0 8px var(--at-cyan);
+            animation: dotBlink 2s infinite ease-in-out;
+        }
 
-        #atlantis-lock .sa-br { bottom: 30px; right: 30px; }
-        #atlantis-lock .sa-br::before { bottom: 0; right: 0; width: 100%; height: 1px; }
-        #atlantis-lock .sa-br::after { bottom: 0; right: 0; width: 4px; height: 25px; }
-        #atlantis-lock .sa-br .sa-line-v { position: absolute; bottom: 0; right: 0; height: 100%; width: 1px; background: var(--at-cyan); opacity: 0.4; }
-        #atlantis-lock .sa-br .sa-dot { bottom: 30px; right: 6px; }
+        /* --- 左上角 (TL) --- */
+        #atlantis-lock .sa-tl { top: 0; left: 0; padding: 30px; }
+        #atlantis-lock .sa-tl::before { top: 30px; left: 30px; border-right: none; border-bottom: none; }
+        #atlantis-lock .sa-tl::after { top: 30px; left: 40px; width: 60px; height: 1px; border-top: 1px solid var(--at-cyan); }
+        #atlantis-lock .sa-dot.tl { top: 30px; left: 30px; transform: translate(-50%, -50%); }
 
-        @keyframes dotBlink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+        /* --- 右上角 (TR) --- */
+        #atlantis-lock .sa-tr { top: 0; right: 0; padding: 30px; }
+        #atlantis-lock .sa-tr::before { top: 30px; right: 30px; border-left: none; border-bottom: none; }
+        #atlantis-lock .sa-tr::after { top: 40px; right: 30px; width: 1px; height: 60px; border-right: 1px solid var(--at-cyan); }
+        #atlantis-lock .sa-dot.tr { top: 30px; right: 30px; transform: translate(50%, -50%); }
+
+        /* --- 左下角 (BL) --- */
+        #atlantis-lock .sa-bl { bottom: 0; left: 0; padding: 30px; }
+        #atlantis-lock .sa-bl::before { bottom: 30px; left: 30px; border-right: none; border-top: none; }
+        #atlantis-lock .sa-bl::after { bottom: 40px; left: 30px; width: 1px; height: 60px; border-left: 1px solid var(--at-cyan); }
+        #atlantis-lock .sa-dot.bl { bottom: 30px; left: 30px; transform: translate(-50%, 50%); }
+
+        /* --- 右下角 (BR) --- */
+        #atlantis-lock .sa-br { bottom: 0; right: 0; padding: 30px; }
+        #atlantis-lock .sa-br::before { bottom: 30px; right: 30px; border-left: none; border-top: none; }
+        #atlantis-lock .sa-br::after { bottom: 30px; right: 40px; width: 60px; height: 1px; border-bottom: 1px solid var(--at-cyan); }
+        #atlantis-lock .sa-dot.br { bottom: 30px; right: 30px; transform: translate(50%, 50%); }
+
+        @keyframes dotBlink { 0%,100%{opacity:1; transform:scale(1);} 50%{opacity:0.3; transform:scale(0.8);} }
+
+        /* ========================================================================== */
 
         /* --- 卡片容器 --- */
         #atlantis-lock .at-card-container {
@@ -101,12 +126,18 @@
             transition: transform 0.1s linear;
         }
 
-        /* 卡片精细角标 */
+        /* --- [保留] 卡片呼吸角点 (Card Brackets) --- */
         #atlantis-lock .card-bracket {
             position: absolute; width: 14px; height: 14px;
-            border: 0 solid var(--at-cyan); opacity: 0.7; pointer-events: none; z-index: 30;
-            transition: all 0.5s ease; transform: translateZ(20px); filter: drop-shadow(0 0 2px var(--at-cyan));
+            border: 0 solid var(--at-cyan); 
+            opacity: 0.7; pointer-events: none; z-index: 30;
+            transition: all 0.5s ease;
+            transform: translateZ(20px);
+            filter: drop-shadow(0 0 2px var(--at-cyan));
+            animation: cardBracketBreathe 3s infinite ease-in-out;
         }
+        @keyframes cardBracketBreathe { 0%,100%{opacity:0.6} 50%{opacity:1} }
+        
         #atlantis-lock .cb-tl { top: -6px; left: -6px; border-top: 2px solid; border-left: 2px solid; }
         #atlantis-lock .cb-tr { top: -6px; right: -6px; border-top: 2px solid; border-right: 2px solid; }
         #atlantis-lock .cb-bl { bottom: -6px; left: -6px; border-bottom: 2px solid; border-left: 2px solid; }
@@ -119,13 +150,17 @@
         #atlantis-lock .at-card-body {
             background: rgba(10, 20, 30, 0.95);
             box-shadow: 0 30px 60px rgba(0,0,0,0.8);
-            border-radius: 20px; padding: 45px 40px 25px 40px; 
+            border-radius: 20px; 
+            padding: 45px 40px 25px 40px; 
             display: flex; flex-direction: column; align-items: center;
             overflow: hidden; position: relative;
-            transform: translateZ(0); border: 1px solid rgba(255,255,255,0.08);
+            transform: translateZ(0);
+            border: 1px solid rgba(255,255,255,0.08);
         }
+
         #atlantis-lock .at-card-body::before {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            content: ''; position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
             background: conic-gradient(transparent, var(--at-blue), var(--at-cyan), transparent 40%);
             animation: rotateFlow 4s linear infinite; z-index: -2; transition: opacity 0.3s;
         }
@@ -138,31 +173,27 @@
             background: rgba(10, 20, 30, 0.99); border-radius: 18px; z-index: -1;
         }
 
-        /* =================================================================
-           [新增特效] 头像与雷达波
-           ================================================================= */
+        /* --- 头像与雷达 --- */
         #atlantis-lock .at-avatar-box {
             width: 120px; height: 120px; margin-bottom: 20px; 
             position: relative; z-index: 10; transform: translateZ(30px);
             cursor: pointer;
         }
-        
-        /* 1. 静态头像 */
         #atlantis-lock .at-avatar-img {
             width: 100%; height: 100%; border-radius: 50%;
             border: 2px solid rgba(255,255,255,0.8);
-            object-fit: cover; transition: 0.3s ease;
-            position: relative; z-index: 2; /* 在雷达波之上 */
+            object-fit: cover; transition: 0.3s ease; position: relative; z-index: 2;
+        }
+        #atlantis-lock .at-avatar-box:hover .at-avatar-img {
+            border-color: var(--at-cyan); box-shadow: 0 0 25px rgba(0, 242, 234, 0.6); transform: scale(1.05);
         }
         
-        /* 2. 持续扩散的雷达波 (Idle Radar) */
+        /* 雷达波 */
         #atlantis-lock .radar-circle {
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
             width: 100%; height: 100%; border-radius: 50%;
             border: 1px solid rgba(0, 242, 234, 0.6);
-            opacity: 0; pointer-events: none; z-index: 1; /* 在头像之下 */
-            box-shadow: 0 0 10px rgba(0, 242, 234, 0.3);
+            opacity: 0; pointer-events: none; z-index: 1; box-shadow: 0 0 10px rgba(0, 242, 234, 0.3);
             animation: radarExpand 3s linear infinite;
         }
         #atlantis-lock .radar-circle.delay-1 { animation-delay: 1s; }
@@ -173,34 +204,20 @@
             100% { width: 240%; height: 240%; opacity: 0; border-width: 0px; }
         }
 
-        /* 3. 选中/悬停时的爆发光圈 (Immediate Burst) */
+        /* 爆发光圈 */
         #atlantis-lock .at-avatar-box::after {
             content: ''; position: absolute; top: 0; left: 0;
             width: 100%; height: 100%; border-radius: 50%;
-            border: 2px solid var(--at-cyan);
-            opacity: 0; z-index: 3; pointer-events: none;
-            box-shadow: 0 0 20px var(--at-cyan);
-            transition: 0s; /* 瞬间重置 */
+            border: 2px solid var(--at-cyan); opacity: 0; z-index: 3; pointer-events: none;
+            box-shadow: 0 0 20px var(--at-cyan); transition: 0s;
         }
-        /* 鼠标悬停触发动画 */
-        #atlantis-lock .at-avatar-box:hover::after {
-            animation: activeBurst 0.6s ease-out;
-        }
-
+        #atlantis-lock .at-avatar-box:hover::after { animation: activeBurst 0.6s ease-out; }
         @keyframes activeBurst {
             0% { transform: scale(1); opacity: 0.8; border-width: 3px; }
             100% { transform: scale(1.6); opacity: 0; border-width: 0px; }
         }
 
-        /* 鼠标悬停头像本身的微调 */
-        #atlantis-lock .at-avatar-box:hover .at-avatar-img {
-            border-color: var(--at-cyan); 
-            box-shadow: 0 0 35px rgba(0, 242, 234, 0.6);
-            transform: scale(1.05);
-        }
-
-        /* ------------------------------------------------------------- */
-
+        /* --- 标题 --- */
         #atlantis-lock .at-title {
             font-family: 'Orbitron', sans-serif; color: #fff; font-size: 1.8rem;
             font-weight: 700; margin-bottom: 12px; letter-spacing: 4px;
@@ -214,6 +231,7 @@
             animation-delay: calc(var(--i) * 0.05s);
         }
 
+        /* --- 输入区 (Form Fixed) --- */
         #atlantis-lock .input-group { 
             width: 100%; display: flex; flex-direction: column; align-items: center; 
             gap: 15px; z-index: 50; margin-top: 5px; transform: translateZ(50px); 
@@ -239,6 +257,7 @@
         }
         #atlantis-lock .at-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 30px rgba(0, 242, 234, 0.5); }
 
+        /* --- 紧凑底部 --- */
         #atlantis-lock .at-extra {
             margin-top: 5px; 
             max-height: 0; opacity: 0; overflow: hidden;
@@ -257,10 +276,7 @@
             opacity: 0.6; transition: 0.3s;
         }
         #atlantis-lock .qr-label { font-size: 12px; color: #778; margin-top: 6px; transition: 0.3s; }
-        #atlantis-lock .qr-item:hover .qr-img { 
-            opacity: 1; border-color: var(--at-cyan); transform: scale(1.1); 
-            box-shadow: 0 0 20px rgba(0, 242, 234, 0.3);
-        }
+        #atlantis-lock .qr-item:hover .qr-img { opacity: 1; border-color: var(--at-cyan); transform: scale(1.1); box-shadow: 0 0 20px rgba(0, 242, 234, 0.3); }
         #atlantis-lock .qr-item:hover .qr-label { color: var(--at-cyan); }
 
         @keyframes rotateFlow { 0%{transform:rotate(0deg);} 100%{transform:rotate(360deg);} }
@@ -275,6 +291,7 @@
         }
     `;
     document.head.appendChild(style);
+
     // ============================================================
     // 3. 构建 DOM (HTML结构)
     // ============================================================
@@ -289,12 +306,13 @@
         </div>
     `).join('');
 
+    // [关键] 更新后的 DOM 结构，包含 form 和增强的 screen-anchor 内部元素
     const html = `
         <div id="atlantis-lock">
-            <div class="screen-anchor sa-tl"><div class="sa-line-v"></div><div class="sa-dot"></div></div>
-            <div class="screen-anchor sa-tr"><div class="sa-line-v"></div><div class="sa-dot"></div></div>
-            <div class="screen-anchor sa-bl"><div class="sa-line-v"></div><div class="sa-dot"></div></div>
-            <div class="screen-anchor sa-br"><div class="sa-line-v"></div><div class="sa-dot"></div></div>
+            <div class="screen-anchor sa-tl"><div class="sa-dot tl"></div></div>
+            <div class="screen-anchor sa-tr"><div class="sa-dot tr"></div></div>
+            <div class="screen-anchor sa-bl"><div class="sa-dot bl"></div></div>
+            <div class="screen-anchor sa-br"><div class="sa-dot br"></div></div>
 
             <div class="at-card-container" id="at-card">
                 <div class="card-bracket cb-tl"></div>
@@ -308,7 +326,6 @@
                         <div class="radar-circle delay-0"></div>
                         <div class="radar-circle delay-1"></div>
                         <div class="radar-circle delay-2"></div>
-                        
                         <img src="https://s2.loli.net/2024/07/17/6BaSwvE4bMmltTO.jpg" class="at-avatar-img">
                     </div>
 
@@ -318,10 +335,10 @@
                         <div id="at-typer" style="color:var(--at-cyan); font-size:12px; opacity:0.8; letter-spacing:1px;"></div>
                     </div>
 
-                    <div class="input-group">
+                    <form class="input-group" id="at-form">
                         <input type="password" id="at-pass" class="at-input" placeholder="ACCESS CODE" autocomplete="off">
-                        <button id="at-btn" class="at-btn">INITIALIZE</button>
-                    </div>
+                        <button type="submit" id="at-btn" class="at-btn">INITIALIZE</button>
+                    </form>
 
                     <div class="at-extra" id="at-extra">
                         <p style="color:#ff4757; font-size:14px; margin-bottom:5px; font-weight:700; letter-spacing:1px;">
@@ -349,6 +366,7 @@
         card: document.getElementById('at-card'),
         body: document.getElementById('at-body'),
         avatar: document.getElementById('at-avatar-box'),
+        form: document.getElementById('at-form'),
         input: document.getElementById('at-pass'),
         btn: document.getElementById('at-btn'),
         typer: document.getElementById('at-typer'),
@@ -374,8 +392,6 @@
         }).then(() => {
             if (window.jQuery && window.jQuery.fn.ripples) {
                 const $bg = window.jQuery('#atlantis-lock');
-                
-                // 1. 初始化全屏涟漪
                 $bg.ripples({
                     resolution: 512,
                     dropRadius: 20,
@@ -383,15 +399,26 @@
                     interactive: true
                 });
 
-                // 2. 头像交互逻辑
-                const $avatar = window.jQuery('#at-avatar-box');
+                // 头像交互
+                const rippleAtElement = ($el, radius, strength) => {
+                    const offset = $el.offset();
+                    const w = $el.outerWidth();
+                    const h = $el.outerHeight();
+                    const x = offset.left + w / 2;
+                    const y = offset.top + h / 2;
+                    $bg.ripples('drop', x, y, radius, strength);
+                };
 
-                // 鼠标移入/移动时触发强力水波
+                const $avatar = window.jQuery('#at-avatar-box');
                 $avatar.on('mousemove mouseenter', function(e) {
                     $bg.ripples('drop', e.clientX, e.clientY, 40, 0.2);
                 });
 
-                // 待机随机扰动
+                setInterval(() => {
+                    if(document.hidden) return;
+                    rippleAtElement($avatar, 30, 0.08);
+                }, 2000);
+
                 setInterval(() => {
                     if(document.hidden) return;
                     if(Math.random() > 0.8) {
@@ -454,7 +481,6 @@
             const jitterY = (Math.random() - 0.5) * 20;
             const radius = 50 + (count * 60); 
             const strength = 0.8 - (count * 0.05);
-            
             $bg.ripples('drop', cx + jitterX, cy + jitterY, radius, strength);
 
             for(let i=0; i<3; i++) {
@@ -464,7 +490,6 @@
                  const py = cy + Math.sin(angle) * dist;
                  $bg.ripples('drop', px, py, 20, 0.3);
             }
-
             if (count > 12) clearInterval(pulseInterval); 
         }, 80); 
     }
@@ -478,7 +503,7 @@
 
         setTimeout(() => {
             if(els.input.value === config.password) {
-                // === 验证成功 ===
+                // === Success ===
                 els.btn.innerText = "ACCESS GRANTED";
                 els.btn.style.background = "var(--at-cyan)";
                 els.btn.style.boxShadow = "0 0 50px var(--at-cyan)";
@@ -486,7 +511,6 @@
                 
                 els.body.classList.remove('error-mode');
 
-                // 屏幕四角飞出
                 els.s_anchors.forEach(el => {
                     el.style.transform = "scale(2)"; 
                     el.style.opacity = '0';
@@ -496,7 +520,6 @@
                     if(el.classList.contains('sa-br')) el.style.transform += " translate(100px, 100px)";
                 });
                 
-                // 卡片支架炸开
                 els.c_brackets.forEach(el => {
                     el.style.transition = "all 0.6s ease-out";
                     el.style.opacity = '0';
@@ -506,7 +529,6 @@
                     if(el.classList.contains('cb-br')) el.style.transform = "translate(50px, 50px) rotate(135deg)";
                 });
 
-                // 卡片坠落
                 els.card.style.transform = ""; 
                 els.card.classList.add('unlock-anim'); 
                 requestAnimationFrame(() => {
@@ -526,7 +548,7 @@
                 }, 1800); 
 
             } else {
-                // === 验证失败 ===
+                // === Fail ===
                 els.btn.innerText = orgText;
                 els.btn.disabled = false; els.input.disabled = false;
                 els.input.classList.add('input-error');
@@ -551,7 +573,11 @@
         }, 600);
     }
 
-    els.btn.addEventListener('click', verify);
-    els.input.addEventListener('keydown', (e) => { if(e.key === 'Enter') verify(); });
+    if(els.form) {
+        els.form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            verify();
+        });
+    }
 
 })();
