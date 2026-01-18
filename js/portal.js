@@ -8,6 +8,7 @@
     // ============================================================
     const config = {
         password: "/", 
+        password: "123456", 
         contact: [
             { src: "/img/WeChat.jpg", label: "WeChat" },
             { src: "/img/GZH.jpg", label: "公众号" },
