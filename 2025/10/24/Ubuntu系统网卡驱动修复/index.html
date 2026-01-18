@@ -1,0 +1,242 @@
+<!DOCTYPE html><html lang="en" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Ubuntu系统网卡驱动修复 | Whaltze</title><meta name="author" content="Whaltze"><meta name="copyright" content="Whaltze"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="本文基于Ubuntu 20.04系统版本 Intel AX211网卡  思路步骤 判断连接不上 WiFi 的原因是 NetworkManager 配置问题 还是 缺少网卡驱动。 查看无线网卡型号，确认是否为 Intel AX211。 检查系统内核版本是否高于 5.14，若不足则升级内核以支持 AX211 驱动。 下载适配 AX211 的驱动固件包。 解压固件包并将所有 AX211 相关驱动文件复">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu系统网卡驱动修复">
+<meta property="og:url" content="http://whaltze.github.io/2025/10/24/Ubuntu%E7%B3%BB%E7%BB%9F%E7%BD%91%E5%8D%A1%E9%A9%B1%E5%8A%A8%E4%BF%AE%E5%A4%8D/index.html">
+<meta property="og:site_name" content="Whaltze">
+<meta property="og:description" content="本文基于Ubuntu 20.04系统版本 Intel AX211网卡  思路步骤 判断连接不上 WiFi 的原因是 NetworkManager 配置问题 还是 缺少网卡驱动。 查看无线网卡型号，确认是否为 Intel AX211。 检查系统内核版本是否高于 5.14，若不足则升级内核以支持 AX211 驱动。 下载适配 AX211 的驱动固件包。 解压固件包并将所有 AX211 相关驱动文件复">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://whaltze.github.io/img/Ubuntu%E7%B3%BB%E7%BB%9F%E7%BD%91%E5%8D%A1%E9%A9%B1%E5%8A%A8%E4%BF%AE%E5%A4%8D.png">
+<meta property="article:published_time" content="2025-10-24T00:46:35.000Z">
+<meta property="article:modified_time" content="2025-10-27T02:37:28.000Z">
+<meta property="article:author" content="Whaltze">
+<meta property="article:tag" content="Blog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://whaltze.github.io/img/Ubuntu%E7%B3%BB%E7%BB%9F%E7%BD%91%E5%8D%A1%E9%A9%B1%E5%8A%A8%E4%BF%AE%E5%A4%8D.png"><link rel="shortcut icon" href="https://s2.loli.net/2024/07/17/6BaSwvE4bMmltTO.jpg"><link rel="canonical" href="http://whaltze.github.io/2025/10/24/Ubuntu%E7%B3%BB%E7%BB%9F%E7%BD%91%E5%8D%A1%E9%A9%B1%E5%8A%A8%E4%BF%AE%E5%A4%8D/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=0.0.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Ubuntu系统网卡驱动修复',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-10-27 10:37:28'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2024/07/17/6BaSwvE4bMmltTO.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">58</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/Ubuntu%E7%B3%BB%E7%BB%9F%E7%BD%91%E5%8D%A1%E9%A9%B1%E5%8A%A8%E4%BF%AE%E5%A4%8D.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Whaltze"><span class="site-name">Whaltze</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Ubuntu系统网卡驱动修复</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-10-24T00:46:35.000Z" title="Created 2025-10-24 08:46:35">2025-10-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-10-27T02:37:28.000Z" title="Updated 2025-10-27 10:37:28">2025-10-27</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Ubuntu系统网卡驱动修复"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<p>本文基于Ubuntu 20.04系统版本 Intel AX211网卡</p>
+</blockquote>
+<h1 id="思路步骤"><a href="#思路步骤" class="headerlink" title="思路步骤"></a>思路步骤</h1><ul>
+<li>判断连接不上 WiFi 的原因是 NetworkManager 配置问题 还是 缺少网卡驱动。</li>
+<li>查看无线网卡型号，确认是否为 Intel AX211。</li>
+<li>检查系统内核版本是否高于 5.14，若不足则升级内核以支持 AX211 驱动。</li>
+<li>下载适配 AX211 的驱动固件包。</li>
+<li>解压固件包并将所有 AX211 相关驱动文件复制到 &#x2F;lib&#x2F;firmware&#x2F; 目录中。</li>
+<li>重启系统，加载新驱动，确认 WiFi 功能恢复正常。</li>
+</ul>
+<h1 id="判断连不上-没有WIFI图标的原因"><a href="#判断连不上-没有WIFI图标的原因" class="headerlink" title="判断连不上 &#x2F; 没有WIFI图标的原因"></a>判断连不上 &#x2F; 没有WIFI图标的原因</h1><p>检查无线网卡设备状态</p>
+<p>查看网络设备列表</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nmcli dev</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果列出的设备状态全是 未管理（unmanaged），说明网络设备不受NetworkManager网络管理器管理,需要重新配置 网络管理器，判断是否是其未正常配置导致了连不上WIFI</p>
+</blockquote>
+<p>重新配置 网络管理器 NetworkManager<br>清空 &#x2F;etc&#x2F;network&#x2F;interfaces 配置</p>
+<p>使用文本编辑器打开 &#x2F;etc&#x2F;network&#x2F;interfaces 文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/network/interfaces</span><br></pre></td></tr></table></figure>
+<p>仅保留以下内容，其他删除，按 <code>ctrl+o</code> 保存文件并退出</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">auto lo</span><br><span class="line">iface lo inet loopback</span><br></pre></td></tr></table></figure>
+<p>重启 NetworkManager 服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart NetworkManager</span><br></pre></td></tr></table></figure>
+<p>重启，然后再查看网络设备列表信息</p>
+<p>如果，重启后，无线网卡设备仍然是 未管理（unmanaged），则初步判断问题在于 NetworkManager 没有 无线网卡 的驱动，无法识别无线网卡，而非 NetworkManager 的配置出错</p>
+<h1 id="更新无线网卡驱动"><a href="#更新无线网卡驱动" class="headerlink" title="更新无线网卡驱动"></a>更新无线网卡驱动</h1><p>查看无线网卡型号</p>
+<p>推荐切换到 windows 系统，在设备管理器中查看无线网卡型号</p>
+<p>查找网卡驱动的内核需求</p>
+<p>我的无线网卡型号为 Intel AX211</p>
+<p>前往 英特尔®无线适配器的 Linux* 支持 查看内核需求</p>
+<p>查看内核版本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname -r</span><br></pre></td></tr></table></figure>
+
+<p>只要内核版本 大于等于5.14 即可</p>
+<p>下载 AX211 无线网卡驱动</p>
+<p>前往 适用于 Linux* 的英特尔® 无线 Wi-Fi 驱动程序 下载所需驱动</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.intel.com/content/www/us/en/support/articles/000005511/wireless.html">wireless</a><br><a target="_blank" rel="noopener" href="https://gitlab.com/kernel-firmware/linux-firmware">linux-firmware</a></p>
+</blockquote>
+<p>点击最下方链接</p>
+<p>点击 download 链接下载固件包</p>
+<p>这里，如果ubuntu系统里下载的慢，可以考虑切回windows下载后拷贝到U盘中，再拷贝到ubunutu中</p>
+<p>安装驱动</p>
+<p>讲一下思路：<br>英特尔固件包包含大量无线网卡驱动，我们只需 AX211 的驱动。通过解压官方固件包，复制所有以 iwlwifi 为前缀的驱动文件到 Ubuntu 固件库（这些文件是 AX211 及其相关网卡的驱动），确保 AX211 驱动被识别（驱动可多不可少，多余的驱动增强兼容性，无影响）。</p>
+<p>先更新系统软件包和依赖库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt upgrade</span><br></pre></td></tr></table></figure>
+<p>再在固件包所在的文件夹下，解压压缩包，并将固件移动到ubuntu的固件库，以供无线网卡管理器可以识别AX211网卡</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tar -xzvf linux-firmware-a19bb447e57a0caa2bcc1ddbda0476c1df2e（这里填你的固件压缩包名，可以用tab自动补全）</span><br><span class="line">cd linux-firmware-a19bb447e57a0caa2bcc1ddbda0476c1df2e098a/（进入解压后的固件包文件夹）</span><br><span class="line">sudo cp iwlwifi-* /lib/firmware/（复制所有 AX211 相关的驱动到ubuntu的固件库）</span><br></pre></td></tr></table></figure>
+<p>最后，重启！</p>
+<h1 id="WiFi-图标出现后又自动消失"><a href="#WiFi-图标出现后又自动消失" class="headerlink" title="WiFi 图标出现后又自动消失"></a>WiFi 图标出现后又自动消失</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>在 Ubuntu 20.04 系统中，成功安装 Intel AX211 网卡驱动后，最初 WiFi 图标显示正常，网络连接也可正常使用。然而，一段时间后，WiFi 图标突然消失，无法连接无线网络</p>
+<h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><p>WiFi 图标自动消失的原因是 Ubuntu 在执行 sudo apt update &amp;&amp; sudo apt upgrade 时，默认启用了内核自动升级服务（unattended-upgrades），导致内核从 5.15.0-67-generic 升级至 5.15.0-130-generic。由于新内核与 AX211 网卡驱动（iwlwifi）不兼容，驱动加载失败，固件文件无法正确加载，且内核模块版本不匹配，最终导致无线网卡无法正常工作，WiFi 图标消失。</p>
+<blockquote>
+<p>ps：可以使用 uname -r 命令检查当前内核版本，如果与 WiFi 正常工作时的内核版本不一致，则很可能是系统自动更新后，内核升级导致新版本与 AX211 网卡驱动不兼容，从而影响 WiFi 功能</p>
+</blockquote>
+<h2 id="回滚到旧内核版本"><a href="#回滚到旧内核版本" class="headerlink" title="回滚到旧内核版本"></a>回滚到旧内核版本</h2><p>重启后，在引导界面选择 “Ubuntu 的高级选项” 进入 GRUB 菜单，然后选择原来的内核版本 (5.15.0-67-generic) 进行启动，并测试 WiFi 功能是否恢复正常。</p>
+<p>ps：如果回退到旧内核后 WiFi 功能恢复正常，可继续进行后续操作，以防止系统再次自动升级导致问题复现</p>
+<h2 id="锁定当前内核版本"><a href="#锁定当前内核版本" class="headerlink" title="锁定当前内核版本"></a>锁定当前内核版本</h2><p>使用 apt-mark hold 锁定与当前内核相关的所有包，防止它们被自动更新或替换：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-mark hold linux-image-5.15.0-67-generic</span><br><span class="line">sudo apt-mark hold linux-headers-5.15.0-67-generic</span><br><span class="line">sudo apt-mark hold linux-modules-5.15.0-67-generic</span><br><span class="line">sudo apt-mark hold linux-modules-extra-5.15.0-67-generic</span><br></pre></td></tr></table></figure>
+
+<h2 id="验证锁定状态"><a href="#验证锁定状态" class="headerlink" title="验证锁定状态"></a>验证锁定状态</h2><p>运行以下命令查看所有被锁定的包：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-mark showhold</span><br></pre></td></tr></table></figure>
+
+<p>应该输出：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">linux-headers-5.15.0-67-generic</span><br><span class="line">linux-image-5.15.0-67-generic</span><br><span class="line">linux-modules-5.15.0-67-generic</span><br><span class="line">linux-modules-extra-5.15.0-67-generic</span><br></pre></td></tr></table></figure>
+<p>如果上述包都在列表中，说明锁定成功</p>
+<h2 id="修改-GRUB-配置"><a href="#修改-GRUB-配置" class="headerlink" title="修改 GRUB 配置"></a>修改 GRUB 配置</h2><p>打开 GRUB 配置文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/default/grub</span><br></pre></td></tr></table></figure>
+
+<p>找到：GRUB_DEFAULT&#x3D;0，修改为：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRUB_DEFAULT=&quot;1&gt;2&quot;</span><br></pre></td></tr></table></figure>
+<p>其中 “1&gt;2” 需根据 GRUB 启动菜单的实际选项 进行调整：</p>
+<ul>
+<li>1&gt; ：代表 “Ubuntu 的高级选项”（在 GRUB 主菜单中的 第二行，索引 1）</li>
+<li>2 ：代表 linux-image-5.15.0-67-generic（在 高级选项菜单中的第三个选项，索引 2）</li>
+</ul>
+<blockquote>
+<p>ps：由于不同系统的 GRUB 菜单结构可能有所不同，请根据自己的 GRUB 启动界面 选项顺序调整 GRUB_DEFAULT 的值，确保正确指向 旧内核版本</p>
+</blockquote>
+<p>5.更新 GRUB 配置<br>执行以下命令，使 GRUB 配置更改生效：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-grub</span><br></pre></td></tr></table></figure>
+<p>6.重新启动，并验证内核版本是否正常切换</p>
+<blockquote>
+<p>本文参考文献 <a target="_blank" rel="noopener" href="https://blog.csdn.net/AbaAbaxxx_/article/details/145312522">【Ubuntu 20.04】AX211网卡驱动安装 Wifi图标消失</a></p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://Whaltze.github.io">Whaltze</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://whaltze.github.io/2025/10/24/Ubuntu%E7%B3%BB%E7%BB%9F%E7%BD%91%E5%8D%A1%E9%A9%B1%E5%8A%A8%E4%BF%AE%E5%A4%8D/">http://whaltze.github.io/2025/10/24/Ubuntu%E7%B3%BB%E7%BB%9F%E7%BD%91%E5%8D%A1%E9%A9%B1%E5%8A%A8%E4%BF%AE%E5%A4%8D/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Blog/">Blog</a></div><div class="post_share"><div class="social-share" data-image="/img/Ubuntu%E7%B3%BB%E7%BB%9F%E7%BD%91%E5%8D%A1%E9%A9%B1%E5%8A%A8%E4%BF%AE%E5%A4%8D.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>投喂作者</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/WeChat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/WeChat.jpg" alt="WeChat"/></a><div class="post-qr-code-desc">WeChat</div></li><li class="reward-item"><a href="/img/AliPay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/AliPay.jpg" alt="AliPay"/></a><div class="post-qr-code-desc">AliPay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/11/03/%E3%80%90ROS%E5%A4%A7%E4%BD%9C%E4%B8%9A%E3%80%91%E5%9F%BA%E4%BA%8ECamera%E7%9A%84%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B%E8%AF%86%E5%88%AB/" title="【ROS大作业】基于Camera的人脸检测识别"><img class="cover" src="/img/%E3%80%90ROS%E5%A4%A7%E4%BD%9C%E4%B8%9A%E3%80%91%E5%9F%BA%E4%BA%8ECamera%E7%9A%84%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B%E8%AF%86%E5%88%AB.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous</div><div class="prev_info">【ROS大作业】基于Camera的人脸检测识别</div></div></a></div><div class="next-post pull-right"><a href="/2025/10/17/ROS%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" title="ROS课程笔记"><img class="cover" src="/img/ROS%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next</div><div class="next_info">ROS课程笔记</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2025/02/04/GitHub%E7%9A%84%E9%85%8D%E7%BD%AE%E5%AD%A6%E4%B9%A0/" title="GitHub的配置学习"><img class="cover" src="/img/GitHub%E7%9A%84%E9%85%8D%E7%BD%AE%E5%AD%A6%E4%B9%A0.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-04</div><div class="title">GitHub的配置学习</div></div></a></div><div><a href="/2024/07/15/Deploy%20Environment%20to%20Anaconda3/" title="Deploy Environment to Anaconda3"><img class="cover" src="/img/2.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-15</div><div class="title">Deploy Environment to Anaconda3</div></div></a></div><div><a href="/2025/02/14/RM2025%E5%AF%BC%E8%88%AA%E8%B0%83%E8%AF%95/" title="RM2025导航调试"><img class="cover" src="/img/RM2025%E5%AF%BC%E8%88%AA%E8%B0%83%E8%AF%95.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-14</div><div class="title">RM2025导航调试</div></div></a></div><div><a href="/2024/07/10/Preface/" title="Preface"><img class="cover" src="/img/0.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-10</div><div class="title">Preface</div></div></a></div><div><a href="/2024/07/10/Learning%20Markdown/" title="Markdown"><img class="cover" src="/img/1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-10</div><div class="title">Markdown</div></div></a></div><div><a href="/2024/09/22/SMART/" title="SMART"><img class="cover" src="/img/SMART.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-22</div><div class="title">SMART</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s2.loli.net/2024/07/17/6BaSwvE4bMmltTO.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Whaltze</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">58</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Whaltze/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Whaltze" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.</span> <span class="toc-text">思路步骤</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E8%BF%9E%E4%B8%8D%E4%B8%8A-%E6%B2%A1%E6%9C%89WIFI%E5%9B%BE%E6%A0%87%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="toc-number">2.</span> <span class="toc-text">判断连不上 &#x2F; 没有WIFI图标的原因</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E6%97%A0%E7%BA%BF%E7%BD%91%E5%8D%A1%E9%A9%B1%E5%8A%A8"><span class="toc-number">3.</span> <span class="toc-text">更新无线网卡驱动</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#WiFi-%E5%9B%BE%E6%A0%87%E5%87%BA%E7%8E%B0%E5%90%8E%E5%8F%88%E8%87%AA%E5%8A%A8%E6%B6%88%E5%A4%B1"><span class="toc-number">4.</span> <span class="toc-text">WiFi 图标出现后又自动消失</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="toc-number">4.1.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E5%8E%9F%E5%9B%A0"><span class="toc-number">4.2.</span> <span class="toc-text">问题原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E6%BB%9A%E5%88%B0%E6%97%A7%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC"><span class="toc-number">4.3.</span> <span class="toc-text">回滚到旧内核版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%94%81%E5%AE%9A%E5%BD%93%E5%89%8D%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC"><span class="toc-number">4.4.</span> <span class="toc-text">锁定当前内核版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E9%94%81%E5%AE%9A%E7%8A%B6%E6%80%81"><span class="toc-number">4.5.</span> <span class="toc-text">验证锁定状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-GRUB-%E9%85%8D%E7%BD%AE"><span class="toc-number">4.6.</span> <span class="toc-text">修改 GRUB 配置</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/18/dso%E5%AE%89%E8%A3%85%E5%8F%8A%E5%AE%9E%E9%AA%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90(%E5%86%85%E5%90%ABminiconda3%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE)/" title="Untitled">Untitled</a><time datetime="2026-01-18T08:06:10.894Z" title="Created 2026-01-18 16:06:10">2026-01-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/02/Windows%E4%B8%8B%E9%83%A8%E7%BD%B2Miniforge/" title="Windows下部署Miniforge"><img src="/img/Windows%E4%B8%8B%E9%83%A8%E7%BD%B2Miniforge.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Windows下部署Miniforge"/></a><div class="content"><a class="title" href="/2026/01/02/Windows%E4%B8%8B%E9%83%A8%E7%BD%B2Miniforge/" title="Windows下部署Miniforge">Windows下部署Miniforge</a><time datetime="2026-01-02T11:37:09.000Z" title="Created 2026-01-02 19:37:09">2026-01-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/03/%E3%80%90ROS%E5%A4%A7%E4%BD%9C%E4%B8%9A%E3%80%91%E5%9F%BA%E4%BA%8ECamera%E7%9A%84%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B%E8%AF%86%E5%88%AB/" title="【ROS大作业】基于Camera的人脸检测识别"><img src="/img/%E3%80%90ROS%E5%A4%A7%E4%BD%9C%E4%B8%9A%E3%80%91%E5%9F%BA%E4%BA%8ECamera%E7%9A%84%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B%E8%AF%86%E5%88%AB.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【ROS大作业】基于Camera的人脸检测识别"/></a><div class="content"><a class="title" href="/2025/11/03/%E3%80%90ROS%E5%A4%A7%E4%BD%9C%E4%B8%9A%E3%80%91%E5%9F%BA%E4%BA%8ECamera%E7%9A%84%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B%E8%AF%86%E5%88%AB/" title="【ROS大作业】基于Camera的人脸检测识别">【ROS大作业】基于Camera的人脸检测识别</a><time datetime="2025-11-03T02:37:58.000Z" title="Created 2025-11-03 10:37:58">2025-11-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/24/Ubuntu%E7%B3%BB%E7%BB%9F%E7%BD%91%E5%8D%A1%E9%A9%B1%E5%8A%A8%E4%BF%AE%E5%A4%8D/" title="Ubuntu系统网卡驱动修复"><img src="/img/Ubuntu%E7%B3%BB%E7%BB%9F%E7%BD%91%E5%8D%A1%E9%A9%B1%E5%8A%A8%E4%BF%AE%E5%A4%8D.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Ubuntu系统网卡驱动修复"/></a><div class="content"><a class="title" href="/2025/10/24/Ubuntu%E7%B3%BB%E7%BB%9F%E7%BD%91%E5%8D%A1%E9%A9%B1%E5%8A%A8%E4%BF%AE%E5%A4%8D/" title="Ubuntu系统网卡驱动修复">Ubuntu系统网卡驱动修复</a><time datetime="2025-10-24T00:46:35.000Z" title="Created 2025-10-24 08:46:35">2025-10-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/17/ROS%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" title="ROS课程笔记"><img src="/img/ROS%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ROS课程笔记"/></a><div class="content"><a class="title" href="/2025/10/17/ROS%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" title="ROS课程笔记">ROS课程笔记</a><time datetime="2025-10-17T00:22:59.000Z" title="Created 2025-10-17 08:22:59">2025-10-17</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2026 By Whaltze</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=0.0.0"></script><script src="/js/main.js?v=0.0.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

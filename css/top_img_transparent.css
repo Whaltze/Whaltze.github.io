@@ -1,0 +1,11 @@
+/* 未设置顶部图时头部透明 */
+.header-wrapper:not(.has-cover) {
+    background: transparent !important;
+    backdrop-filter: none !important;
+  }
+
+  @media screen and (max-width: 768px) {
+    .header-wrapper:not(.has-cover) {
+      background: transparent !important;
+    }
+  }

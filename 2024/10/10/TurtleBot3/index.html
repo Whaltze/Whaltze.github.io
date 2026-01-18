@@ -1,0 +1,224 @@
+<!DOCTYPE html><html lang="en" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>TurtleBot3 | Whaltze</title><meta name="author" content="Whaltze"><meta name="copyright" content="Whaltze"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="TurtleBot3 是一个基于ros的小型可编程开源机器人,广泛用于教育和研究领域,本文将介绍Turtlebot3的一些基本玩法,基于gazebo仿真系统(他也是基于ros系统的)进行仿真导航建图等操作TurtleBot3官方文档CSDN:ROS2+TurtleBot3+Cartographer+Nav2实现slam建图和导航古月居-Gazebo进阶配置教程  TurtleBOt3安装1234">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TurtleBot3">
+<meta property="og:url" content="http://whaltze.github.io/2024/10/10/TurtleBot3/index.html">
+<meta property="og:site_name" content="Whaltze">
+<meta property="og:description" content="TurtleBot3 是一个基于ros的小型可编程开源机器人,广泛用于教育和研究领域,本文将介绍Turtlebot3的一些基本玩法,基于gazebo仿真系统(他也是基于ros系统的)进行仿真导航建图等操作TurtleBot3官方文档CSDN:ROS2+TurtleBot3+Cartographer+Nav2实现slam建图和导航古月居-Gazebo进阶配置教程  TurtleBOt3安装1234">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://whaltze.github.io/img/TurtleBot3.png">
+<meta property="article:published_time" content="2024-10-10T15:37:34.000Z">
+<meta property="article:modified_time" content="2025-02-15T19:20:54.000Z">
+<meta property="article:author" content="Whaltze">
+<meta property="article:tag" content="Blog">
+<meta property="article:tag" content="导航">
+<meta property="article:tag" content="turtlebot">
+<meta property="article:tag" content="gazebo">
+<meta property="article:tag" content="虚拟仿真">
+<meta property="article:tag" content="slam">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://whaltze.github.io/img/TurtleBot3.png"><link rel="shortcut icon" href="https://s2.loli.net/2024/07/17/6BaSwvE4bMmltTO.jpg"><link rel="canonical" href="http://whaltze.github.io/2024/10/10/TurtleBot3/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=0.0.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'TurtleBot3',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-02-16 03:20:54'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2024/07/17/6BaSwvE4bMmltTO.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">58</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/TurtleBot3.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Whaltze"><span class="site-name">Whaltze</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">TurtleBot3</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-10-10T15:37:34.000Z" title="Created 2024-10-10 23:37:34">2024-10-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-02-15T19:20:54.000Z" title="Updated 2025-02-16 03:20:54">2025-02-16</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="TurtleBot3"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<p>TurtleBot3 是一个基于ros的小型可编程开源机器人,广泛用于教育和研究领域,本文将介绍Turtlebot3的一些基本玩法,基于gazebo仿真系统(他也是基于ros系统的)进行仿真导航建图等操作<br><a target="_blank" rel="noopener" href="https://emanual.robotis.com/docs/en/platform/turtlebot3/simulation/#gazebo-simulation">TurtleBot3官方文档</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/leo0308/article/details/138868282">CSDN:ROS2+TurtleBot3+Cartographer+Nav2实现slam建图和导航</a><br><a target="_blank" rel="noopener" href="https://book.guyuehome.com/ROS2/3.%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/3.4_Gazebo/">古月居-Gazebo进阶配置教程</a></p>
+</blockquote>
+<h1 id="TurtleBOt3安装"><a href="#TurtleBOt3安装" class="headerlink" title="TurtleBOt3安装"></a>TurtleBOt3安装</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install ros-humble-turtlebot3*</span><br><span class="line">sudo apt install ros-humble-gazebo*</span><br><span class="line">sudo apt install ros-humble-cartogarpher</span><br><span class="line">sudo apt install ros-humble-cartographer_ros</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">sudo</span> apt install ros-humble-cartographer*</span></span><br><span class="line">sudo apt install ros-humble-navigation2</span><br><span class="line">sudo apt install ros-humble-nav2-bringup</span><br><span class="line">sudo apt install ros-humble-releop-twist-keyboard #键盘控制程序包安装</span><br></pre></td></tr></table></figure>
+
+<h1 id="carto导航"><a href="#carto导航" class="headerlink" title="carto导航"></a>carto导航</h1><h2 id="加载gazebo仿真地图"><a href="#加载gazebo仿真地图" class="headerlink" title="加载gazebo仿真地图"></a>加载gazebo仿真地图</h2><blockquote>
+<p>你可以创建一个新的工作空间存放源码进行虚拟仿真导航实验,也可以直接用sudo apt install安装的包直接运行,新手最好先直接用sudo的包最有保障,在&#x2F;opt&#x2F;ros&#x2F;humble&#x2F;share&#x2F;目录下,若git的包和apt的包不兼容,后期调试可能会有奇怪的报错,若两者兼容,则会将你工作空间的包覆盖apt的包</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~/turtlebot_ws/src/</span><br><span class="line">cd ~/turtlebot3_ws/src/</span><br><span class="line">git clone https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git</span><br><span class="line">cd ~/turtlebot3_ws &amp;&amp; colcon build --symlink-install #symlink是创建链接符号,保障在修改工作空间代码后会直接生效,不用再source install/setup.bash</span><br></pre></td></tr></table></figure>
+<p>在~&#x2F;.bashrc中加入turtlebot的机器人的相关环境变量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;export TURTLEBOT3_MODEL=burger&#x27; &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">echo</span>是打印出后面的字符串, &gt;&gt; 表示把他追加到.bashrc文件中</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">echo</span> <span class="string">&#x27;export TURTLEBOT3_MODEL=burger&#x27;</span> &gt; ~/.bashrc</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">注意只有一个 &gt; 的表示将内容覆盖.bashrc文件,不要输错啦</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>⚠️ 此处要注意添加进入.bashrc中就是永久更改,后续要替换其他model要删除此条命令然后再换其他的,如果不想永久更改,可以使用如下命令,只在此终端生效,之后再打开另一个终端就要再输入一遍(.bashrc本质上就是打开终端后自动执行一些指令)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export TURTLEBOT3_MODEL=burger</span><br></pre></td></tr></table></figure>
+
+<p>因为不同的turtlebot可能有不同的机器人参数,我们这里选择burger的model模型,当然你也可以选择其他模型,如waffle</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export TURTLEBOT3_MODEL=waffle</span><br></pre></td></tr></table></figure>
+
+<p>添加完成后记得source环境</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<p>也可以选择不同的文本编辑器进入~&#x2F;.bashrc直接修改</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nano ~/.bahsrc</span><br><span class="line">gedit ~/.bashrc </span><br><span class="line">vim ~/.bashrc</span><br></pre></td></tr></table></figure>
+<p>同样修改完成后需要在终端source一下</p>
+<p>运行仿真地图</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py</span><br></pre></td></tr></table></figure>
+<p>如果成功,大概率可以看到如图所示地图<br><img src="/./images/TurtleBot3/1.png" alt=" "></p>
+<blockquote>
+<p><strong style="color: red ; font-family:'仿宋';">报错0:</strong>gazebo无法打开<br><img src="/./images/TurtleBot3/%E6%8A%A5%E9%94%990.png" alt=" "><br>一般下载完gazebo后自动加入自启动到环境变量,如果没加入,需要自行source,加入到.bashrc<br>检查是否是setup.bash问题<br>终端输入 source &#x2F;usr&#x2F;share&#x2F;gazebo&#x2F;setup.bash<br>重新运行gazebo ,如果成功了,继续下面步骤添加source到.bashrc<br>在终端输入 echo “source &#x2F;usr&#x2F;share&#x2F;gazebo&#x2F;setup.bash” &gt;&gt; ~&#x2F;.bashrc<br>source ~&#x2F;.bashrc即可</p>
+</blockquote>
+<blockquote>
+<p><strong style="color: red ; font-family:'仿宋';">报错1:</strong>gazebo加载地图失败,崩溃退出<br><img src="/./images/TurtleBot3/%E6%8A%A5%E9%94%991.png" alt=" "><br>其实是gazebo后台没有完全关闭的原因<br>终端输入 killall gzserver 后重新运行指令即可</p>
+</blockquote>
+<blockquote>
+<p>如果能打开gazebo但是地图出不来也可能是model没有下载或者链接不成功<br><strong style="color: red ; font-family:'仿宋';">方法一</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls /opt/ros/humble/share/turtlebot3_gazebo/models</span><br></pre></td></tr></table></figure>
+<p>看看是否有models文件,如果存在,执行下面指令,确保路径链接正确</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models</span><br></pre></td></tr></table></figure>
+<p><strong style="color: red ; font-family:'仿宋';">方法二</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ~/.gazebo/</span><br><span class="line">git clone https://github.com/osrf/gazebo_models models</span><br></pre></td></tr></table></figure>
+<p>需要删除.git不然可能会出错</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf models/.git</span><br></pre></td></tr></table></figure>
+<p>这样应该model就能链接到了</p>
+</blockquote>
+<h2 id="进行slam建图"><a href="#进行slam建图" class="headerlink" title="进行slam建图"></a>进行slam建图</h2><p>新建一个终端</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ros2 launch turtlebot3_cartographer cartographer.launch.py use_sim_time:=True</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在gazebo中虚拟仿真时间戳sim_time设置为<span class="literal">true</span>,实时建图设置为<span class="literal">false</span></span></span><br></pre></td></tr></table></figure>
+
+<p>再新建一个终端,启动刚刚gazebo地图节点的功能包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py</span><br></pre></td></tr></table></figure>
+
+<p>再新建一个终端,启动键盘控制节点</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ros2 run turtlebot3_teleop teleop_keyboard</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">根据指令操作时候必须在终端内,不能点到其他地方</span></span><br></pre></td></tr></table></figure>
+<p>正常情况用键盘操控机器人走一圈地图会有如下效果<br><img src="/./images/TurtleBot3/2.png" alt=" "></p>
+<blockquote>
+<p><strong style="color: red ; font-family:'仿宋';">报错2:</strong>:tf树transform错误<br><img src="/./images/TurtleBot3/%E6%8A%A5%E9%94%992.png" alt=" "><br>确保终端输入指令是use_sim_time &#x3D; True , 重新运行<br>若还未解决,检查launch,lua文件链接到的urdf文件,确保父节点的joint链接正确,一般父节点是base_link,每个frame_id都要核对清楚</p>
+</blockquote>
+<h2 id="save-map"><a href="#save-map" class="headerlink" title="save map"></a>save map</h2><p>将刚刚建立的地图保存</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 run nav2_map_server map_saver_cli -f ~/map</span><br></pre></td></tr></table></figure>
+<p><strong>-f</strong> 是一个选项,用于保存地图路径的文件名,即会在~&#x2F;目录下生成map.pgm和map.yaml文件,注意可以修改为其他目录路径,但最后都应为&#x2F;map的形式结尾,否则无法生成地图</p>
+<h1 id="nav2导航"><a href="#nav2导航" class="headerlink" title="nav2导航"></a>nav2导航</h1><p>运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 launch turtlebot3_cartographer cartographer.launch.py use_sim_time:=True</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=True map:=~/rm/sllidar/src/turtlrbot3/map.yaml</span><br></pre></td></tr></table></figure>
+<p>确保开启第一,二个指令后开启第三个才会接收数据,地图存放位置就是前面建图保存的yaml文件</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://Whaltze.github.io">Whaltze</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://whaltze.github.io/2024/10/10/TurtleBot3/">http://whaltze.github.io/2024/10/10/TurtleBot3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Blog/">Blog</a><a class="post-meta__tags" href="/tags/%E5%AF%BC%E8%88%AA/">导航</a><a class="post-meta__tags" href="/tags/turtlebot/">turtlebot</a><a class="post-meta__tags" href="/tags/gazebo/">gazebo</a><a class="post-meta__tags" href="/tags/%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F/">虚拟仿真</a><a class="post-meta__tags" href="/tags/slam/">slam</a></div><div class="post_share"><div class="social-share" data-image="/img/TurtleBot3.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>投喂作者</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/WeChat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/WeChat.jpg" alt="WeChat"/></a><div class="post-qr-code-desc">WeChat</div></li><li class="reward-item"><a href="/img/AliPay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/AliPay.jpg" alt="AliPay"/></a><div class="post-qr-code-desc">AliPay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/10/11/vim%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" title="vim使用教程"><img class="cover" src="/img/6.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous</div><div class="prev_info">vim使用教程</div></div></a></div><div class="next-post pull-right"><a href="/2024/10/10/Terminate%E7%BB%88%E7%AB%AF/" title="Terminate终端"><img class="cover" src="/img/Terminate%E7%BB%88%E7%AB%AF.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next</div><div class="next_info">Terminate终端</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2025/02/14/RM2025%E5%AF%BC%E8%88%AA%E8%B0%83%E8%AF%95/" title="RM2025导航调试"><img class="cover" src="/img/RM2025%E5%AF%BC%E8%88%AA%E8%B0%83%E8%AF%95.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-14</div><div class="title">RM2025导航调试</div></div></a></div><div><a href="/2025/01/10/%E5%9F%BA%E4%BA%8EMID360%E7%9A%84%E5%A4%9A%E7%AE%97%E6%B3%95%E5%AF%BC%E8%88%AA%E5%90%88%E9%9B%86/" title="基于MID360的多算法导航合集"><img class="cover" src="/img/%E5%9F%BA%E4%BA%8EMID360%E7%9A%84%E5%A4%9A%E7%AE%97%E6%B3%95%E5%AF%BC%E8%88%AA%E5%90%88%E9%9B%86.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-10</div><div class="title">基于MID360的多算法导航合集</div></div></a></div><div><a href="/2024/09/22/%E5%9F%BA%E4%BA%8ECartographer%E7%AE%97%E6%B3%95%E7%9A%84RPLIDAR%E6%BF%80%E5%85%89%E9%9B%B7%E8%BE%BE%E5%AF%BC%E8%88%AA/" title="基于Cartographer算法的RPLIDAR激光雷达导航"><img class="cover" src="/img/%E5%9F%BA%E4%BA%8ECartographer%E7%AE%97%E6%B3%95%E7%9A%84RPLIDAR%E6%BF%80%E5%85%89%E9%9B%B7%E8%BE%BE%E5%AF%BC%E8%88%AA.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-22</div><div class="title">基于Cartographer算法的RPLIDAR激光雷达导航</div></div></a></div><div><a href="/2025/02/04/GitHub%E7%9A%84%E9%85%8D%E7%BD%AE%E5%AD%A6%E4%B9%A0/" title="GitHub的配置学习"><img class="cover" src="/img/GitHub%E7%9A%84%E9%85%8D%E7%BD%AE%E5%AD%A6%E4%B9%A0.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-04</div><div class="title">GitHub的配置学习</div></div></a></div><div><a href="/2024/07/15/Deploy%20Environment%20to%20Anaconda3/" title="Deploy Environment to Anaconda3"><img class="cover" src="/img/2.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-15</div><div class="title">Deploy Environment to Anaconda3</div></div></a></div><div><a href="/2024/07/10/Preface/" title="Preface"><img class="cover" src="/img/0.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-10</div><div class="title">Preface</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s2.loli.net/2024/07/17/6BaSwvE4bMmltTO.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Whaltze</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">58</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Whaltze/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Whaltze" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#TurtleBOt3%E5%AE%89%E8%A3%85"><span class="toc-number">1.</span> <span class="toc-text">TurtleBOt3安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#carto%E5%AF%BC%E8%88%AA"><span class="toc-number">2.</span> <span class="toc-text">carto导航</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BDgazebo%E4%BB%BF%E7%9C%9F%E5%9C%B0%E5%9B%BE"><span class="toc-number">2.1.</span> <span class="toc-text">加载gazebo仿真地图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E8%A1%8Cslam%E5%BB%BA%E5%9B%BE"><span class="toc-number">2.2.</span> <span class="toc-text">进行slam建图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#save-map"><span class="toc-number">2.3.</span> <span class="toc-text">save map</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nav2%E5%AF%BC%E8%88%AA"><span class="toc-number">3.</span> <span class="toc-text">nav2导航</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/18/dso%E5%AE%89%E8%A3%85%E5%8F%8A%E5%AE%9E%E9%AA%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90(%E5%86%85%E5%90%ABminiconda3%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE)/" title="Untitled">Untitled</a><time datetime="2026-01-18T08:06:10.894Z" title="Created 2026-01-18 16:06:10">2026-01-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/02/Windows%E4%B8%8B%E9%83%A8%E7%BD%B2Miniforge/" title="Windows下部署Miniforge"><img src="/img/Windows%E4%B8%8B%E9%83%A8%E7%BD%B2Miniforge.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Windows下部署Miniforge"/></a><div class="content"><a class="title" href="/2026/01/02/Windows%E4%B8%8B%E9%83%A8%E7%BD%B2Miniforge/" title="Windows下部署Miniforge">Windows下部署Miniforge</a><time datetime="2026-01-02T11:37:09.000Z" title="Created 2026-01-02 19:37:09">2026-01-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/03/%E3%80%90ROS%E5%A4%A7%E4%BD%9C%E4%B8%9A%E3%80%91%E5%9F%BA%E4%BA%8ECamera%E7%9A%84%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B%E8%AF%86%E5%88%AB/" title="【ROS大作业】基于Camera的人脸检测识别"><img src="/img/%E3%80%90ROS%E5%A4%A7%E4%BD%9C%E4%B8%9A%E3%80%91%E5%9F%BA%E4%BA%8ECamera%E7%9A%84%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B%E8%AF%86%E5%88%AB.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【ROS大作业】基于Camera的人脸检测识别"/></a><div class="content"><a class="title" href="/2025/11/03/%E3%80%90ROS%E5%A4%A7%E4%BD%9C%E4%B8%9A%E3%80%91%E5%9F%BA%E4%BA%8ECamera%E7%9A%84%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B%E8%AF%86%E5%88%AB/" title="【ROS大作业】基于Camera的人脸检测识别">【ROS大作业】基于Camera的人脸检测识别</a><time datetime="2025-11-03T02:37:58.000Z" title="Created 2025-11-03 10:37:58">2025-11-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/24/Ubuntu%E7%B3%BB%E7%BB%9F%E7%BD%91%E5%8D%A1%E9%A9%B1%E5%8A%A8%E4%BF%AE%E5%A4%8D/" title="Ubuntu系统网卡驱动修复"><img src="/img/Ubuntu%E7%B3%BB%E7%BB%9F%E7%BD%91%E5%8D%A1%E9%A9%B1%E5%8A%A8%E4%BF%AE%E5%A4%8D.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Ubuntu系统网卡驱动修复"/></a><div class="content"><a class="title" href="/2025/10/24/Ubuntu%E7%B3%BB%E7%BB%9F%E7%BD%91%E5%8D%A1%E9%A9%B1%E5%8A%A8%E4%BF%AE%E5%A4%8D/" title="Ubuntu系统网卡驱动修复">Ubuntu系统网卡驱动修复</a><time datetime="2025-10-24T00:46:35.000Z" title="Created 2025-10-24 08:46:35">2025-10-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/17/ROS%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" title="ROS课程笔记"><img src="/img/ROS%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ROS课程笔记"/></a><div class="content"><a class="title" href="/2025/10/17/ROS%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" title="ROS课程笔记">ROS课程笔记</a><time datetime="2025-10-17T00:22:59.000Z" title="Created 2025-10-17 08:22:59">2025-10-17</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2026 By Whaltze</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=0.0.0"></script><script src="/js/main.js?v=0.0.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

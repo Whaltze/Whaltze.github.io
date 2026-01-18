@@ -1,0 +1,186 @@
+<!DOCTYPE html><html lang="en" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【课设】寻迹小车 | Whaltze</title><meta name="author" content="Whaltze"><meta name="copyright" content="Whaltze"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="本文为up大二上学期寻迹小车设计记录以下为基本硬件配置  主控 stm32F103C8T6 五线四相 步进电机(STEP MORTOR)28BYJ-48 灰度传感器(简易版电子积木)    一些资料网站基于51单片机的红外寻迹小车基于Arduino的智能循迹小车基于STM32的循迹小车(直流电机)激光开源社区STM32——灰度PID的使用基于stm32f103c8t6的五路灰度传感器循迹小车ST">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【课设】寻迹小车">
+<meta property="og:url" content="http://whaltze.github.io/2024/11/14/%E3%80%90%E8%AF%BE%E8%AE%BE%E3%80%91%E5%AF%BB%E8%BF%B9%E5%B0%8F%E8%BD%A6/index.html">
+<meta property="og:site_name" content="Whaltze">
+<meta property="og:description" content="本文为up大二上学期寻迹小车设计记录以下为基本硬件配置  主控 stm32F103C8T6 五线四相 步进电机(STEP MORTOR)28BYJ-48 灰度传感器(简易版电子积木)    一些资料网站基于51单片机的红外寻迹小车基于Arduino的智能循迹小车基于STM32的循迹小车(直流电机)激光开源社区STM32——灰度PID的使用基于stm32f103c8t6的五路灰度传感器循迹小车ST">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://whaltze.github.io/img/%E3%80%90%E8%AF%BE%E8%AE%BE%E3%80%91%E5%AF%BB%E8%BF%B9%E5%B0%8F%E8%BD%A6.png">
+<meta property="article:published_time" content="2024-11-14T09:21:33.000Z">
+<meta property="article:modified_time" content="2025-02-15T19:16:58.000Z">
+<meta property="article:author" content="Whaltze">
+<meta property="article:tag" content="Blog">
+<meta property="article:tag" content="stm32">
+<meta property="article:tag" content="课设">
+<meta property="article:tag" content="寻迹小车">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://whaltze.github.io/img/%E3%80%90%E8%AF%BE%E8%AE%BE%E3%80%91%E5%AF%BB%E8%BF%B9%E5%B0%8F%E8%BD%A6.png"><link rel="shortcut icon" href="https://s2.loli.net/2024/07/17/6BaSwvE4bMmltTO.jpg"><link rel="canonical" href="http://whaltze.github.io/2024/11/14/%E3%80%90%E8%AF%BE%E8%AE%BE%E3%80%91%E5%AF%BB%E8%BF%B9%E5%B0%8F%E8%BD%A6/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=0.0.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【课设】寻迹小车',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-02-16 03:16:58'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2024/07/17/6BaSwvE4bMmltTO.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">58</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/%E3%80%90%E8%AF%BE%E8%AE%BE%E3%80%91%E5%AF%BB%E8%BF%B9%E5%B0%8F%E8%BD%A6.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Whaltze"><span class="site-name">Whaltze</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【课设】寻迹小车</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-11-14T09:21:33.000Z" title="Created 2024-11-14 17:21:33">2024-11-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-02-15T19:16:58.000Z" title="Updated 2025-02-16 03:16:58">2025-02-16</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【课设】寻迹小车"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<p>本文为up大二上学期寻迹小车设计记录<br>以下为基本硬件配置</p>
+<ul>
+<li>主控 stm32F103C8T6</li>
+<li>五线四相 步进电机(STEP MORTOR)28BYJ-48</li>
+<li>灰度传感器(简易版电子积木)</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>一些资料网站<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/plmnko208/article/details/135048667">基于51单片机的红外寻迹小车</a><br><a target="_blank" rel="noopener" href="https://github.com/Wind-Gone/Arduino-Traced-By-Line-SuperCar">基于Arduino的智能循迹小车</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_51951121/article/details/122499795">基于STM32的循迹小车(直流电机)</a><br><a target="_blank" rel="noopener" href="https://www.laserblock.cn/">激光开源社区</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_51963216/article/details/124548477">STM32——灰度PID的使用</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/2401_83386329/article/details/140243185">基于stm32f103c8t6的五路灰度传感器循迹小车</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_51651698/article/details/128760449">STM32驱动5路灰度传感器PID循迹</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_62179882/article/details/128568965">【STM32】步进电机及其驱动</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_63800470/article/details/130466162">五路模拟量灰度传感器–ADC+DMA</a><br><a target="_blank" rel="noopener" href="https://serial.baud-dance.com/">波特律动串口助手</a></p>
+</blockquote>
+<h2 id="步进电机"><a href="#步进电机" class="headerlink" title="步进电机"></a>步进电机</h2><p>步进电机不能直接使用直流或交流电源来驱动，需要使用专门的驱动器将脉冲电信号变换成相应的角位移或线位移进行驱动,角位移或线位移与脉冲数成正比,即其转速或线速度与输入控制脉冲的频率成正比。</p>
+<blockquote>
+<ul>
+<li>步进电机控制特点</li>
+</ul>
+<ol>
+<li>电机的总转动角度由输入脉冲数决定</li>
+<li>电机的转速由脉冲信号频率决定</li>
+</ol>
+</blockquote>
+<p>步进电机的内部结构示意图,及其工作原理</p>
+<p><img src="/./images/%E3%80%90%E8%AF%BE%E8%AE%BE%E3%80%91%E5%AF%BB%E8%BF%B9%E5%B0%8F%E8%BD%A6/1.png" alt="图片来源网络"></p>
+<p><img src="/./images/%E3%80%90%E8%AF%BE%E8%AE%BE%E3%80%91%E5%AF%BB%E8%BF%B9%E5%B0%8F%E8%BD%A6/2.png" alt="图片来源网络"></p>
+<p><img src="/./images/%E3%80%90%E8%AF%BE%E8%AE%BE%E3%80%91%E5%AF%BB%E8%BF%B9%E5%B0%8F%E8%BD%A6/3.png" alt="图片来源网络"></p>
+<p><img src="/./images/%E3%80%90%E8%AF%BE%E8%AE%BE%E3%80%91%E5%AF%BB%E8%BF%B9%E5%B0%8F%E8%BD%A6/4.png" alt="图片来源网络"></p>
+<p>我采用的是五线四相的步进电机</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://Whaltze.github.io">Whaltze</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://whaltze.github.io/2024/11/14/%E3%80%90%E8%AF%BE%E8%AE%BE%E3%80%91%E5%AF%BB%E8%BF%B9%E5%B0%8F%E8%BD%A6/">http://whaltze.github.io/2024/11/14/%E3%80%90%E8%AF%BE%E8%AE%BE%E3%80%91%E5%AF%BB%E8%BF%B9%E5%B0%8F%E8%BD%A6/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Blog/">Blog</a><a class="post-meta__tags" href="/tags/stm32/">stm32</a><a class="post-meta__tags" href="/tags/%E8%AF%BE%E8%AE%BE/">课设</a><a class="post-meta__tags" href="/tags/%E5%AF%BB%E8%BF%B9%E5%B0%8F%E8%BD%A6/">寻迹小车</a></div><div class="post_share"><div class="social-share" data-image="/img/%E3%80%90%E8%AF%BE%E8%AE%BE%E3%80%91%E5%AF%BB%E8%BF%B9%E5%B0%8F%E8%BD%A6.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>投喂作者</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/WeChat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/WeChat.jpg" alt="WeChat"/></a><div class="post-qr-code-desc">WeChat</div></li><li class="reward-item"><a href="/img/AliPay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/AliPay.jpg" alt="AliPay"/></a><div class="post-qr-code-desc">AliPay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/01/10/%E5%A4%A9%E9%80%894%E8%BF%9E%E6%8E%A5HDMI%E5%90%8E%E6%8A%95%E5%B1%8F%E6%97%A0%E4%BF%A1%E5%8F%B7/" title="天选4连接HDMI后投屏无信号"><img class="cover" src="/img/%E5%A4%A9%E9%80%894%E8%BF%9E%E6%8E%A5HDMI%E5%90%8E%E6%8A%95%E5%B1%8F%E6%97%A0%E4%BF%A1%E5%8F%B7.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous</div><div class="prev_info">天选4连接HDMI后投屏无信号</div></div></a></div><div class="next-post pull-right"><a href="/2024/10/22/%E8%A7%86%E8%A7%89%E7%BB%84%E5%9F%B9%E8%AE%AD/" title="视觉组培训"><img class="cover" src="/img/5.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next</div><div class="next_info">视觉组培训</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2024/10/20/Stm32%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" title="stm32学习记录"><img class="cover" src="/img/4.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-20</div><div class="title">stm32学习记录</div></div></a></div><div><a href="/2025/04/29/%E3%80%90%E8%AF%BE%E8%AE%BE%E3%80%91DELTA%E6%9C%BA%E5%99%A8%E4%BA%BA/" title="【课设】DELTA机器人"><img class="cover" src="/img/%E3%80%90%E8%AF%BE%E8%AE%BE%E3%80%91DELTA%E6%9C%BA%E5%99%A8%E4%BA%BA.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-29</div><div class="title">【课设】DELTA机器人</div></div></a></div><div><a href="/2025/02/04/GitHub%E7%9A%84%E9%85%8D%E7%BD%AE%E5%AD%A6%E4%B9%A0/" title="GitHub的配置学习"><img class="cover" src="/img/GitHub%E7%9A%84%E9%85%8D%E7%BD%AE%E5%AD%A6%E4%B9%A0.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-04</div><div class="title">GitHub的配置学习</div></div></a></div><div><a href="/2024/07/15/Deploy%20Environment%20to%20Anaconda3/" title="Deploy Environment to Anaconda3"><img class="cover" src="/img/2.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-15</div><div class="title">Deploy Environment to Anaconda3</div></div></a></div><div><a href="/2025/02/14/RM2025%E5%AF%BC%E8%88%AA%E8%B0%83%E8%AF%95/" title="RM2025导航调试"><img class="cover" src="/img/RM2025%E5%AF%BC%E8%88%AA%E8%B0%83%E8%AF%95.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-14</div><div class="title">RM2025导航调试</div></div></a></div><div><a href="/2024/07/10/Preface/" title="Preface"><img class="cover" src="/img/0.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-10</div><div class="title">Preface</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s2.loli.net/2024/07/17/6BaSwvE4bMmltTO.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Whaltze</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">58</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Whaltze/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Whaltze" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E8%BF%9B%E7%94%B5%E6%9C%BA"><span class="toc-number">1.</span> <span class="toc-text">步进电机</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/18/dso%E5%AE%89%E8%A3%85%E5%8F%8A%E5%AE%9E%E9%AA%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90(%E5%86%85%E5%90%ABminiconda3%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE)/" title="Untitled">Untitled</a><time datetime="2026-01-18T08:06:10.894Z" title="Created 2026-01-18 16:06:10">2026-01-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/02/Windows%E4%B8%8B%E9%83%A8%E7%BD%B2Miniforge/" title="Windows下部署Miniforge"><img src="/img/Windows%E4%B8%8B%E9%83%A8%E7%BD%B2Miniforge.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Windows下部署Miniforge"/></a><div class="content"><a class="title" href="/2026/01/02/Windows%E4%B8%8B%E9%83%A8%E7%BD%B2Miniforge/" title="Windows下部署Miniforge">Windows下部署Miniforge</a><time datetime="2026-01-02T11:37:09.000Z" title="Created 2026-01-02 19:37:09">2026-01-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/03/%E3%80%90ROS%E5%A4%A7%E4%BD%9C%E4%B8%9A%E3%80%91%E5%9F%BA%E4%BA%8ECamera%E7%9A%84%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B%E8%AF%86%E5%88%AB/" title="【ROS大作业】基于Camera的人脸检测识别"><img src="/img/%E3%80%90ROS%E5%A4%A7%E4%BD%9C%E4%B8%9A%E3%80%91%E5%9F%BA%E4%BA%8ECamera%E7%9A%84%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B%E8%AF%86%E5%88%AB.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【ROS大作业】基于Camera的人脸检测识别"/></a><div class="content"><a class="title" href="/2025/11/03/%E3%80%90ROS%E5%A4%A7%E4%BD%9C%E4%B8%9A%E3%80%91%E5%9F%BA%E4%BA%8ECamera%E7%9A%84%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B%E8%AF%86%E5%88%AB/" title="【ROS大作业】基于Camera的人脸检测识别">【ROS大作业】基于Camera的人脸检测识别</a><time datetime="2025-11-03T02:37:58.000Z" title="Created 2025-11-03 10:37:58">2025-11-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/24/Ubuntu%E7%B3%BB%E7%BB%9F%E7%BD%91%E5%8D%A1%E9%A9%B1%E5%8A%A8%E4%BF%AE%E5%A4%8D/" title="Ubuntu系统网卡驱动修复"><img src="/img/Ubuntu%E7%B3%BB%E7%BB%9F%E7%BD%91%E5%8D%A1%E9%A9%B1%E5%8A%A8%E4%BF%AE%E5%A4%8D.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Ubuntu系统网卡驱动修复"/></a><div class="content"><a class="title" href="/2025/10/24/Ubuntu%E7%B3%BB%E7%BB%9F%E7%BD%91%E5%8D%A1%E9%A9%B1%E5%8A%A8%E4%BF%AE%E5%A4%8D/" title="Ubuntu系统网卡驱动修复">Ubuntu系统网卡驱动修复</a><time datetime="2025-10-24T00:46:35.000Z" title="Created 2025-10-24 08:46:35">2025-10-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/17/ROS%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" title="ROS课程笔记"><img src="/img/ROS%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ROS课程笔记"/></a><div class="content"><a class="title" href="/2025/10/17/ROS%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" title="ROS课程笔记">ROS课程笔记</a><time datetime="2025-10-17T00:22:59.000Z" title="Created 2025-10-17 08:22:59">2025-10-17</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2026 By Whaltze</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=0.0.0"></script><script src="/js/main.js?v=0.0.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

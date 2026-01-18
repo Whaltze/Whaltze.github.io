@@ -1,0 +1,208 @@
+<!DOCTYPE html><html lang="en" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>通过Git上传本地项目至Github | Whaltze</title><meta name="author" content="Whaltze"><meta name="copyright" content="Whaltze"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Ubuntu Linux系统-Ubuntu22.04  安装Git1234567891011apt-get install git # 安装Gitgit --version # 安装成功后显示版本 git version 2.34.1git config --global user.name &quot;name&quot; # 配置用户名git config --global user.emai">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通过Git上传本地项目至Github">
+<meta property="og:url" content="http://whaltze.github.io/2024/09/15/%E9%80%9A%E8%BF%87Git%E4%B8%8A%E4%BC%A0%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE%E8%87%B3Github/index.html">
+<meta property="og:site_name" content="Whaltze">
+<meta property="og:description" content="Ubuntu Linux系统-Ubuntu22.04  安装Git1234567891011apt-get install git # 安装Gitgit --version # 安装成功后显示版本 git version 2.34.1git config --global user.name &quot;name&quot; # 配置用户名git config --global user.emai">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://whaltze.github.io/img/%E9%80%9A%E8%BF%87Git%E4%B8%8A%E4%BC%A0%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE%E8%87%B3Github.png">
+<meta property="article:published_time" content="2024-09-15T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-02-15T19:25:46.000Z">
+<meta property="article:author" content="Whaltze">
+<meta property="article:tag" content="Blog">
+<meta property="article:tag" content="GitHub">
+<meta property="article:tag" content="Git">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://whaltze.github.io/img/%E9%80%9A%E8%BF%87Git%E4%B8%8A%E4%BC%A0%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE%E8%87%B3Github.png"><link rel="shortcut icon" href="https://s2.loli.net/2024/07/17/6BaSwvE4bMmltTO.jpg"><link rel="canonical" href="http://whaltze.github.io/2024/09/15/%E9%80%9A%E8%BF%87Git%E4%B8%8A%E4%BC%A0%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE%E8%87%B3Github/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=0.0.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '通过Git上传本地项目至Github',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-02-16 03:25:46'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2024/07/17/6BaSwvE4bMmltTO.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">58</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/%E9%80%9A%E8%BF%87Git%E4%B8%8A%E4%BC%A0%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE%E8%87%B3Github.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Whaltze"><span class="site-name">Whaltze</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">通过Git上传本地项目至Github</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-09-15T00:00:00.000Z" title="Created 2024-09-15 08:00:00">2024-09-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-02-15T19:25:46.000Z" title="Updated 2025-02-16 03:25:46">2025-02-16</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="通过Git上传本地项目至Github"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h1><blockquote>
+<p>Linux系统-Ubuntu22.04</p>
+</blockquote>
+<h2 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">apt-get install git # 安装Git</span><br><span class="line"></span><br><span class="line">git --version # 安装成功后显示版本 git version 2.34.1</span><br><span class="line"></span><br><span class="line">git config --global user.name &quot;name&quot; # 配置用户名</span><br><span class="line"></span><br><span class="line">git config --global user.email &quot;email&quot; # 配置用户邮箱</span><br><span class="line"></span><br><span class="line">git config --list # 查看全局配置</span><br><span class="line"></span><br><span class="line">ssh-keygen -t rsa -C email # 生成ssh-key 目录root/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+<p>将id_rsa.pub里面的内容复制到github账户中</p>
+<h2 id="测试链接"><a href="#测试链接" class="headerlink" title="测试链接"></a>测试链接</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com # 测试链接</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>出现以下内容即表示成功<br>You’ve successfully authenticated, but GitHub does not provide shell access. # 成功</p>
+</blockquote>
+<p>PS 如果上面配置账户不成功，你也可以手动添加账户，进入config 写入用户信息</p>
+<h1 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h1><blockquote>
+<p>开始前先下载 Git 插件，因博主配置博客时已经接触git，这里不再演示，下面给出官方下载地址和教程，供自行学习查阅<br><a target="_blank" rel="noopener" href="https://git-scm.com/">Git 官方下载地址</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_71102932/article/details/141326014">详细下载教程</a></p>
+</blockquote>
+<p>进入要上传项目的本地文件夹，在文件夹内鼠标右键，看到 <em><strong>Open Git Bash here</strong></em> 和 <em><strong>Open Git GUI here</strong></em> 两个选项说明前面下载git成功</p>
+<p>点击Open Git Bash here，在命令行对话框中输入如下指令，创建初始文件夹</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+<p>这里要注意，他是隐身的，要打开勾选隐藏的项目才能看到</p>
+<p>然后依次输入以下指令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git add . </span><br><span class="line">git commit -m &quot;commit&quot;  </span><br><span class="line">git remote add origin https://自己的仓库url地址 </span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>第一条指令是将项目上所有文件添加到该库中，如果要添加特定的文件，把 <strong>。</strong> 改成这个特定的文件即可</p>
+</blockquote>
+<blockquote>
+<p>第二个指令表示你对这次提交的注释，引号内容可修改</p>
+</blockquote>
+<blockquote>
+<p>将本地的仓库关联到github上，根据个人不同进行修改</p>
+</blockquote>
+<blockquote>
+<p>将代码上传至github，正常情况输入完成账号密码即可</p>
+</blockquote>
+<p>具体上传情况可能会有点延迟，稍等片刻即可</p>
+<h1 id="PR"><a href="#PR" class="headerlink" title="PR"></a>PR</h1><p><img src="/./images/%E9%80%9A%E8%BF%87Git%E4%B8%8A%E4%BC%A0%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE%E8%87%B3Github/1.png" alt=" "><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/daniel-hutao/p/open-a-pr-in-github.html">如何参与开源项目 - 细说 GitHub 上的 PR 全过程</a></p>
+<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><p>建立本地分支最好单独在一个空目录下，在此目录下执行完git remote add origin <a href="mailto:&#103;&#x69;&#x74;&#x40;&#x67;&#x69;&#116;&#104;&#117;&#98;&#x2e;&#x63;&#x6f;&#109;">&#103;&#x69;&#x74;&#x40;&#x67;&#x69;&#116;&#104;&#117;&#98;&#x2e;&#x63;&#x6f;&#109;</a>:name&#x2F;repo.git后再执行后面的指令不会出错，此后不管是push、pull、rm都在这个目录进行，这里name&#x2F;repo为自己账户名字和库名字，如Whaltze&#x2F;Robot</p>
+<h1 id="小技巧"><a href="#小技巧" class="headerlink" title="小技巧"></a>小技巧</h1><blockquote>
+<p>查看提交历史记录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>删除上传的文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git rm --cached xxx //xxx为文件名,这里不能为目录</span><br><span class="line">git commit -m &quot;xxx&quot; //xxx为注释</span><br><span class="line">git push origin</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>同步本地分支和github分支</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull origin master</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>克隆分支库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone -b 分支名称 https://gitee.com/项目(仓库地址).git</span><br></pre></td></tr></table></figure>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://Whaltze.github.io">Whaltze</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://whaltze.github.io/2024/09/15/%E9%80%9A%E8%BF%87Git%E4%B8%8A%E4%BC%A0%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE%E8%87%B3Github/">http://whaltze.github.io/2024/09/15/%E9%80%9A%E8%BF%87Git%E4%B8%8A%E4%BC%A0%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE%E8%87%B3Github/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Blog/">Blog</a><a class="post-meta__tags" href="/tags/GitHub/">GitHub</a><a class="post-meta__tags" href="/tags/Git/">Git</a></div><div class="post_share"><div class="social-share" data-image="/img/%E9%80%9A%E8%BF%87Git%E4%B8%8A%E4%BC%A0%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE%E8%87%B3Github.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>投喂作者</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/WeChat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/WeChat.jpg" alt="WeChat"/></a><div class="post-qr-code-desc">WeChat</div></li><li class="reward-item"><a href="/img/AliPay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/AliPay.jpg" alt="AliPay"/></a><div class="post-qr-code-desc">AliPay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/09/22/SMART/" title="SMART"><img class="cover" src="/img/SMART.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous</div><div class="prev_info">SMART</div></div></a></div><div class="next-post pull-right"><a href="/2024/08/26/%E8%A7%A3%E5%86%B3VMware%E4%B8%8BUbuntu22.04%E6%97%A0%E6%B3%95%E8%81%94%E7%BD%91%E9%97%AE%E9%A2%98/" title="解决VMware下Ubuntu22.04无法联网问题"><img class="cover" src="/img/%E8%A7%A3%E5%86%B3VMware%E4%B8%8BUbuntu22.04%E6%97%A0%E6%B3%95%E8%81%94%E7%BD%91%E9%97%AE%E9%A2%98.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next</div><div class="next_info">解决VMware下Ubuntu22.04无法联网问题</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2025/02/04/GitHub%E7%9A%84%E9%85%8D%E7%BD%AE%E5%AD%A6%E4%B9%A0/" title="GitHub的配置学习"><img class="cover" src="/img/GitHub%E7%9A%84%E9%85%8D%E7%BD%AE%E5%AD%A6%E4%B9%A0.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-04</div><div class="title">GitHub的配置学习</div></div></a></div><div><a href="/2024/09/22/%E5%9F%BA%E4%BA%8Ehexo%E7%9A%84butterfiy%E4%B8%BB%E9%A2%98%E7%9A%84%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/" title="基于hexo的butterfiy主题的博客配置教程"><img class="cover" src="/img/%E5%9F%BA%E4%BA%8Ehexo%E7%9A%84butterfiy%E4%B8%BB%E9%A2%98%E7%9A%84%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-22</div><div class="title">基于hexo的butterfiy主题的博客配置教程</div></div></a></div><div><a href="/2024/07/15/Deploy%20Environment%20to%20Anaconda3/" title="Deploy Environment to Anaconda3"><img class="cover" src="/img/2.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-15</div><div class="title">Deploy Environment to Anaconda3</div></div></a></div><div><a href="/2025/02/14/RM2025%E5%AF%BC%E8%88%AA%E8%B0%83%E8%AF%95/" title="RM2025导航调试"><img class="cover" src="/img/RM2025%E5%AF%BC%E8%88%AA%E8%B0%83%E8%AF%95.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-14</div><div class="title">RM2025导航调试</div></div></a></div><div><a href="/2024/07/10/Preface/" title="Preface"><img class="cover" src="/img/0.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-10</div><div class="title">Preface</div></div></a></div><div><a href="/2024/07/10/Learning%20Markdown/" title="Markdown"><img class="cover" src="/img/1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-10</div><div class="title">Markdown</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s2.loli.net/2024/07/17/6BaSwvE4bMmltTO.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Whaltze</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">58</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Whaltze/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Whaltze" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Ubuntu"><span class="toc-number">1.</span> <span class="toc-text">Ubuntu</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Git"><span class="toc-number">1.1.</span> <span class="toc-text">安装Git</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E9%93%BE%E6%8E%A5"><span class="toc-number">1.2.</span> <span class="toc-text">测试链接</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#windows"><span class="toc-number">2.</span> <span class="toc-text">windows</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PR"><span class="toc-number">3.</span> <span class="toc-text">PR</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">4.</span> <span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B0%8F%E6%8A%80%E5%B7%A7"><span class="toc-number">5.</span> <span class="toc-text">小技巧</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/18/dso%E5%AE%89%E8%A3%85%E5%8F%8A%E5%AE%9E%E9%AA%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90(%E5%86%85%E5%90%ABminiconda3%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE)/" title="Untitled">Untitled</a><time datetime="2026-01-18T08:06:10.894Z" title="Created 2026-01-18 16:06:10">2026-01-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/02/Windows%E4%B8%8B%E9%83%A8%E7%BD%B2Miniforge/" title="Windows下部署Miniforge"><img src="/img/Windows%E4%B8%8B%E9%83%A8%E7%BD%B2Miniforge.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Windows下部署Miniforge"/></a><div class="content"><a class="title" href="/2026/01/02/Windows%E4%B8%8B%E9%83%A8%E7%BD%B2Miniforge/" title="Windows下部署Miniforge">Windows下部署Miniforge</a><time datetime="2026-01-02T11:37:09.000Z" title="Created 2026-01-02 19:37:09">2026-01-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/03/%E3%80%90ROS%E5%A4%A7%E4%BD%9C%E4%B8%9A%E3%80%91%E5%9F%BA%E4%BA%8ECamera%E7%9A%84%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B%E8%AF%86%E5%88%AB/" title="【ROS大作业】基于Camera的人脸检测识别"><img src="/img/%E3%80%90ROS%E5%A4%A7%E4%BD%9C%E4%B8%9A%E3%80%91%E5%9F%BA%E4%BA%8ECamera%E7%9A%84%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B%E8%AF%86%E5%88%AB.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【ROS大作业】基于Camera的人脸检测识别"/></a><div class="content"><a class="title" href="/2025/11/03/%E3%80%90ROS%E5%A4%A7%E4%BD%9C%E4%B8%9A%E3%80%91%E5%9F%BA%E4%BA%8ECamera%E7%9A%84%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B%E8%AF%86%E5%88%AB/" title="【ROS大作业】基于Camera的人脸检测识别">【ROS大作业】基于Camera的人脸检测识别</a><time datetime="2025-11-03T02:37:58.000Z" title="Created 2025-11-03 10:37:58">2025-11-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/24/Ubuntu%E7%B3%BB%E7%BB%9F%E7%BD%91%E5%8D%A1%E9%A9%B1%E5%8A%A8%E4%BF%AE%E5%A4%8D/" title="Ubuntu系统网卡驱动修复"><img src="/img/Ubuntu%E7%B3%BB%E7%BB%9F%E7%BD%91%E5%8D%A1%E9%A9%B1%E5%8A%A8%E4%BF%AE%E5%A4%8D.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Ubuntu系统网卡驱动修复"/></a><div class="content"><a class="title" href="/2025/10/24/Ubuntu%E7%B3%BB%E7%BB%9F%E7%BD%91%E5%8D%A1%E9%A9%B1%E5%8A%A8%E4%BF%AE%E5%A4%8D/" title="Ubuntu系统网卡驱动修复">Ubuntu系统网卡驱动修复</a><time datetime="2025-10-24T00:46:35.000Z" title="Created 2025-10-24 08:46:35">2025-10-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/17/ROS%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" title="ROS课程笔记"><img src="/img/ROS%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ROS课程笔记"/></a><div class="content"><a class="title" href="/2025/10/17/ROS%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" title="ROS课程笔记">ROS课程笔记</a><time datetime="2025-10-17T00:22:59.000Z" title="Created 2025-10-17 08:22:59">2025-10-17</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2026 By Whaltze</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=0.0.0"></script><script src="/js/main.js?v=0.0.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

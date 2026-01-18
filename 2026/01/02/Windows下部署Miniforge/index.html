@@ -1,0 +1,316 @@
+<!DOCTYPE html><html lang="en" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Windows下部署Miniforge | Whaltze</title><meta name="author" content="Whaltze"><meta name="copyright" content="Whaltze"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="安装配置Miniforge第一步：下载正确的安装包直接从 GitHub 官方仓库下载最新的 Windows x86_64 版本。  访问地址： Miniforge GitHub Releases &amp; Forge-org 目标文件： 找到列表中的 Miniforge3-Windows-x86_64.exe (通常在 Latest Release 下)。 下载： 下载到本地。   注意 Min">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows下部署Miniforge">
+<meta property="og:url" content="http://whaltze.github.io/2026/01/02/Windows%E4%B8%8B%E9%83%A8%E7%BD%B2Miniforge/index.html">
+<meta property="og:site_name" content="Whaltze">
+<meta property="og:description" content="安装配置Miniforge第一步：下载正确的安装包直接从 GitHub 官方仓库下载最新的 Windows x86_64 版本。  访问地址： Miniforge GitHub Releases &amp; Forge-org 目标文件： 找到列表中的 Miniforge3-Windows-x86_64.exe (通常在 Latest Release 下)。 下载： 下载到本地。   注意 Min">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://whaltze.github.io/img/Windows%E4%B8%8B%E9%83%A8%E7%BD%B2Miniforge.png">
+<meta property="article:published_time" content="2026-01-02T11:37:09.000Z">
+<meta property="article:modified_time" content="2026-01-03T10:35:24.000Z">
+<meta property="article:author" content="Whaltze">
+<meta property="article:tag" content="Blog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://whaltze.github.io/img/Windows%E4%B8%8B%E9%83%A8%E7%BD%B2Miniforge.png"><link rel="shortcut icon" href="https://s2.loli.net/2024/07/17/6BaSwvE4bMmltTO.jpg"><link rel="canonical" href="http://whaltze.github.io/2026/01/02/Windows%E4%B8%8B%E9%83%A8%E7%BD%B2Miniforge/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=0.0.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Windows下部署Miniforge',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-01-03 18:35:24'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2024/07/17/6BaSwvE4bMmltTO.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">58</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/Windows%E4%B8%8B%E9%83%A8%E7%BD%B2Miniforge.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Whaltze"><span class="site-name">Whaltze</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Windows下部署Miniforge</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2026-01-02T11:37:09.000Z" title="Created 2026-01-02 19:37:09">2026-01-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-01-03T10:35:24.000Z" title="Updated 2026-01-03 18:35:24">2026-01-03</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Windows下部署Miniforge"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="安装配置Miniforge"><a href="#安装配置Miniforge" class="headerlink" title="安装配置Miniforge"></a>安装配置Miniforge</h1><h2 id="第一步：下载正确的安装包"><a href="#第一步：下载正确的安装包" class="headerlink" title="第一步：下载正确的安装包"></a>第一步：下载正确的安装包</h2><p>直接从 GitHub 官方仓库下载最新的 Windows x86_64 版本。</p>
+<ol>
+<li><strong>访问地址：</strong> <a target="_blank" rel="noopener" href="https://github.com/conda-forge/miniforge/releases">Miniforge GitHub Releases</a> &amp; <a target="_blank" rel="noopener" href="https://conda-forge.org/miniforge/#history">Forge-org</a></li>
+<li><strong>目标文件：</strong> 找到列表中的 <code>Miniforge3-Windows-x86_64.exe</code> (通常在 Latest Release 下)。</li>
+<li><strong>下载：</strong> 下载到本地。</li>
+</ol>
+<blockquote>
+<p>注意 <code>Miniforge3-25.11.0-1-Windows-x86_64.exe.sha256</code> 文件是哈希校验文件, 用于与安装包文件进行比较, 检验安装包是否完整</p>
+</blockquote>
+<hr>
+<h2 id="第二步：安装过程（关键避坑点）"><a href="#第二步：安装过程（关键避坑点）" class="headerlink" title="第二步：安装过程（关键避坑点）"></a>第二步：安装过程（关键避坑点）</h2><p>双击运行安装包，一路 Next，直到遇到以下两个关键界面，请务必按我说的做：</p>
+<ol>
+<li><strong>Select Installation Type (安装类型):</strong></li>
+</ol>
+<ul>
+<li>选择 **Just Me (recommended)**。</li>
+<li><em>理由：</em> 避免权限问题，将文件限制在你的用户目录下，不影响系统其他用户。</li>
+</ul>
+<ol start="2">
+<li><strong>Advanced Options (高级选项) —— 这里最重要！</strong></li>
+</ol>
+<ul>
+<li><p><strong>🔲 Create shortcuts… (创建快捷方式):</strong> ✅ <strong>勾选</strong>。</p>
+</li>
+<li><p><strong>🔲 Add Miniforge3 to my PATH environment variable (添加到 PATH):</strong> ❌ <strong>绝对不要勾选</strong>。</p>
+</li>
+<li><p><em>这是保持系统干净的核心。如果不勾选，CMD 和 PowerShell 默认找不到 conda，只有通过专用的快捷方式才能启动，实现了物理隔离。</em></p>
+</li>
+<li><p><strong>🔲 Register Miniforge3 as my default Python 3.12… (注册为默认 Python):</strong> ❓ <strong>可选，建议不勾选</strong>。</p>
+</li>
+<li><p><em>为了极致的隔离，建议不勾选。如果你后续安装 VS Code，我们在 VS Code 内部指定路径即可，不需要通过注册表告诉全世界它的存在。</em></p>
+</li>
+</ul>
+<ol start="3">
+<li><strong>安装路径：</strong> 默认通常是 <code>C:\Users\你的用户名\miniforge3</code>。建议保持默认，或者改到空间较大的盘（如 <code>D:\Dev\miniforge3</code>），但路径<strong>千万不要包含中文或空格</strong>。</li>
+</ol>
+<hr>
+<h2 id="第三步：验证安装与初始化"><a href="#第三步：验证安装与初始化" class="headerlink" title="第三步：验证安装与初始化"></a>第三步：验证安装与初始化</h2><p>安装完成后，你的“开始菜单”里会出现一个名为 <strong>Miniforge3</strong> 的文件夹。</p>
+<ol>
+<li><strong>启动专用终端：</strong></li>
+</ol>
+<ul>
+<li>点击 <code>Miniforge Prompt</code>。</li>
+<li>你会看到一个黑色的命令行窗口，最左侧显示 <code>(base)</code>。这代表你现在处于 Miniforge 的基础环境中。</li>
+</ul>
+<ol start="2">
+<li><strong>验证隔离性：</strong></li>
+</ol>
+<ul>
+<li><p>在 <code>Miniforge Prompt</code> 里输入：<code>where python</code></p>
+</li>
+<li><p><em>结果应指向：</em> <code>...\miniforge3\python.exe</code></p>
+</li>
+<li><p>打开一个普通的 <strong>PowerShell</strong> 或 <strong>CMD</strong>，输入：<code>python</code></p>
+</li>
+<li><p><em>结果应该是：</em> 找不到命令，或者跳出 Windows 应用商店。</p>
+</li>
+<li><p><strong>结论：</strong> 恭喜，你的系统环境依然是一张白纸，Miniforge 被完美关进了笼子。</p>
+</li>
+</ul>
+<hr>
+<h2 id="第四步：配置“生产级”开发习惯"><a href="#第四步：配置“生产级”开发习惯" class="headerlink" title="第四步：配置“生产级”开发习惯"></a>第四步：配置“生产级”开发习惯</h2><p>在 <code>Miniforge Prompt</code> 中执行以下命令，优化你的使用体验。</p>
+<h3 id="1-禁止-Base-环境自动激活（防止误操作）"><a href="#1-禁止-Base-环境自动激活（防止误操作）" class="headerlink" title="1. 禁止 Base 环境自动激活（防止误操作）"></a>1. 禁止 Base 环境自动激活（防止误操作）</h3><p>Base 环境只应该用来管理 conda 本身（升级 conda、创建新环境），<strong>永远不要</strong>在 Base 里安装你的开发包（numpy, pandas 等）。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda config <span class="literal">--set</span> auto_activate_base false</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><em>效果：下次打开终端，如果你不主动 <code>conda activate</code>，就不会进入任何环境，避免你迷迷糊糊把包状错位置。</em></p>
+<h3 id="2-配置下载加速（如果你在国内）"><a href="#2-配置下载加速（如果你在国内）" class="headerlink" title="2. 配置下载加速（如果你在国内）"></a>2. 配置下载加速（如果你在国内）</h3><p>由于 Miniforge 默认连接的是国外的 <code>conda-forge</code>，下载速度可能很慢。我们可以配置清华大学或北京外国语大学的镜像源。</p>
+<p><em>(如果你有科学上网环境且网速很快，可以跳过此步)</em></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加清华源的 conda-forge 频道</span></span><br><span class="line">conda config <span class="literal">--add</span> channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda<span class="literal">-forge</span>/</span><br><span class="line"><span class="comment"># 设置频道优先级（保证优先使用镜像）</span></span><br><span class="line">conda config <span class="literal">--set</span> channel_priority strict</span><br><span class="line"><span class="comment"># 验证配置</span></span><br><span class="line">conda config <span class="literal">--show</span> channels</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="第五步：实战演练——创建你的第一个算法环境"><a href="#第五步：实战演练——创建你的第一个算法环境" class="headerlink" title="第五步：实战演练——创建你的第一个算法环境"></a>第五步：实战演练——创建你的第一个算法环境</h2><p>为了验证一切正常，我们模拟创建一个用于算法开发的环境。</p>
+<ol>
+<li><p><strong>创建环境：</strong></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建一个名为 algo_dev 的环境，指定 python 3.9 (很多算法库对 3.9 支持最稳)</span></span><br><span class="line">conda create <span class="literal">-n</span> algo_dev python=<span class="number">3.9</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p><strong>激活环境：</strong></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda activate algo_dev</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><em>此时命令行前缀会从 <code>(base)</code> 变成 <code>(algo_dev)</code>。</em><br>3. <strong>安装基础包：</strong></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装 numpy 和 pandas</span></span><br><span class="line"><span class="comment"># 注意：mamba 是 miniforge 自带的加速工具，命令用法和 conda 一模一样，但快得多</span></span><br><span class="line">mamba install numpy pandas matplotlib</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<ol start="4">
+<li><strong>清理环境（演示）：</strong><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 退出环境</span></span><br><span class="line">conda deactivate</span><br><span class="line"><span class="comment"># 删除环境（如果以后不需要了）</span></span><br><span class="line"><span class="comment"># conda remove -n algo_dev --all</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h2 id="第六步：连接-IDE-VS-Code"><a href="#第六步：连接-IDE-VS-Code" class="headerlink" title="第六步：连接 IDE (VS Code)"></a>第六步：连接 IDE (VS Code)</h2><p>作为开发者，你肯定不会一直用黑框框写代码。推荐安装 <strong>VS Code</strong> (通过官网下载安装即可，这个不污染环境)。</p>
+<p><strong>如何让 VS Code 识别你的 Miniforge 环境？</strong></p>
+<ol>
+<li>用 VS Code 打开你的代码文件夹。</li>
+<li>打开一个 <code>.py</code> 文件。</li>
+<li>点击右下角的 Python 版本号（或者按 <code>Ctrl+Shift+P</code> 输入 <code>Python: Select Interpreter</code>）。</li>
+<li>VS Code 通常会自动扫描到 <code>...\miniforge3\envs\algo_dev\python.exe</code>。</li>
+<li>如果没有扫描到，点击 “Enter interpreter path”，手动找到你 Miniforge 安装目录下的 <code>envs</code> 文件夹即可。</li>
+</ol>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>现在，你已经拥有了一个<strong>极其干净、专业、可移植</strong>的 Windows Python 开发底座：</p>
+<ul>
+<li><strong>系统 PATH：</strong> 干净（无 Python）。</li>
+<li><strong>注册表：</strong> 干净。</li>
+<li><strong>依赖管理：</strong> 全部在 <code>miniforge3</code> 文件夹内闭环。</li>
+<li><strong>未来扩展：</strong> 需要 C++ 编译器？<code>conda create -n cpp_env</code> 然后 <code>mamba install compilers</code> 即可，互不干扰。</li>
+</ul>
+<h1 id="配置遇到的问题"><a href="#配置遇到的问题" class="headerlink" title="配置遇到的问题"></a>配置遇到的问题</h1><h2 id="VScode-的终端-找不到-虚拟环境的python"><a href="#VScode-的终端-找不到-虚拟环境的python" class="headerlink" title="VScode 的终端 找不到 虚拟环境的python"></a>VScode 的终端 找不到 虚拟环境的python</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">PS D:\STARY\Task&gt; A:/Miniforge/Miniforge3/Scripts/activate</span><br><span class="line">PS D:\STARY\Task&gt; conda activate whaltze</span><br><span class="line">conda : 无法将“conda”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试一次。</span><br><span class="line">所在位置 行:1 字符: 1</span><br><span class="line">+ conda activate whaltze</span><br><span class="line">+ ~~~~~</span><br><span class="line">    + CategoryInfo          : ObjectNotFound: (conda:String) [], CommandNotFoundException</span><br><span class="line">    + FullyQualifiedErrorId : CommandNotFoundException</span><br></pre></td></tr></table></figure>
+
+<h3 id="第一步：使用绝对路径初始化-PowerShell"><a href="#第一步：使用绝对路径初始化-PowerShell" class="headerlink" title="第一步：使用绝对路径初始化 PowerShell"></a>第一步：使用绝对路径初始化 PowerShell</h3><p>直接复制以下命令（请根据你的实际安装路径调整）并在终端运行：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp; <span class="string">&quot;A:\Miniforge\Miniforge3\condabin\conda.bat&quot;</span> init powershell</span><br></pre></td></tr></table></figure>
+
+<p><strong>解释</strong>：<br>此命令通过 Conda 安装目录下的 <code>conda.bat</code> 脚本初始化 PowerShell，使其能够识别 Conda 命令。</p>
+<hr>
+<h3 id="第二步：修改-PowerShell-脚本执行权限（必需）"><a href="#第二步：修改-PowerShell-脚本执行权限（必需）" class="headerlink" title="第二步：修改 PowerShell 脚本执行权限（必需）"></a>第二步：修改 PowerShell 脚本执行权限（必需）</h3><p>即使初始化成功，若 Windows 禁止加载配置文件，下次打开终端仍会报错。<br>在当前终端中继续输入：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set-ExecutionPolicy</span> <span class="literal">-ExecutionPolicy</span> RemoteSigned <span class="literal">-Scope</span> CurrentUser</span><br></pre></td></tr></table></figure>
+
+<hr>
+<blockquote>
+<p>命令详解：<code>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser</code></p>
+</blockquote>
+<p>可以将该命令拆解为三部分理解：</p>
+<ol>
+<li><p>**<code>Set-ExecutionPolicy</code>**（设置执行策略）  </p>
+<ul>
+<li><strong>含义</strong>：修改 PowerShell 的安全规则。  </li>
+<li><strong>背景</strong>：Windows 默认策略为 <code>Restricted</code>（受限），即<strong>禁止运行任何脚本文件</strong>。  </li>
+<li><strong>后果</strong>：Conda 启动时需要运行脚本（如 <code>profile.ps1</code>），因此被系统拦截。</li>
+</ul>
+</li>
+<li><p>**<code>-ExecutionPolicy RemoteSigned</code>**（策略设为：远程签名）  </p>
+<ul>
+<li><strong>含义</strong>：新规则的具体内容。  </li>
+<li><strong><code>RemoteSigned</code> 规则</strong>：  <ul>
+<li><strong>本地创建的脚本</strong>（如自己编写或 Conda 生成的）：允许直接运行，无需签名。  </li>
+<li><strong>从互联网下载的脚本</strong>：必须有受信任发布者的数字签名方可运行。</li>
+</ul>
+</li>
+<li><strong>作用</strong>：在保障开发便利（允许使用 Conda、Python 等工具）的同时，防止自动运行恶意脚本。此为开发者常用设置。</li>
+</ul>
+</li>
+<li><p>**<code>-Scope CurrentUser</code>**（范围：仅当前用户）  </p>
+<ul>
+<li><strong>含义</strong>：该规则仅对当前登录的 Windows 用户生效。  </li>
+<li><strong>优点</strong>：  <ul>
+<li><strong>安全性高</strong>：不影响其他用户。  </li>
+<li><strong>通常无需管理员权限</strong>：可直接修改（若电脑管控严格，可能仍需提权）。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="虚拟环境找不到pip"><a href="#虚拟环境找不到pip" class="headerlink" title="虚拟环境找不到pip"></a>虚拟环境找不到pip</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">where pip</span><br></pre></td></tr></table></figure>
+
+<p>没有反应</p>
+<blockquote>
+<p>where 是怎么工作的： 它只在系统的环境变量 PATH 里去一个个文件夹翻找后缀为 .exe, .bat 等的可执行文件。</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-Command pip</span><br></pre></td></tr></table></figure>
+
+<p>成功显示 确实在虚拟环境中</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://Whaltze.github.io">Whaltze</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://whaltze.github.io/2026/01/02/Windows%E4%B8%8B%E9%83%A8%E7%BD%B2Miniforge/">http://whaltze.github.io/2026/01/02/Windows%E4%B8%8B%E9%83%A8%E7%BD%B2Miniforge/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Blog/">Blog</a></div><div class="post_share"><div class="social-share" data-image="/img/Windows%E4%B8%8B%E9%83%A8%E7%BD%B2Miniforge.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>投喂作者</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/WeChat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/WeChat.jpg" alt="WeChat"/></a><div class="post-qr-code-desc">WeChat</div></li><li class="reward-item"><a href="/img/AliPay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/AliPay.jpg" alt="AliPay"/></a><div class="post-qr-code-desc">AliPay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2026/01/18/dso%E5%AE%89%E8%A3%85%E5%8F%8A%E5%AE%9E%E9%AA%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90(%E5%86%85%E5%90%ABminiconda3%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE)/" title=""><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Previous</div><div class="prev_info"></div></div></a></div><div class="next-post pull-right"><a href="/2025/11/03/%E3%80%90ROS%E5%A4%A7%E4%BD%9C%E4%B8%9A%E3%80%91%E5%9F%BA%E4%BA%8ECamera%E7%9A%84%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B%E8%AF%86%E5%88%AB/" title="【ROS大作业】基于Camera的人脸检测识别"><img class="cover" src="/img/%E3%80%90ROS%E5%A4%A7%E4%BD%9C%E4%B8%9A%E3%80%91%E5%9F%BA%E4%BA%8ECamera%E7%9A%84%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B%E8%AF%86%E5%88%AB.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next</div><div class="next_info">【ROS大作业】基于Camera的人脸检测识别</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2025/02/04/GitHub%E7%9A%84%E9%85%8D%E7%BD%AE%E5%AD%A6%E4%B9%A0/" title="GitHub的配置学习"><img class="cover" src="/img/GitHub%E7%9A%84%E9%85%8D%E7%BD%AE%E5%AD%A6%E4%B9%A0.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-04</div><div class="title">GitHub的配置学习</div></div></a></div><div><a href="/2024/07/15/Deploy%20Environment%20to%20Anaconda3/" title="Deploy Environment to Anaconda3"><img class="cover" src="/img/2.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-15</div><div class="title">Deploy Environment to Anaconda3</div></div></a></div><div><a href="/2025/02/14/RM2025%E5%AF%BC%E8%88%AA%E8%B0%83%E8%AF%95/" title="RM2025导航调试"><img class="cover" src="/img/RM2025%E5%AF%BC%E8%88%AA%E8%B0%83%E8%AF%95.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-14</div><div class="title">RM2025导航调试</div></div></a></div><div><a href="/2024/07/10/Preface/" title="Preface"><img class="cover" src="/img/0.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-10</div><div class="title">Preface</div></div></a></div><div><a href="/2024/07/10/Learning%20Markdown/" title="Markdown"><img class="cover" src="/img/1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-10</div><div class="title">Markdown</div></div></a></div><div><a href="/2024/09/22/SMART/" title="SMART"><img class="cover" src="/img/SMART.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-22</div><div class="title">SMART</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s2.loli.net/2024/07/17/6BaSwvE4bMmltTO.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Whaltze</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">58</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Whaltze/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Whaltze" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEMiniforge"><span class="toc-number">1.</span> <span class="toc-text">安装配置Miniforge</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E4%B8%8B%E8%BD%BD%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">1.1.</span> <span class="toc-text">第一步：下载正确的安装包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B%EF%BC%88%E5%85%B3%E9%94%AE%E9%81%BF%E5%9D%91%E7%82%B9%EF%BC%89"><span class="toc-number">1.2.</span> <span class="toc-text">第二步：安装过程（关键避坑点）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85%E4%B8%8E%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">1.3.</span> <span class="toc-text">第三步：验证安装与初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5%EF%BC%9A%E9%85%8D%E7%BD%AE%E2%80%9C%E7%94%9F%E4%BA%A7%E7%BA%A7%E2%80%9D%E5%BC%80%E5%8F%91%E4%B9%A0%E6%83%AF"><span class="toc-number">1.4.</span> <span class="toc-text">第四步：配置“生产级”开发习惯</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%A6%81%E6%AD%A2-Base-%E7%8E%AF%E5%A2%83%E8%87%AA%E5%8A%A8%E6%BF%80%E6%B4%BB%EF%BC%88%E9%98%B2%E6%AD%A2%E8%AF%AF%E6%93%8D%E4%BD%9C%EF%BC%89"><span class="toc-number">1.4.1.</span> <span class="toc-text">1. 禁止 Base 环境自动激活（防止误操作）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%85%8D%E7%BD%AE%E4%B8%8B%E8%BD%BD%E5%8A%A0%E9%80%9F%EF%BC%88%E5%A6%82%E6%9E%9C%E4%BD%A0%E5%9C%A8%E5%9B%BD%E5%86%85%EF%BC%89"><span class="toc-number">1.4.2.</span> <span class="toc-text">2. 配置下载加速（如果你在国内）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E6%AD%A5%EF%BC%9A%E5%AE%9E%E6%88%98%E6%BC%94%E7%BB%83%E2%80%94%E2%80%94%E5%88%9B%E5%BB%BA%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%AE%97%E6%B3%95%E7%8E%AF%E5%A2%83"><span class="toc-number">1.5.</span> <span class="toc-text">第五步：实战演练——创建你的第一个算法环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E6%AD%A5%EF%BC%9A%E8%BF%9E%E6%8E%A5-IDE-VS-Code"><span class="toc-number">1.6.</span> <span class="toc-text">第六步：连接 IDE (VS Code)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.7.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">配置遇到的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#VScode-%E7%9A%84%E7%BB%88%E7%AB%AF-%E6%89%BE%E4%B8%8D%E5%88%B0-%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%9A%84python"><span class="toc-number">2.1.</span> <span class="toc-text">VScode 的终端 找不到 虚拟环境的python</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E4%BD%BF%E7%94%A8%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E5%88%9D%E5%A7%8B%E5%8C%96-PowerShell"><span class="toc-number">2.1.1.</span> <span class="toc-text">第一步：使用绝对路径初始化 PowerShell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E4%BF%AE%E6%94%B9-PowerShell-%E8%84%9A%E6%9C%AC%E6%89%A7%E8%A1%8C%E6%9D%83%E9%99%90%EF%BC%88%E5%BF%85%E9%9C%80%EF%BC%89"><span class="toc-number">2.1.2.</span> <span class="toc-text">第二步：修改 PowerShell 脚本执行权限（必需）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E6%89%BE%E4%B8%8D%E5%88%B0pip"><span class="toc-number">2.2.</span> <span class="toc-text">虚拟环境找不到pip</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">2.3.</span> <span class="toc-text"></span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/18/dso%E5%AE%89%E8%A3%85%E5%8F%8A%E5%AE%9E%E9%AA%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90(%E5%86%85%E5%90%ABminiconda3%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE)/" title="Untitled">Untitled</a><time datetime="2026-01-18T08:06:10.894Z" title="Created 2026-01-18 16:06:10">2026-01-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/02/Windows%E4%B8%8B%E9%83%A8%E7%BD%B2Miniforge/" title="Windows下部署Miniforge"><img src="/img/Windows%E4%B8%8B%E9%83%A8%E7%BD%B2Miniforge.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Windows下部署Miniforge"/></a><div class="content"><a class="title" href="/2026/01/02/Windows%E4%B8%8B%E9%83%A8%E7%BD%B2Miniforge/" title="Windows下部署Miniforge">Windows下部署Miniforge</a><time datetime="2026-01-02T11:37:09.000Z" title="Created 2026-01-02 19:37:09">2026-01-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/03/%E3%80%90ROS%E5%A4%A7%E4%BD%9C%E4%B8%9A%E3%80%91%E5%9F%BA%E4%BA%8ECamera%E7%9A%84%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B%E8%AF%86%E5%88%AB/" title="【ROS大作业】基于Camera的人脸检测识别"><img src="/img/%E3%80%90ROS%E5%A4%A7%E4%BD%9C%E4%B8%9A%E3%80%91%E5%9F%BA%E4%BA%8ECamera%E7%9A%84%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B%E8%AF%86%E5%88%AB.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【ROS大作业】基于Camera的人脸检测识别"/></a><div class="content"><a class="title" href="/2025/11/03/%E3%80%90ROS%E5%A4%A7%E4%BD%9C%E4%B8%9A%E3%80%91%E5%9F%BA%E4%BA%8ECamera%E7%9A%84%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B%E8%AF%86%E5%88%AB/" title="【ROS大作业】基于Camera的人脸检测识别">【ROS大作业】基于Camera的人脸检测识别</a><time datetime="2025-11-03T02:37:58.000Z" title="Created 2025-11-03 10:37:58">2025-11-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/24/Ubuntu%E7%B3%BB%E7%BB%9F%E7%BD%91%E5%8D%A1%E9%A9%B1%E5%8A%A8%E4%BF%AE%E5%A4%8D/" title="Ubuntu系统网卡驱动修复"><img src="/img/Ubuntu%E7%B3%BB%E7%BB%9F%E7%BD%91%E5%8D%A1%E9%A9%B1%E5%8A%A8%E4%BF%AE%E5%A4%8D.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Ubuntu系统网卡驱动修复"/></a><div class="content"><a class="title" href="/2025/10/24/Ubuntu%E7%B3%BB%E7%BB%9F%E7%BD%91%E5%8D%A1%E9%A9%B1%E5%8A%A8%E4%BF%AE%E5%A4%8D/" title="Ubuntu系统网卡驱动修复">Ubuntu系统网卡驱动修复</a><time datetime="2025-10-24T00:46:35.000Z" title="Created 2025-10-24 08:46:35">2025-10-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/17/ROS%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" title="ROS课程笔记"><img src="/img/ROS%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ROS课程笔记"/></a><div class="content"><a class="title" href="/2025/10/17/ROS%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" title="ROS课程笔记">ROS课程笔记</a><time datetime="2025-10-17T00:22:59.000Z" title="Created 2025-10-17 08:22:59">2025-10-17</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2026 By Whaltze</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=0.0.0"></script><script src="/js/main.js?v=0.0.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
