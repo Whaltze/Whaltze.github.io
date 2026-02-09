@@ -7,8 +7,8 @@
     // 1. 核心配置 (Config)
     // ============================================================
     const config = {
-        // password: "/", 
-        password: "zxc123", 
+        password: "/", 
+        // password: "zxc123", 
         contact: [
             { src: "/img/WeChat.jpg", label: "WeChat" },
             { src: "/img/GZH.jpg", label: "公众号" },
