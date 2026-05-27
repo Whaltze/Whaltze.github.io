@@ -379,11 +379,13 @@
                             <p style="color:#00f2ea; font-size:14px; margin-top: 5px; margin-bottom:0px; font-weight:700; letter-spacing:1px;">
                                 此山是我开,此树是我栽!
                                 <br>要想从这过,留下买路财!
-                            </p>
                             <p class="scan-hint">
                                 关注公众号后台回复<span>“博客密码”</span>获取
                             </p>
                             <div class="qr-box">${qrHTML}</div>
+                            <p style="color:#ff4757; font-size:14px; margin-top:5px; margin-bottom:0px; font-weight:700; letter-spacing:1px; text-align:center;">
+                                为防爬虫 博客密码为123456
+                            </p>
                         </div>
                     </div>
                 </div>
