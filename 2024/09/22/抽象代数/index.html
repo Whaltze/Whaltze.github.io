@@ -1,0 +1,275 @@
+<!DOCTYPE html><html lang="en" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>抽象代数 | Whaltze</title><meta name="author" content="Whaltze"><meta name="copyright" content="Whaltze"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="一时兴起 小记一番 后搁置  第一章 群论1.1 基本定理 在数学中，群（Group）是一个有结构的集合，而群论是研究这些结构的数学分支   群是一个集合，用 𝐺 来表示这个集合,集合中的元素可以是数字、矩阵、函数、变换等 群上需要定义一个运算（比如加法或乘法），通常我们用符号 * 来表示这个运算。  :star: 一些定义  二元运算： 设 $C$ 是一个集合，$x$ 是 $C$ 上的一个函"><meta property="og:type" content="article"><meta property="og:title" content="抽象代数"><meta property="og:url" content="http://whaltze.github.io/2024/09/22/%E6%8A%BD%E8%B1%A1%E4%BB%A3%E6%95%B0/index.html"><meta property="og:site_name" content="Whaltze"><meta property="og:description" content="一时兴起 小记一番 后搁置  第一章 群论1.1 基本定理 在数学中，群（Group）是一个有结构的集合，而群论是研究这些结构的数学分支   群是一个集合，用 𝐺 来表示这个集合,集合中的元素可以是数字、矩阵、函数、变换等 群上需要定义一个运算（比如加法或乘法），通常我们用符号 * 来表示这个运算。  :star: 一些定义  二元运算： 设 $C$ 是一个集合，$x$ 是 $C$ 上的一个函"><meta property="og:locale" content="en_US"><meta property="og:image" content="http://whaltze.github.io/img/%E6%8A%BD%E8%B1%A1%E4%BB%A3%E6%95%B0.png"><meta property="article:published_time" content="2024-09-22T11:39:50.000Z"><meta property="article:modified_time" content="2025-02-18T17:30:04.000Z"><meta property="article:author" content="Whaltze"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="http://whaltze.github.io/img/%E6%8A%BD%E8%B1%A1%E4%BB%A3%E6%95%B0.png"><link rel="shortcut icon" href="https://s2.loli.net/2024/07/17/6BaSwvE4bMmltTO.jpg"><link rel="canonical" href="http://whaltze.github.io/2024/09/22/%E6%8A%BD%E8%B1%A1%E4%BB%A3%E6%95%B0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="manifest" href="/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/web-app-manifest-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png"><link rel="mask-icon" href="/img/favicon/favicon.svg" color="#5bbad5"><link rel="stylesheet" href="/css/index.css?v=0.0.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload='this.media="all"'><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload='this.media="all"'><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":-1,"unescape":false,"languages":{"hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-center"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE={title:"抽象代数",isPost:!0,isHome:!1,isHighlightShrink:!1,isToc:!0,postUpdate:"2025-02-19 01:30:04"}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/zoom.css"><script src="https://code.jquery.com/jquery-3.7.1.min.js"></script><style>#article-container.post-content h1:before,h2:before,h3:before,h4:before,h5:before,h6:before{-webkit-animation:avatar_turn_around 1s linear infinite;-moz-animation:avatar_turn_around 1s linear infinite;-o-animation:avatar_turn_around 1s linear infinite;-ms-animation:avatar_turn_around 1s linear infinite;animation:avatar_turn_around 1s linear infinite}</style><script src="/js/website-title.js" async></script><link rel="stylesheet" href="/css/cursor.css"><style>#menu,.footer,.js-pjax{pointer-events:none!important}</style><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2024/07/17/6BaSwvE4bMmltTO.jpg" onerror='onerror=null,src="/img/friend_404.gif"' alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">39</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">73</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/resume/"><i class="fa-fw fas fa-star"></i><span></span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image:url(/img/%E6%8A%BD%E8%B1%A1%E4%BB%A3%E6%95%B0.png)"><nav id="nav"><span id="blog-info"><a href="/" title="Whaltze"><span class="site-name">Whaltze</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/resume/"><i class="fa-fw fas fa-star"></i><span></span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">抽象代数</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-09-22T11:39:50.000Z" title="Created 2024-09-22 19:39:50">2024-09-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-02-18T17:30:04.000Z" title="Updated 2025-02-19 01:30:04">2025-02-19</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>5mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" data-flag-title="抽象代数"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">Comments:</span><a href="/2024/09/22/%E6%8A%BD%E8%B1%A1%E4%BB%A3%E6%95%B0/#post-comment"><span class="gitalk-comment-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote><p>一时兴起 小记一番 后搁置</p></blockquote><h2 id="第一章-群论"><a href="#第一章-群论" class="headerlink" title="第一章 群论"></a>第一章 群论</h2><h3 id="1-1-基本定理"><a href="#1-1-基本定理" class="headerlink" title="1.1 基本定理"></a>1.1 基本定理</h3><blockquote><p>在数学中，群（Group）是一个有结构的集合，而群论是研究这些结构的数学分支</p></blockquote><ul><li>群是一个集合，用 <strong>𝐺</strong> 来表示这个集合,集合中的元素可以是数字、矩阵、函数、变换等</li><li>群上需要定义一个运算（比如加法或乘法），通常我们用符号 <strong>*</strong> 来表示这个运算。</li></ul><p>:star: <strong>一些定义</strong></p><ul><li><p><strong>二元运算：</strong> 设 $C$ 是一个集合，$x$ 是 $C$ 上的一个函数，对任意 $a, p ∈ C，$记 $x(a, p)$ 为 $x$ 的作用，即 $a$ 和 $p$ 的组合。我们通常写作 $a * p$</p></li><li><p><strong>结合律：</strong> 对任意 $a, p, q ∈ C ，$ 如果 a * (p * q) &#x3D; (a * p) * q，则称运算 * 在 C 上满足结合律。$<br>交换律：对任意 a, p ∈ C，如果 a * p &#x3D; p * a，则称运算 * 在 C 上满足交换律</p></li><li><p><strong>单位元：</strong> 对于 C 中的元素 e，如果对任意 a ∈ C，都有 a * e &#x3D; e * a &#x3D; a，则称 e 是 C 上的单位元</p></li><li><p><strong>逆元：</strong> 对于 C 中的元素 a，如果存在 b ∈ C，使得 $a * b &#x3D; b * a &#x3D; e$ ，则称 b 是 a 的逆元</p></li></ul><blockquote><p>加法 (+) 是整数集 Z 上的交换运算。<br>乘法 (*) 是整数集 Z 上的交换运算。<br>减法 (-) 不是整数集 Z 上的运算。</p></blockquote><p><strong>群必须满足以下四个基本公理：</strong></p><ul><li><p><strong>封闭性（Closure）：</strong> 对集合 𝐺 中任意两个元素 a 和 𝑏 运算 𝑎∗𝑏 仍在 $G$ 中</p><p>对于整数集合 𝑍 中，任意两个整数相加的结果仍是一个整数。</p></li><li><p><strong>结合律（Associativity）：</strong> 对任意 $ 𝑎 , 𝑏 , 𝑐 ∈ G $ ，有 $(a∗b)∗c&#x3D;a∗(b∗c)$ 。</p></li><li><p><strong>单位元（Identity element）：</strong> 单位元 𝑒 ，满足 $𝑒∗𝑎&#x3D;𝑎∗𝑒&#x3D;𝑎$<br>在整数加法下，0 是单位元 有 $0+a&#x3D;a+0&#x3D;a$</p></li><li><p><strong>逆元（Inverse element）：</strong> 对每个 a∈G，都存在一个元素 $b∈G$ ，使得 $a∗b&#x3D;b∗a&#x3D;e$ ，即 b 是 𝑎 的逆元。</p><p>对于整数加法，每个数 a 都有一个逆元 −a，因为 a+(−a)&#x3D;0。</p></li></ul><p><strong>:star: 重要命题</strong></p><ol><li>群的单位元是唯一的。</li><li>每个元素的逆元是唯一的。</li><li>逆元满足结合律：对于任意 a ∈ G，都有 $( a^{-1} )^{-1} &#x3D; a$ 。</li><li>逆元满足消去律：对于任意 $a, b, c ∈ G$ ，如果 $a * b &#x3D; a * c$ ，则 b &#x3D; c；如果 $b * a &#x3D; c * a$ ，则 $b &#x3D; c$ 。</li><li>集合中元素的乘积与括号无关（称为广义结合律）。</li><li>对于任意群 G 和 a, b ∈ G，方程 $a * x &#x3D; b 和 x * b &#x3D; a$ 有唯一解。</li><li>左消去律和右消去律成立，即如果 $a * x &#x3D; a * y$ ，则 $x &#x3D; y$；如果 $x * b &#x3D; y * b$ ，则 $x &#x3D; y$ 。<br>定义</li></ol><p><strong>元素的阶：</strong> 对于群 G 中的元素 a，如果存在最小的正整数 n，使得 $a^n &#x3D; e$ ，则称 n 是 a 的阶，记作 $|a|$ 。如果 a 的任何正整数次幂都不是单位元，则称 $|a| &#x3D; ∞$</p><p><strong>循环子群：</strong> 由 G 中元素的幂生成的子群称为循环子群。</p><blockquote><p>单位元的阶是 1。<br>在加法群 Z, Q, R, C 中，每个非零元素的阶都是无穷大。<br>在乘法群 Z-{0}, Q-{0} 中，-1 的阶是 2，其他非单位元的阶都是无穷大。</p></blockquote><p><strong>乘法表：</strong> 对于有限群 G，其乘法表是一个方阵，其对角线上的元素是单位元，其他元素是 G 中元素的乘积。</p><h3 id="1-2-二面体群"><a href="#1-2-二面体群" class="headerlink" title="1.2 二面体群"></a>1.2 二面体群</h3><p>群作用描述了群如何作用在某个集合上。设 G 是一个群，X 是一集合。如果群 G 的每个元素都能“作用”在 X 上，使得 G 的群运算和集合上的操作相容，我们就说 G 作用在集合 X 上。</p><p>而对二面体群是一类重要的群，其元素是关于几何对象的对称性。</p><p><strong>有如下定义：</strong></p><p>Dihedral groups 是一类重要的群，其元素是几何对象的对称性。这些几何对象中最简单的一类是正多边形</p><p>对于一个正 n 边形，其对称性是指能够将这个多边形通过某种方式移动到原来的位置，并覆盖它本身的刚性运动。这些对称性可以表示为 n 个顶点的排列，即一个将 {1, 2, …, n} 映射到其自身的双射函数。例如，对于一个正方形，其对称性包括旋转和反射，可以用以下排列来表示：</p><ul><li>旋转 90°: (1234)</li><li>旋转 180°: (13)(24)</li><li>旋转 270°: (1432)</li><li>反射关于对角线： (1324), (2413)</li></ul><p>我们可以将这些对称性组合起来，形成一个群，称为二面体群 Dn，其中，Dn 的中心是一个包含单位元和 $r^n&#x2F;2$ 的子群。Dn 的元素是所有 n 个顶点的排列，其二元运算定义为排列的复合。Dn 的阶数为 2n，即 n 个旋转和 n 个反射。</p><p><strong>生成元和关系</strong></p><p>为了简化计算和理解二面体群的结构，我们可以使用生成元和关系来表示 Dn。Dn 的生成元通常选择旋转 r (顺时针旋转 $2π&#x2F;n$ 弧度) 和反射 s (关于经过顶点 1 和中心的对称轴的反射)。Dn 的关系如下：<br>$r^n &#x3D; 1$ (旋转 n 次回到原位)<br>$s^2 &#x3D; 1$ (反射两次回到原位)<br>$rs &#x3D; sr^{-1}$ (旋转和反射的顺序可以交换，但旋转次数要减半)</p><p><strong>性质</strong></p><ul><li>阶数为 2n: Dn 的阶数是旋转和反射的数量之和。</li><li>非交换性: 旋转和反射不满足交换律，例如 rs ≠ sr。</li><li>循环子群: 对于每个 n，Dn 都包含一个循环子群，由 r 的幂次组成。</li></ul><p><strong>视觉算法中可能的群论应用</strong></p><blockquote><p>以下资料来源于网络</p></blockquote><p>群论特别在图像处理和计算机视觉领域中有广泛应用，尤其是在图像对称性、旋转、平移等几何变换的处理中。</p><ul><li><p><strong>图像变换:</strong> 在视觉算法中，图像可能需要执行旋转、缩放或平移等操作。可以用群来描述这些变换。例如，旋转可以用一个特殊的矩阵群来表示。(矩阵群在后续章节会介绍学习)</p></li><li><p><strong>对称性检测:</strong> 很多视觉问题涉及检测物体的对称性。对称群（如二面体群）可以帮助描述物体的对称变换，使得算法能识别具有对称性的对象。</p></li></ul></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://Whaltze.github.io">Whaltze</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://whaltze.github.io/2024/09/22/%E6%8A%BD%E8%B1%A1%E4%BB%A3%E6%95%B0/">http://whaltze.github.io/2024/09/22/%E6%8A%BD%E8%B1%A1%E4%BB%A3%E6%95%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/%E6%8A%BD%E8%B1%A1%E4%BB%A3%E6%95%B0.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload='this.media="all"'><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>投喂作者</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/WeChat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/WeChat.jpg" alt="WeChat"></a><div class="post-qr-code-desc">WeChat</div></li><li class="reward-item"><a href="/img/AliPay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/AliPay.jpg" alt="AliPay"></a><div class="post-qr-code-desc">AliPay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/09/22/%E5%9F%BA%E4%BA%8ECartographer%E7%AE%97%E6%B3%95%E7%9A%84RPLIDAR%E6%BF%80%E5%85%89%E9%9B%B7%E8%BE%BE%E5%AF%BC%E8%88%AA/" title="基于Cartographer算法的RPLIDAR激光雷达导航"><img class="cover" src="/img/%E5%9F%BA%E4%BA%8ECartographer%E7%AE%97%E6%B3%95%E7%9A%84RPLIDAR%E6%BF%80%E5%85%89%E9%9B%B7%E8%BE%BE%E5%AF%BC%E8%88%AA.png" onerror='onerror=null,src="https://p0.meituan.net/csc/1a4428d813c7438540986070925d012b809246.png"' alt="cover of previous post"><div class="pagination-info"><div class="label">Previous</div><div class="prev_info">基于Cartographer算法的RPLIDAR激光雷达导航</div></div></a></div><div class="next-post pull-right"><a href="/2024/09/22/SMART/" title="SMART"><img class="cover" src="/img/SMART.png" onerror='onerror=null,src="https://p0.meituan.net/csc/1a4428d813c7438540986070925d012b809246.png"' alt="cover of next post"><div class="pagination-info"><div class="label">Next</div><div class="next_info">SMART</div></div></a></div></nav><hr class="custom-hr"><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s2.loli.net/2024/07/17/6BaSwvE4bMmltTO.jpg" onerror='this.onerror=null,this.src="/img/friend_404.gif"' alt="avatar"></div><div class="author-info__name">Whaltze</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">39</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">73</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" href="https://whaltze.github.io/resume/"><i></i><span>About Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="/img/WeChat.jpg" target="_blank" title="Wechat"><i class="fab fa-Wechat" style="color:#24292e"></i></a><a class="social-icon" href="/img/QQ.jpg" target="_blank" title="QQ"><i class="fab fa-QQ" style="color:#24292e"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content"><div style="text-align:center">𝒽𐂂 小鲸鱼在此欢迎您 ! ! !</div><img src="https://s2.loli.net/2025/02/18/3drP2cjgV1miktU.jpg" alt=" " style="width:80%;height:auto;margin:20px 0;display:flex;justify-content:center;margin-left:25px"></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E7%BE%A4%E8%AE%BA"><span class="toc-number">1.</span> <span class="toc-text">第一章 群论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%9F%BA%E6%9C%AC%E5%AE%9A%E7%90%86"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 基本定理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E4%BA%8C%E9%9D%A2%E4%BD%93%E7%BE%A4"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 二面体群</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/05/30/%E3%80%90%E8%AF%BE%E8%AE%BE%E3%80%91SCARA%E5%B9%B6%E8%81%94%E6%9C%BA%E6%A2%B0%E8%87%82/" title="【课设】SCARA并联机械臂"><img src="/img/%E3%80%90%E8%AF%BE%E8%AE%BE%E3%80%91SCARA%E5%B9%B6%E8%81%94%E6%9C%BA%E6%A2%B0%E8%87%82.png" onerror='this.onerror=null,this.src="https://p0.meituan.net/csc/1a4428d813c7438540986070925d012b809246.png"' alt="【课设】SCARA并联机械臂"></a><div class="content"><a class="title" href="/2026/05/30/%E3%80%90%E8%AF%BE%E8%AE%BE%E3%80%91SCARA%E5%B9%B6%E8%81%94%E6%9C%BA%E6%A2%B0%E8%87%82/" title="【课设】SCARA并联机械臂">【课设】SCARA并联机械臂</a><time datetime="2026-05-30T15:48:43.000Z" title="Created 2026-05-30 23:48:43">2026-05-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/05/27/WSL2%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/" title="WSL2的安装与配置"><img src="/img/WSL2%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE.png" onerror='this.onerror=null,this.src="https://p0.meituan.net/csc/1a4428d813c7438540986070925d012b809246.png"' alt="WSL2的安装与配置"></a><div class="content"><a class="title" href="/2026/05/27/WSL2%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/" title="WSL2的安装与配置">WSL2的安装与配置</a><time datetime="2026-05-27T05:26:23.000Z" title="Created 2026-05-27 13:26:23">2026-05-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/05/27/%E5%9F%BA%E4%BA%8E%20STM32CubeMX%20%E7%9A%84%E5%8F%8C%E7%94%B5%E6%9C%BA%E5%90%8C%E6%AD%A5%E6%8E%A7%E5%88%B6%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA/" title="基于 STM32CubeMX 的双电机同步控制与测试框架搭建"><img src="/img/%E5%9F%BA%E4%BA%8E%20STM32CubeMX%20%E7%9A%84%E5%8F%8C%E7%94%B5%E6%9C%BA%E5%90%8C%E6%AD%A5%E6%8E%A7%E5%88%B6%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA.png" onerror='this.onerror=null,this.src="https://p0.meituan.net/csc/1a4428d813c7438540986070925d012b809246.png"' alt="基于 STM32CubeMX 的双电机同步控制与测试框架搭建"></a><div class="content"><a class="title" href="/2026/05/27/%E5%9F%BA%E4%BA%8E%20STM32CubeMX%20%E7%9A%84%E5%8F%8C%E7%94%B5%E6%9C%BA%E5%90%8C%E6%AD%A5%E6%8E%A7%E5%88%B6%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA/" title="基于 STM32CubeMX 的双电机同步控制与测试框架搭建">基于 STM32CubeMX 的双电机同步控制与测试框架搭建</a><time datetime="2026-05-27T02:30:59.000Z" title="Created 2026-05-27 10:30:59">2026-05-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/04/12/%E3%80%90%E8%AF%BE%E8%AE%BE%E3%80%91%E8%99%9A%E6%8B%9F%E7%8E%B0%E5%AE%9E%E4%BA%A4%E4%BA%92/" title="【课设】虚拟现实交互"><img src="/img/%E3%80%90%E8%AF%BE%E8%AE%BE%E3%80%91%E8%99%9A%E6%8B%9F%E7%8E%B0%E5%AE%9E%E4%BA%A4%E4%BA%92.png" onerror='this.onerror=null,this.src="https://p0.meituan.net/csc/1a4428d813c7438540986070925d012b809246.png"' alt="【课设】虚拟现实交互"></a><div class="content"><a class="title" href="/2026/04/12/%E3%80%90%E8%AF%BE%E8%AE%BE%E3%80%91%E8%99%9A%E6%8B%9F%E7%8E%B0%E5%AE%9E%E4%BA%A4%E4%BA%92/" title="【课设】虚拟现实交互">【课设】虚拟现实交互</a><time datetime="2026-04-12T08:22:12.000Z" title="Created 2026-04-12 16:22:12">2026-04-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/18/Kali%E6%8A%93%E5%8F%96%E6%8F%A1%E6%89%8B%E5%8C%85/" title="Kali抓取握手包"><img src="/img/Kali%E6%8A%93%E5%8F%96%E6%8F%A1%E6%89%8B%E5%8C%85.png" onerror='this.onerror=null,this.src="https://p0.meituan.net/csc/1a4428d813c7438540986070925d012b809246.png"' alt="Kali抓取握手包"></a><div class="content"><a class="title" href="/2026/02/18/Kali%E6%8A%93%E5%8F%96%E6%8F%A1%E6%89%8B%E5%8C%85/" title="Kali抓取握手包">Kali抓取握手包</a><time datetime="2026-02-18T05:29:31.000Z" title="Created 2026-02-18 13:29:31">2026-02-18</time></div></div></div></div></div></div></main><footer id="footer" style="background:0 0"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2026 By Whaltze</div><div class="footer_custom_text">Welcome to Whaltze</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=0.0.0"></script><script src="/js/main.js?v=0.0.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid@10.8.0/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const initGitalk = () => {
+    const gitalk = new Gitalk(Object.assign({
+      clientID: 'Ov23li4uDobBwXaP9Us0',
+      clientSecret: '8c0fc38f0f5a60cb48df7c1ce8ab27d31d2f71a1',
+      repo: 'Whaltze.github.io',
+      owner: 'Whaltze',
+      admin: ['Whaltze'],
+      id: '3cde400811a594c65b2f979e713f66f1',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async() => {
+    if (typeof Gitalk === 'function') initGitalk()
+    else {
+      await getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk()
+    }
+  }
+  
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script src="/js/portal.js"></script><script async src="/js/refresh.js"></script><script src="/js/timing.js"></script><script src="/js/running-time.js"></script><script src="/js/cherry.js"></script><script id="canvas_nest" defer color="0,125,255" opacity="0.7" zindex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener
+  btf.removeGlobalFnEvent('pjax')
+  btf.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span> Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=0.0.0"></script></div></div><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
