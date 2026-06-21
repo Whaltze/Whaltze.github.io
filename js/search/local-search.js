@@ -174,6 +174,19 @@ class LocalSearch {
     ))
   }
 
+  buildResultUrl (rawUrl, keywords, headings, contentHits, contentLength, slice) {
+    const resultUrl = new URL(rawUrl, location.origin)
+    resultUrl.searchParams.append('highlight', keywords.join(' '))
+
+    const searchHitIndex = this.findHitIndexBySlice(contentHits, contentLength, slice)
+    if (searchHitIndex > -1) resultUrl.searchParams.append('searchHit', searchHitIndex)
+
+    const headingId = this.findHeadingIdBySlice(headings, slice)
+    if (headingId) resultUrl.hash = headingId
+
+    return resultUrl.href
+  }
+
   getResultItems (keywords) {
     const resultItems = []
     this.datas.forEach(({ title, content, headings, url }) => {
@@ -219,23 +232,17 @@ class LocalSearch {
       }
 
       let resultItem = ''
-
-      url = new URL(url, location.origin)
-      url.searchParams.append('highlight', keywords.join(' '))
-      const targetContentSlice = slicesOfContent[0]
-      const searchHitIndex = this.findHitIndexBySlice(contentHits, content.length, targetContentSlice)
-      if (searchHitIndex > -1) url.searchParams.append('searchHit', searchHitIndex)
-      const headingId = this.findHeadingIdBySlice(headings, targetContentSlice)
-      if (headingId) url.hash = headingId
+      const titleUrl = this.buildResultUrl(url, keywords, headings, contentHits, content.length, slicesOfContent[0])
 
       if (slicesOfTitle.length !== 0) {
-        resultItem += `<div class="local-search-hit-item"><a href="${url.href}"><span class="search-result-title">${this.highlightKeyword(title, slicesOfTitle[0])}</span>`
+        resultItem += `<div class="local-search-hit-item"><a href="${titleUrl}"><span class="search-result-title">${this.highlightKeyword(title, slicesOfTitle[0])}</span></a>`
       } else {
-        resultItem += `<div class="local-search-hit-item"><a href="${url.href}"><span class="search-result-title">${title}</span>`
+        resultItem += `<div class="local-search-hit-item"><a href="${titleUrl}"><span class="search-result-title">${title}</span></a>`
       }
 
       slicesOfContent.forEach(slice => {
-        resultItem += `<p class="search-result">${this.highlightKeyword(content, slice)}...</p></a>`
+        const sliceUrl = this.buildResultUrl(url, keywords, headings, contentHits, content.length, slice)
+        resultItem += `<a href="${sliceUrl}"><p class="search-result">${this.highlightKeyword(content, slice)}...</p></a>`
       })
 
       resultItem += '</div>'
