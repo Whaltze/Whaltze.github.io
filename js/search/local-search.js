@@ -101,12 +101,86 @@ class LocalSearch {
     return result
   }
 
+  parseSearchContent (html = '') {
+    const container = document.createElement('div')
+    const headings = []
+    let text = ''
+
+    container.innerHTML = html
+
+    const walk = node => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        text += node.nodeValue
+        return
+      }
+
+      if (node.nodeType !== Node.ELEMENT_NODE) return
+
+      if (node.matches('script, style')) return
+
+      if (/^H[1-6]$/.test(node.tagName) && node.id) {
+        headings.push({
+          id: node.id,
+          position: text.length
+        })
+      }
+
+      node.childNodes.forEach(walk)
+    }
+
+    container.childNodes.forEach(walk)
+
+    return {
+      content: text,
+      headings
+    }
+  }
+
+  findHeadingIdBySlice (headings = [], slice) {
+    if (!slice || headings.length === 0) return ''
+
+    const targetHit = this.findBestHitBySlice(slice)
+    const targetPosition = targetHit ? targetHit.position : slice.start
+    let headingId = ''
+
+    for (const heading of headings) {
+      if (heading.position > targetPosition) break
+      headingId = heading.id
+    }
+
+    return headingId
+  }
+
+  findBestHitBySlice (slice) {
+    if (!slice || !slice.hits.length) return null
+
+    return slice.hits.reduce((bestHit, hit) => {
+      if (hit.length !== bestHit.length) {
+        return hit.length > bestHit.length ? hit : bestHit
+      }
+
+      return hit.position < bestHit.position ? hit : bestHit
+    })
+  }
+
+  findHitIndexBySlice (hits = [], contentLength = 0, slice) {
+    if (!slice || !slice.hits.length || hits.length === 0) return -1
+
+    const targetHit = this.findBestHitBySlice(slice)
+    const visibleHits = this.mergeIntoSlice(0, contentLength, hits.map(hit => ({ ...hit }))).hits
+
+    return visibleHits.findIndex(hit => (
+      hit.position === targetHit.position && hit.length === targetHit.length
+    ))
+  }
+
   getResultItems (keywords) {
     const resultItems = []
-    this.datas.forEach(({ title, content, url }) => {
+    this.datas.forEach(({ title, content, headings, url }) => {
       // The number of different keywords included in the article.
       const [indexOfTitle, keysOfTitle] = this.getIndexByWord(keywords, title)
       const [indexOfContent, keysOfContent] = this.getIndexByWord(keywords, content)
+      const contentHits = indexOfContent.map(hit => ({ ...hit }))
       const includedCount = new Set([...keysOfTitle, ...keysOfContent]).size
 
       // Show search results
@@ -148,6 +222,11 @@ class LocalSearch {
 
       url = new URL(url, location.origin)
       url.searchParams.append('highlight', keywords.join(' '))
+      const targetContentSlice = slicesOfContent[0]
+      const searchHitIndex = this.findHitIndexBySlice(contentHits, content.length, targetContentSlice)
+      if (searchHitIndex > -1) url.searchParams.append('searchHit', searchHitIndex)
+      const headingId = this.findHeadingIdBySlice(headings, targetContentSlice)
+      if (headingId) url.hash = headingId
 
       if (slicesOfTitle.length !== 0) {
         resultItem += `<div class="local-search-hit-item"><a href="${url.href}"><span class="search-result-title">${this.highlightKeyword(title, slicesOfTitle[0])}</span>`
@@ -186,8 +265,10 @@ class LocalSearch {
           : JSON.parse(res)
         // Only match articles with non-empty titles
         this.datas = this.datas.filter(data => data.title).map(data => {
+          const parsedContent = this.parseSearchContent(data.content || '')
           data.title = data.title.trim()
-          data.content = data.content ? data.content.trim().replace(/<[^>]+>/g, '') : ''
+          data.content = parsedContent.content.trim()
+          data.headings = parsedContent.headings
           data.url = decodeURIComponent(data.url).replace(/\/{2,}/g, '/')
           return data
         })
@@ -215,6 +296,41 @@ class LocalSearch {
     })
   }
 
+  scrollToSearchTarget () {
+    const params = new URL(location.href).searchParams
+    const hitIndex = Number.parseInt(params.get('searchHit'), 10)
+    const scrollToElement = element => {
+      setTimeout(() => {
+        if (window.btf && btf.getEleTop && btf.scrollToDest) {
+          btf.scrollToDest(btf.getEleTop(element), 300)
+        } else {
+          window.scrollTo({
+            top: element.getBoundingClientRect().top + window.scrollY - 70,
+            behavior: 'smooth'
+          })
+        }
+      }, 0)
+      return true
+    }
+
+    if (Number.isInteger(hitIndex) && hitIndex >= 0) {
+      const targetHit = document.querySelectorAll('#article-container mark.search-keyword')[hitIndex]
+      if (targetHit) return scrollToElement(targetHit)
+    }
+
+    if (!location.hash) return false
+
+    let headingId = location.hash.slice(1)
+    try {
+      headingId = decodeURIComponent(headingId)
+    } catch (err) {
+      return false
+    }
+
+    const targetHeading = document.getElementById(headingId)
+    return targetHeading ? scrollToElement(targetHeading) : false
+  }
+
   // Highlight the search words provided in the url in the text
   highlightSearchWords (body) {
     const params = new URL(location.href).searchParams.get('highlight')
@@ -231,6 +347,7 @@ class LocalSearch {
       const slice = this.mergeIntoSlice(0, node.nodeValue.length, indexOfNode)
       this.highlightText(node, slice, 'search-keyword')
     })
+    this.scrollToSearchTarget()
   }
 }
 
