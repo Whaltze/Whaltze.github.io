@@ -174,12 +174,25 @@ class LocalSearch {
     ))
   }
 
+  findHitIndexesBySlice (hits = [], contentLength = 0, slice) {
+    if (!slice || !slice.hits.length || hits.length === 0) return []
+
+    const visibleHits = this.mergeIntoSlice(0, contentLength, hits.map(hit => ({ ...hit }))).hits
+
+    return slice.hits.map(targetHit => visibleHits.findIndex(hit => (
+      hit.position === targetHit.position && hit.length === targetHit.length
+    ))).filter(index => index > -1)
+  }
+
   buildResultUrl (rawUrl, keywords, headings, contentHits, contentLength, slice) {
     const resultUrl = new URL(rawUrl, location.origin)
     resultUrl.searchParams.append('highlight', keywords.join(' '))
 
     const searchHitIndex = this.findHitIndexBySlice(contentHits, contentLength, slice)
     if (searchHitIndex > -1) resultUrl.searchParams.append('searchHit', searchHitIndex)
+
+    const searchHitIndexes = this.findHitIndexesBySlice(contentHits, contentLength, slice)
+    if (searchHitIndexes.length) resultUrl.searchParams.append('searchHits', searchHitIndexes.join(','))
 
     const headingId = this.findHeadingIdBySlice(headings, slice)
     if (headingId) resultUrl.hash = headingId
@@ -303,9 +316,27 @@ class LocalSearch {
     })
   }
 
+  getSearchHitIndexes () {
+    const params = new URL(location.href).searchParams
+    const searchHits = params.get('searchHits')
+    if (!searchHits) return null
+
+    const indexes = searchHits.split(',')
+      .map(index => Number.parseInt(index, 10))
+      .filter(index => Number.isInteger(index) && index >= 0)
+
+    if (!indexes.length) return null
+
+    return {
+      list: indexes,
+      set: new Set(indexes)
+    }
+  }
+
   scrollToSearchTarget () {
     const params = new URL(location.href).searchParams
     const hitIndex = Number.parseInt(params.get('searchHit'), 10)
+    const selectedHitIndexes = this.getSearchHitIndexes()
     const scrollToElement = element => {
       setTimeout(() => {
         if (window.btf && btf.getEleTop && btf.scrollToDest) {
@@ -321,7 +352,13 @@ class LocalSearch {
     }
 
     if (Number.isInteger(hitIndex) && hitIndex >= 0) {
-      const targetHit = document.querySelectorAll('#article-container mark.search-keyword')[hitIndex]
+      let targetMarkIndex = hitIndex
+      if (selectedHitIndexes) {
+        const selectedIndex = selectedHitIndexes.list.indexOf(hitIndex)
+        targetMarkIndex = selectedIndex > -1 ? selectedIndex : 0
+      }
+
+      const targetHit = document.querySelectorAll('#article-container mark.search-keyword')[targetMarkIndex]
       if (targetHit) return scrollToElement(targetHit)
     }
 
@@ -343,6 +380,8 @@ class LocalSearch {
     const params = new URL(location.href).searchParams.get('highlight')
     const keywords = params ? params.split(' ') : []
     if (!keywords.length || !body) return
+    const selectedHitIndexes = this.getSearchHitIndexes()
+    let hitIndex = 0
     const walk = document.createTreeWalker(body, NodeFilter.SHOW_TEXT, null)
     const allNodes = []
     while (walk.nextNode()) {
@@ -352,7 +391,22 @@ class LocalSearch {
       const [indexOfNode] = this.getIndexByWord(keywords, node.nodeValue)
       if (!indexOfNode.length) return
       const slice = this.mergeIntoSlice(0, node.nodeValue.length, indexOfNode)
-      this.highlightText(node, slice, 'search-keyword')
+      const hits = []
+
+      slice.hits.forEach(hit => {
+        if (!selectedHitIndexes || selectedHitIndexes.set.has(hitIndex)) {
+          hits.push(hit)
+        }
+        hitIndex += 1
+      })
+
+      if (!hits.length) return
+
+      this.highlightText(node, {
+        hits,
+        start: 0,
+        end: node.nodeValue.length
+      }, 'search-keyword')
     })
     this.scrollToSearchTarget()
   }
